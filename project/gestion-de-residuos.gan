@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><project name="Gestión de Residuos Sólidos" company="UTP-Students-AED-2026" webLink="http://" view-date="2026-04-01" view-index="0" gantt-divider-location="570" resource-divider-location="300" version="3.3.3316" locale="es_PE">
     <description><![CDATA[Cronograma de Actividades del Aplicativo (Multi tenant) de Gestión de Residuos Sólidos en Java]]></description>
     <view zooming-state="default:2" id="gantt-chart">
-        <field id="tpd15" name="Notes" width="20" order="-1"/>
-        <field id="tpd3" name="Name" width="325" order="0"/>
-        <field id="tpd4" name="Begin date" width="122" order="1"/>
-        <field id="tpd5" name="End date" width="122" order="2"/>
+        <field id="tpd3" name="Name" width="316" order="0"/>
+        <field id="tpd4" name="Begin date" width="119" order="1"/>
+        <field id="tpd5" name="End date" width="119" order="2"/>
+        <field id="tpd15" name="Notes" width="20" order="3"/>
         <option id="filter.completedTasks" value="false"/>
         <option id="filter.dueTodayTasks" value="false"/>
         <option id="filter.overdueTasks" value="false"/>
@@ -19,7 +19,7 @@
         <day-types>
             <day-type id="0"/>
             <day-type id="1"/>
-            <default-week id="1" name="default" sun="0" mon="1" tue="1" wed="1" thu="1" fri="1" sat="0"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
             <only-show-weekends value="false"/>
             <overriden-day-types/>
             <days/>
@@ -38,33 +38,126 @@
             <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
-        <task id="0" uid="ce8508a5456b465489c7b22b962fc044" name="PLANIFICACION - Analisis de Requerimientos" meeting="false" start="2026-04-04" duration="1" complete="0" expand="true">
-            <task id="1" uid="3809851e8ceb43f89b182f6ec109b4b4" name="INTERFACES INICIALES" meeting="false" start="2026-04-04" duration="1" complete="0" expand="true">
-                <task id="2" uid="097a12b6abfa4b5496272e2ee5f2c3eb" name="Inicio de Sesión" meeting="false" start="2026-04-04" duration="1" complete="0" expand="true"/>
-                <task id="3" uid="db0d91606e86411b9183b1c43bba2a88" name="Registro de Empresa" meeting="false" start="2026-04-04" duration="1" complete="0" expand="true"/>
-                <task id="4" uid="31225f9f03b14dabb7dae11b676b6844" name="Selección de Tipo de Empresa" meeting="false" start="2026-04-04" duration="1" complete="0" expand="true"/>
-                <task id="5" uid="fadc1a8233764b5eb0a2523c0d68840f" name="Selección de Planta de Empresa" meeting="false" start="2026-04-04" duration="1" complete="0" expand="true"/>
-                <task id="6" uid="ac7f514124394e938143a169d2d3a90d" name="Pantalla de Inicio - Dashboard" meeting="false" start="2026-04-04" duration="1" complete="0" expand="true"/>
+        <task id="0" uid="ce8508a5456b465489c7b22b962fc044" name="PLANIFICACION - Analisis de Requerimientos" meeting="false" start="2026-04-06" duration="15" complete="0" expand="true">
+            <task id="1" uid="3809851e8ceb43f89b182f6ec109b4b4" name="INTERFACES INICIALES" meeting="false" start="2026-04-06" duration="6" complete="0" expand="false">
+                <task id="2" uid="097a12b6abfa4b5496272e2ee5f2c3eb" name="Inicio de Sesión" meeting="false" start="2026-04-04" duration="1" complete="0" expand="true">
+                    <depend id="3" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="3" uid="db0d91606e86411b9183b1c43bba2a88" name="Registro de Empresa" meeting="false" start="2026-04-07" duration="2" complete="0" expand="true">
+                    <depend id="4" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="4" uid="31225f9f03b14dabb7dae11b676b6844" name="Selección de Tipo de Empresa" meeting="false" start="2026-04-09" duration="1" complete="0" expand="true">
+                    <depend id="5" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="5" uid="fadc1a8233764b5eb0a2523c0d68840f" name="Selección de Planta de Empresa" meeting="false" start="2026-04-10" duration="1" complete="0" expand="true">
+                    <depend id="6" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="6" uid="ac7f514124394e938143a169d2d3a90d" name="Pantalla de Inicio - Dashboard" meeting="false" start="2026-04-13" duration="1" complete="0" expand="true">
+                    <depend id="9" type="2" difference="0" hardness="Strong"/>
+                </task>
             </task>
-            <task id="7" uid="fb449f8acbeb4a6e92d203c5d1f44c27" name="OPCIONES POR PERFIL: Usuario Generador" meeting="false" start="2026-04-04" duration="1" complete="0" expand="true">
-                <task id="9" uid="6f9515db39d44bed87248e1e5de90fae" name="Registro de Residuos" meeting="false" start="2026-04-04" duration="1" complete="0" expand="true"/>
-                <task id="10" uid="4bd590acbbc7442a931596ee192ca290" name="Elección de Operador para Residuos" meeting="false" start="2026-04-04" duration="1" complete="0" expand="true"/>
+            <task id="7" uid="fb449f8acbeb4a6e92d203c5d1f44c27" name="OPCIONES POR PERFIL: Usuario Generador" meeting="false" start="2026-04-14" duration="6" complete="0" expand="false">
+                <task id="9" uid="6f9515db39d44bed87248e1e5de90fae" name="Registro de Residuos" meeting="false" start="2026-04-14" duration="2" complete="0" expand="true">
+                    <depend id="10" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="10" uid="4bd590acbbc7442a931596ee192ca290" name="Elección de Operador para Residuos" meeting="false" start="2026-04-16" duration="2" complete="0" expand="true">
+                    <depend id="33" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="33" uid="6386ae963a9e47568944546a5d34e63e" name="Administración de Manifiestos" meeting="false" start="2026-04-20" duration="2" complete="0" expand="true">
+                    <depend id="12" type="2" difference="0" hardness="Strong"/>
+                </task>
             </task>
-            <task id="11" uid="e192f7c13ece40dfbc311205f9233664" name="OPCIONES POR PERFIL: Usuario Operador" meeting="false" start="2026-04-04" duration="1" complete="0" expand="true">
-                <task id="12" uid="da11ad02397543c385c00b69d6b05a7f" name="Oferta de Residuos" meeting="false" start="2026-04-04" duration="1" complete="0" expand="true"/>
-                <task id="13" uid="a9377cf0141044529f409cdbab887569" name="Actualización de Estado de Residuos" meeting="false" start="2026-04-04" duration="1" complete="0" expand="true"/>
+            <task id="11" uid="e192f7c13ece40dfbc311205f9233664" name="OPCIONES POR PERFIL: Usuario Operador" meeting="false" start="2026-04-22" duration="3" complete="0" expand="false">
+                <task id="12" uid="da11ad02397543c385c00b69d6b05a7f" name="Oferta de Residuos" meeting="false" start="2026-04-22" duration="2" complete="0" expand="true">
+                    <depend id="13" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="13" uid="a9377cf0141044529f409cdbab887569" name="Actualización de Estado de Residuos" meeting="false" start="2026-04-24" duration="1" complete="0" expand="true">
+                    <depend id="18" type="2" difference="0" hardness="Strong"/>
+                </task>
             </task>
         </task>
-        <task id="14" uid="ba265d43cca145c1859997bb28fb6474" name="DISEÑO CONCEPTUAL" meeting="false" start="2026-04-04" duration="1" complete="0" expand="true">
-            <task id="17" uid="051598abffa6478fa0fca219816e57d5" name="MODELOS" meeting="false" start="2026-04-04" duration="1" complete="0" expand="true"/>
-            <task id="15" uid="e29df68f6e164ab5ae7ecb1ece075cfb" name="SKETCHING" meeting="false" start="2026-04-04" duration="1" complete="0" expand="true"/>
-            <task id="16" uid="57a0d802c30e400f8b51232b8ff9ca2b" name="WIREFRAMES" meeting="false" start="2026-04-04" duration="1" complete="0" expand="true"/>
+        <task id="14" uid="ba265d43cca145c1859997bb28fb6474" name="DISEÑO CONCEPTUAL" meeting="false" start="2026-04-27" duration="20" complete="0" expand="true">
+            <task id="17" uid="051598abffa6478fa0fca219816e57d5" name="MODELOS" meeting="false" start="2026-04-27" duration="10" complete="0" expand="false">
+                <task id="18" uid="5d3fb416e25047d7951a802fde1278ef" name="Empresa - Model" meeting="false" start="2026-04-27" duration="2" complete="0" expand="true">
+                    <depend id="19" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="19" uid="991d82e4ac934b3f8179fe44fa0fcce0" name="Residuo - Model" meeting="false" start="2026-04-29" duration="2" complete="0" expand="true">
+                    <depend id="20" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="20" uid="d0f262ee08fc4df895f0aaa06cc0464c" name="Usuario - Model" meeting="false" start="2026-05-01" duration="2" complete="0" expand="true">
+                    <depend id="21" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="21" uid="b331720df6004675bb7187c21aed7ee3" name="Proceso de Residuo - Model" meeting="false" start="2026-05-05" duration="2" complete="0" expand="true">
+                    <depend id="22" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="22" uid="4b67e032e03a434cb8a514214635e603" name="Movimiento de Residuo - Model" meeting="false" start="2026-05-07" duration="2" complete="0" expand="true">
+                    <depend id="23" type="2" difference="0" hardness="Strong"/>
+                </task>
+            </task>
+            <task id="15" uid="e29df68f6e164ab5ae7ecb1ece075cfb" name="SKETCHING" meeting="false" start="2026-05-11" duration="9" complete="0" expand="false">
+                <task id="23" uid="9326c9111914443a8a78e6115aa6cbac" name="Inicio de Sesión" meeting="false" start="2026-05-11" duration="1" complete="0" expand="true">
+                    <depend id="25" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="25" uid="0963789c19b340a6a744c6ecf0654dc2" name="Selección de Tipo de Empresa" meeting="false" start="2026-05-12" duration="1" complete="0" expand="true">
+                    <depend id="24" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="24" uid="36e9ed4fc49b4840b364a31cd9ef0e26" name="Selección de Tipo de Usuario" meeting="false" start="2026-05-13" duration="1" complete="0" expand="true">
+                    <depend id="26" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="26" uid="1596735873df4da4b0b8089bae528b1b" name="Dashboard - Tablero Inicio" meeting="false" start="2026-05-14" duration="1" complete="0" expand="true">
+                    <depend id="28" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="27" uid="7d29b22fb5184bbfbc2fa68cf4743660" name="Mantenimiento de Residuos" meeting="false" start="2026-05-15" duration="2" complete="0" expand="true">
+                    <task id="28" uid="b4c7e8b7d6d44bac822cf2bb1a1375f2" name="Nuevo Residuo" meeting="false" start="2026-05-15" duration="1" complete="0" expand="true">
+                        <depend id="29" type="2" difference="0" hardness="Strong"/>
+                    </task>
+                    <task id="29" uid="694a3110c3bc43dab2b6b3d2a65579ea" name="Configuración de Residuo - Proceso" meeting="false" start="2026-05-18" duration="1" complete="0" expand="true">
+                        <depend id="30" type="2" difference="0" hardness="Strong"/>
+                    </task>
+                </task>
+                <task id="30" uid="20a0115dfc034c25bfb7e90c8b50cc74" name="Oferta de Residuos" meeting="false" start="2026-05-19" duration="1" complete="0" expand="true">
+                    <depend id="31" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="31" uid="9e7be6b6da884d38901b2d6fe6736687" name="Seguimiento de Residuos" meeting="false" start="2026-05-20" duration="1" complete="0" expand="true">
+                    <depend id="32" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="32" uid="6c584771a6e34cfba5568731fc8b2786" name="Administración de Manifiestos" meeting="false" start="2026-05-21" duration="1" complete="0" expand="true">
+                    <depend id="34" type="2" difference="0" hardness="Strong"/>
+                </task>
+            </task>
+            <task id="16" uid="57a0d802c30e400f8b51232b8ff9ca2b" name="WIREFRAMES" meeting="false" start="2026-05-22" duration="1" complete="0" expand="false">
+                <task id="34" uid="7ee3c259a450487399c2214d4923208a" name="Inicio de Sesión" meeting="false" start="2026-05-22" duration="1" complete="0" expand="true"/>
+            </task>
         </task>
     </tasks>
-    <resources/>
-    <allocations/>
+    <resources>
+        <resource id="0" name="Herrera Nelson" function="1" contacts="" phone="937219360"/>
+        <resource id="1" name="Rosales Mauricio" function="1" contacts="" phone="963116926"/>
+        <resource id="2" name="Grados Alexander" function="1" contacts="" phone="992308570"/>
+        <resource id="3" name="Mayo Jorge" function="2" contacts="" phone="956494959"/>
+    </resources>
+    <allocations>
+        <allocation task-id="1" resource-id="0" function="1" responsible="true" load="100.0"/>
+        <allocation task-id="7" resource-id="0" function="1" responsible="true" load="100.0"/>
+        <allocation task-id="11" resource-id="0" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="17" resource-id="0" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="15" resource-id="0" function="1" responsible="true" load="100.0"/>
+        <allocation task-id="1" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="15" resource-id="1" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="7" resource-id="2" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="15" resource-id="2" function="1" responsible="false" load="100.0"/>
+        <allocation task-id="11" resource-id="3" function="2" responsible="true" load="100.0"/>
+        <allocation task-id="17" resource-id="3" function="2" responsible="true" load="100.0"/>
+        <allocation task-id="15" resource-id="3" function="2" responsible="false" load="100.0"/>
+    </allocations>
     <vacations/>
     <previous/>
     <roles roleset-name="Default"/>
-    <roles roleset-name="SoftwareDevelopment"/>
+    <roles>
+        <role id="1" name="Desarrollador"/>
+        <role id="2" name="Analista De Desarrollo"/>
+        <role id="3" name="Lider de Proyecto"/>
+        <role id="4" name="Maquetador"/>
+        <role id="5" name="QA"/>
+    </roles>
 </project>
