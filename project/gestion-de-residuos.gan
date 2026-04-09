@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Gestión de Residuos Sólidos" company="UTP-Students-AED-2026" webLink="http://" view-date="2026-04-01" view-index="0" gantt-divider-location="570" resource-divider-location="300" version="3.3.3316" locale="es_PE">
+<?xml version="1.0" encoding="UTF-8"?><project name="Gestión de Residuos Sólidos" company="UTP-Students-AED-2026" webLink="http://" view-date="2026-04-01" view-index="0" gantt-divider-location="555" resource-divider-location="300" version="3.3.3316" locale="es_ES">
     <description><![CDATA[Cronograma de Actividades del Aplicativo (Multi tenant) de Gestión de Residuos Sólidos en Java]]></description>
     <view zooming-state="default:2" id="gantt-chart">
-        <field id="tpd3" name="Name" width="316" order="0"/>
-        <field id="tpd4" name="Begin date" width="119" order="1"/>
-        <field id="tpd5" name="End date" width="119" order="2"/>
-        <field id="tpd15" name="Notes" width="20" order="3"/>
+        <field id="tpd3" name="Nombre" width="316" order="0"/>
+        <field id="tpd4" name="Fecha de inicio" width="119" order="1"/>
+        <field id="tpd5" name="Fecha de fin" width="119" order="2"/>
+        <field id="tpd15" name="Notas" width="20" order="3"/>
         <option id="filter.completedTasks" value="false"/>
         <option id="filter.dueTodayTasks" value="false"/>
         <option id="filter.overdueTasks" value="false"/>
         <option id="filter.inProgressTodayTasks" value="false"/>
     </view>
     <view id="resource-table">
-        <field id="0" name="Name" width="210" order="0"/>
-        <field id="1" name="Default role" width="86" order="1"/>
+        <field id="0" name="Nombre" width="210" order="0"/>
+        <field id="1" name="Función" width="86" order="1"/>
     </view>
     <!-- -->
     <calendars>
@@ -40,7 +40,7 @@
         </taskproperties>
         <task id="0" uid="ce8508a5456b465489c7b22b962fc044" name="PLANIFICACION - Analisis de Requerimientos" meeting="false" start="2026-04-06" duration="15" complete="0" expand="true">
             <task id="1" uid="3809851e8ceb43f89b182f6ec109b4b4" name="INTERFACES INICIALES" meeting="false" start="2026-04-06" duration="6" complete="0" expand="false">
-                <task id="2" uid="097a12b6abfa4b5496272e2ee5f2c3eb" name="Inicio de Sesión" meeting="false" start="2026-04-04" duration="1" complete="0" expand="true">
+                <task id="2" uid="097a12b6abfa4b5496272e2ee5f2c3eb" name="Inicio de Sesión" meeting="false" start="2026-04-06" duration="1" complete="0" expand="true">
                     <depend id="3" type="2" difference="0" hardness="Strong"/>
                 </task>
                 <task id="3" uid="db0d91606e86411b9183b1c43bba2a88" name="Registro de Empresa" meeting="false" start="2026-04-07" duration="2" complete="0" expand="true">
