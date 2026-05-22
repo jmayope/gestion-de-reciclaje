@@ -1,7 +1,7 @@
 package vista;
 
-import dao.UsuarioDAO;
-import modelo.Usuario;
+import dao.UserDAO;
+import modelo.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -102,8 +102,8 @@ public class LoginAdmin extends JFrame {
             return;
         }
 
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
-        Usuario admin = usuarioDAO.loginAdmin(correo, password);
+        UserDAO usuarioDAO = new UserDAO();
+        User admin = usuarioDAO.loginAdmin(correo, password);
 
         if (admin != null) {
             JOptionPane.showMessageDialog(this, "Bienvenido " + admin.getNombre() + " " + admin.getApellido());

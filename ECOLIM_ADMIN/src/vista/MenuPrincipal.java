@@ -63,11 +63,13 @@ public class MenuPrincipal extends JFrame {
         lblBienvenida.setFont(new Font("Segoe UI", Font.PLAIN, 16));
         lblBienvenida.setBounds(25, 150, 200, 60);
         panelMenu.add(lblBienvenida);
-
+        
         btnUsuarios = crearBoton("Usuarios", 240);
         btnUbicaciones = crearBoton("Ubicaciones", 300);
         btnReportes = crearBoton("Reportes", 360);
         btnEstadisticas = crearBoton("Estadísticas", 420);
+        //
+        //
         btnCerrarSesion = crearBoton("Cerrar sesión", 540);
 
         panelMenu.add(btnUsuarios);
@@ -84,6 +86,8 @@ public class MenuPrincipal extends JFrame {
         btnUbicaciones.addActionListener(e -> mostrarPanel(new PanelUbicaciones()));
         btnReportes.addActionListener(e -> mostrarPanel(new PanelReportes()));
         btnEstadisticas.addActionListener(e -> mostrarPanel(new PanelEstadisticas()));
+        //
+        //
 
         btnCerrarSesion.addActionListener(e -> {
             new LoginAdmin().setVisible(true);
