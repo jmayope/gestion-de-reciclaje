@@ -21,7 +21,6 @@ public class PanelUsuarios extends JPanel {
         initComponents();
         cargarUsuarios();
     }
-
     private void initComponents() {
         setLayout(new BorderLayout());
         setBackground(new Color(245, 245, 245));
@@ -33,7 +32,7 @@ public class PanelUsuarios extends JPanel {
         titulo.setFont(new Font("Segoe UI", Font.BOLD, 28));
         titulo.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
         panelSuperior.add(titulo, BorderLayout.NORTH);
-
+                       
         JPanel panelBusqueda = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panelBusqueda.setBackground(new Color(245, 245, 245));
 
@@ -98,12 +97,12 @@ public class PanelUsuarios extends JPanel {
 
         for (Usuario u : lista) {
             modelo.addRow(new Object[]{
-                    u.getIdUsuario(),
-                    u.getNombre(),
-                    u.getApellido(),
-                    u.getDni(),
-                    u.getCorreo(),
-                    u.getRol()
+                u.getIdUsuario(),
+                u.getNombre(),
+                u.getApellido(),
+                u.getDni(),
+                u.getCorreo(),
+                u.getRol()
             });
         }
     }
@@ -121,12 +120,12 @@ public class PanelUsuarios extends JPanel {
 
         for (Usuario u : lista) {
             modelo.addRow(new Object[]{
-                    u.getIdUsuario(),
-                    u.getNombre(),
-                    u.getApellido(),
-                    u.getDni(),
-                    u.getCorreo(),
-                    u.getRol()
+                u.getIdUsuario(),
+                u.getNombre(),
+                u.getApellido(),
+                u.getDni(),
+                u.getCorreo(),
+                u.getRol()
             });
         }
     }
@@ -137,15 +136,16 @@ public class PanelUsuarios extends JPanel {
         JTextField txtDni = new JTextField();
         JTextField txtCorreo = new JTextField();
         JTextField txtPassword = new JTextField();
-        JComboBox<String> cbRol = new JComboBox<>(new String[]{"admin", "trabajador"});
+        JComboBox<String> cbRol = new JComboBox<>(new String[]{"principal", "secundario"}
+        );
 
         Object[] campos = {
-                "Nombre:", txtNombre,
-                "Apellido:", txtApellido,
-                "DNI:", txtDni,
-                "Correo:", txtCorreo,
-                "Contraseña:", txtPassword,
-                "Rol:", cbRol
+            "Nombre:", txtNombre,
+            "Apellido:", txtApellido,
+            "DNI:", txtDni,
+            "Correo:", txtCorreo,
+            "Contraseña:", txtPassword,
+            "Rol:", cbRol
         };
 
         int op = JOptionPane.showConfirmDialog(this, campos, "Agregar Usuario", JOptionPane.OK_CANCEL_OPTION);
@@ -187,16 +187,16 @@ public class PanelUsuarios extends JPanel {
         JTextField txtDni = new JTextField(u.getDni());
         JTextField txtCorreo = new JTextField(u.getCorreo());
         JTextField txtPassword = new JTextField(u.getPassword());
-        JComboBox<String> cbRol = new JComboBox<>(new String[]{"admin", "trabajador"});
+        JComboBox<String> cbRol = new JComboBox<>(new String[]{"principal", "secundario"});
         cbRol.setSelectedItem(u.getRol());
 
         Object[] campos = {
-                "Nombre:", txtNombre,
-                "Apellido:", txtApellido,
-                "DNI:", txtDni,
-                "Correo:", txtCorreo,
-                "Contraseña:", txtPassword,
-                "Rol:", cbRol
+            "Nombre:", txtNombre,
+            "Apellido:", txtApellido,
+            "DNI:", txtDni,
+            "Correo:", txtCorreo,
+            "Contraseña:", txtPassword,
+            "Rol:", cbRol
         };
 
         int op = JOptionPane.showConfirmDialog(this, campos, "Modificar Usuario", JOptionPane.OK_CANCEL_OPTION);
