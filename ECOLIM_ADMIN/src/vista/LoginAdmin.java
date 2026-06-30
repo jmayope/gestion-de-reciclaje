@@ -103,11 +103,13 @@ public class LoginAdmin extends JFrame {
         }
 
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        Usuario admin = usuarioDAO.loginAdmin(correo, password);
+        Usuario admin = new Usuario();
+        admin = usuarioDAO.loginAdmin(correo, password) ;
 
         if (admin != null) {
             JOptionPane.showMessageDialog(this, "Bienvenido " + admin.getNombre() + " " + admin.getApellido());
-            new MenuPrincipal(admin).setVisible(true);
+            MenuPrincipal menu = new MenuPrincipal(admin); 
+            menu.setVisible(true);
             dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Credenciales incorrectas o no tiene rol admin.");
