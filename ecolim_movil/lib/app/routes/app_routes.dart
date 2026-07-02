@@ -15,6 +15,7 @@ abstract class Routes {
   static const REPORTING = _Paths.REPORTING;
   static const WASTE_OFFER = _Paths.WASTE_OFFER;
   static const WASTE_TRACKING = _Paths.WASTE_TRACKING;
+  static const DEVICE_VALIDATION = _Paths.DEVICE_VALIDATION;
 }
 
 abstract class _Paths {
@@ -31,4 +32,5 @@ abstract class _Paths {
   static const REPORTING = '/reporting';
   static const WASTE_OFFER = '/waste-offer';
   static const WASTE_TRACKING = '/waste-tracking';
+  static const DEVICE_VALIDATION = '/device-validation';
 }

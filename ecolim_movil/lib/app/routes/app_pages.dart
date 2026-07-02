@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/change_password/bindings/change_password_binding.dart';
 import '../modules/change_password/views/change_password_view.dart';
+import '../modules/device_validation/bindings/device_validation_binding.dart';
+import '../modules/device_validation/views/device_validation_view.dart';
 import '../modules/entity_register/bindings/entity_register_binding.dart';
 import '../modules/entity_register/views/entity_register_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -30,7 +32,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.HOME;
+  static const INITIAL = Routes.DEVICE_VALIDATION;
 
   static final routes = [
     GetPage(
@@ -92,6 +94,11 @@ class AppPages {
       name: _Paths.WASTE_TRACKING,
       page: () => const WasteTrackingView(),
       binding: WasteTrackingBinding(),
+    ),
+    GetPage(
+      name: _Paths.DEVICE_VALIDATION,
+      page: () => const DeviceValidationView(),
+      binding: DeviceValidationBinding(),
     ),
   ];
 }
