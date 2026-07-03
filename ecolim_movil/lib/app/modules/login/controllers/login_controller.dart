@@ -43,12 +43,13 @@ class LoginController extends GetxController {
     if (needChangePassword) {
       Get.offAllNamed(Routes.CHANGE_PASSWORD);
     } else {
-      bool isGenerator = Random().nextInt(2) > 1;
+      // bool isGenerator = Random().nextInt(2) > 1;
+      bool isGenerator = true;
       if (isGenerator) {
-        bool selectPlant = Random().nextInt(3) > 1;
-        if (selectPlant) {
-          Get.offAllNamed(Routes.SELECT_PLANT);
-        }
+        Get.offAllNamed(Routes.SELECT_PLANT);
+        // bool selectPlant = Random().nextInt(3) > 1;
+        // if (selectPlant) {
+        // }
       } else {
         Get.offAllNamed(Routes.HOME);
       }

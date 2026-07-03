@@ -93,7 +93,7 @@ class DeviceValidationView extends GetView<DeviceValidationController> {
                 _LogoMark(controller: controller.pulseController),
                 const SizedBox(height: 28),
                 Text(
-                  'EcoGestión',
+                  'EcolimApp',
                   style: controller.theme.value.textTheme.displaySmall?.copyWith(
                     color: Colors.white,
                     fontSize: 26,

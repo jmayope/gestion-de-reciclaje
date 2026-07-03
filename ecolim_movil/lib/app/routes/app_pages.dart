@@ -10,6 +10,8 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/plan_register/bindings/plan_register_binding.dart';
+import '../modules/plan_register/views/plan_register_view.dart';
 import '../modules/reporting/bindings/reporting_binding.dart';
 import '../modules/reporting/views/reporting_view.dart';
 import '../modules/requirement_register/bindings/requirement_register_binding.dart';
@@ -24,6 +26,8 @@ import '../modules/waste_offer/bindings/waste_offer_binding.dart';
 import '../modules/waste_offer/views/waste_offer_view.dart';
 import '../modules/waste_publish/bindings/waste_publish_binding.dart';
 import '../modules/waste_publish/views/waste_publish_view.dart';
+import '../modules/waste_register/bindings/waste_register_binding.dart';
+import '../modules/waste_register/views/waste_register_view.dart';
 import '../modules/waste_tracking/bindings/waste_tracking_binding.dart';
 import '../modules/waste_tracking/views/waste_tracking_view.dart';
 
@@ -99,6 +103,16 @@ class AppPages {
       name: _Paths.DEVICE_VALIDATION,
       page: () => const DeviceValidationView(),
       binding: DeviceValidationBinding(),
+    ),
+    GetPage(
+      name: _Paths.PLAN_REGISTER,
+      page: () => const PlanRegisterView(),
+      binding: PlanRegisterBinding(),
+    ),
+    GetPage(
+      name: _Paths.WASTE_REGISTER,
+      page: () => const WasteRegisterView(),
+      binding: WasteRegisterBinding(),
     ),
   ];
 }

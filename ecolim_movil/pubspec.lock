@@ -163,6 +163,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  json_to_model:
+    dependency: "direct dev"
+    description:
+      name: json_to_model
+      sha256: a1e2628df8e9d2b32c4d473a5e923648bed7f267be021a0d3148f4d056d1a5b6
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.4"
   leak_tracker:
     dependency: transitive
     description:
@@ -323,6 +331,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
+  quiver:
+    dependency: "direct main"
+    description:
+      name: quiver
+      sha256: ea0b925899e64ecdfbf9c7becb60d5b50e706ade44a85b2363be2a22d88117d2
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.2"
   record_use:
     dependency: transitive
     description:

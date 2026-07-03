@@ -1,3 +1,6 @@
+import 'package:ecolim_movil/app/routes/app_pages.dart';
+import 'package:ecolim_movil/app/theme/app_colors.dart';
+import 'package:ecolim_movil/models/plant.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -8,6 +11,92 @@ class SelectPlantView extends GetView<SelectPlantController> {
   const SelectPlantView({super.key});
   @override
   Widget build(BuildContext context) {
+
+    final bottonNavigator = Obx(() {
+      return controller.hasPlants.value
+          ? SafeArea(
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
+                decoration: BoxDecoration(
+                  color: controller.theme.value.scaffoldBackgroundColor,
+                  border: Border(
+                    top: BorderSide(
+                      color: controller.isDark.value ? AppColors.line700 : AppColors.line200,
+                    ),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        onPressed: controller.goToPlantRegistration,
+                        icon: const Icon(Icons.add_business_outlined, size: 20),
+                        label: const Text('Nueva planta'),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      flex: 2,
+                      child: ElevatedButton(
+                        onPressed: controller.selectedId.value == null ? null : controller.continueToDashboard,
+                        child: const Text('Continuar'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : 
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(Icons.close),
+                SizedBox(height: 10,),
+                Text(
+                  "No tienes plantas registradas"
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // controller.goToPlantRegistration();
+                    Get.offAllNamed(Routes.HOME);
+                  }, 
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.leaf500
+                  ),
+                  child: Text(
+                    "Registre una planta",
+                    style: TextStyle(
+                      color: Colors.white
+                    ),
+                  )
+                )
+              ],
+            )
+        ;
+    });
+
+    final container = Obx(() {
+      return SafeArea(
+        child: controller.hasPlants.value
+            ? PlantListView(
+                plants: controller.filtered,
+                selectedId: controller.selectedId.value,
+                onSelect: (int id) {
+                  controller.selectedId.value = id;
+                },
+                onQueryChanged: (q) {
+                  controller.query.value = q;
+                },
+                onAddPlant: controller.goToPlantRegistration,
+              )
+            : _EmptyState(onAddPlant: controller.goToPlantRegistration),
+      );
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Selección de planta'),
@@ -17,69 +106,26 @@ class SelectPlantView extends GetView<SelectPlantController> {
             tooltip: 'Cerrar sesión',
             icon: const Icon(Icons.logout_rounded),
             onPressed: () {
-              // TODO: cerrar sesión.
+              Get.offAllNamed(Routes.DEVICE_VALIDATION);
             },
           ),
         ],
       ),
-      body: SafeArea(
-        child: hasPlants
-            ? _PlantListView(
-                plants: _filtered,
-                selectedId: _selectedId,
-                onSelect: (id) => setState(() => _selectedId = id),
-                onQueryChanged: (q) => setState(() => _query = q),
-                onAddPlant: _goToPlantRegistration,
-              )
-            : _EmptyState(onAddPlant: _goToPlantRegistration),
-      ),
-      bottomNavigationBar: hasPlants
-          ? SafeArea(
-              child: Container(
-                padding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
-                decoration: BoxDecoration(
-                  color: theme.scaffoldBackgroundColor,
-                  border: Border(
-                    top: BorderSide(
-                      color: isDark ? AppColors.line700 : AppColors.line200,
-                    ),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: OutlinedButton.icon(
-                        onPressed: _goToPlantRegistration,
-                        icon: const Icon(Icons.add_business_outlined, size: 20),
-                        label: const Text('Nueva planta'),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      flex: 2,
-                      child: ElevatedButton(
-                        onPressed: _selectedId == null ? null : _continueToDashboard,
-                        child: const Text('Continuar'),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
-          : null,
+      body: container,
+      bottomNavigationBar: bottonNavigator
     );
   }
 }
 
 
-class _PlantListView extends StatelessWidget {
-  final List<_Plant> plants;
-  final String? selectedId;
-  final ValueChanged<String> onSelect;
+class PlantListView extends StatelessWidget {
+  final List<Plant> plants;
+  final int? selectedId;
+  final ValueChanged<int> onSelect;
   final ValueChanged<String> onQueryChanged;
   final VoidCallback onAddPlant;
 
-  const _PlantListView({
+  const PlantListView({
     required this.plants,
     required this.selectedId,
     required this.onSelect,
@@ -153,7 +199,7 @@ class _PlantListView extends StatelessWidget {
                 return _PlantCard(
                   plant: plant,
                   isSelected: isSelected,
-                  onTap: plant.active ? () => onSelect(plant.id) : null,
+                  onTap: plant.status! ? () => onSelect(plant.id!) : null,
                 );
               },
             ),
@@ -164,7 +210,7 @@ class _PlantListView extends StatelessWidget {
 }
 
 class _PlantCard extends StatelessWidget {
-  final _Plant plant;
+  final Plant plant;
   final bool isSelected;
   final VoidCallback? onTap;
 
@@ -227,18 +273,18 @@ class _PlantCard extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            plant.name,
+                            plant.name!,
                             style: theme.textTheme.titleMedium,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         const SizedBox(width: 8),
-                        _StatusChip(active: plant.active),
+                        _StatusChip(active: plant.status!),
                       ],
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      plant.address,
+                      plant.address!,
                       style: theme.textTheme.bodyMedium,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -338,8 +384,13 @@ class _EmptyState extends StatelessWidget {
             const SizedBox(height: 28),
             ElevatedButton.icon(
               onPressed: onAddPlant,
-              icon: const Icon(Icons.add_business_outlined, size: 20),
-              label: const Text('Registrar mi primera planta'),
+              icon: const Icon(Icons.add_business_outlined, size: 20, color: AppColors.leaf500,),
+              label: const Text(
+                'Registrar mi primera planta',
+                style: TextStyle(
+                  color: AppColors.leaf500
+                )
+              ),
             ),
           ],
         ),
