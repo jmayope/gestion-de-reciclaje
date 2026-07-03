@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Gestión de Residuos Sólidos" company="UTP-Students-AED-2026" webLink="http://" view-date="2026-04-01" view-index="0" gantt-divider-location="555" resource-divider-location="300" version="3.3.3316" locale="es_ES">
-    <description><![CDATA[Cronograma de Actividades del Aplicativo (Multi tenant) de Gestión de Residuos Sólidos en Java]]></description>
-    <view zooming-state="default:2" id="gantt-chart">
-        <field id="tpd3" name="Nombre" width="316" order="0"/>
-        <field id="tpd4" name="Fecha de inicio" width="119" order="1"/>
-        <field id="tpd5" name="Fecha de fin" width="119" order="2"/>
+<?xml version="1.0" encoding="UTF-8"?><project name="Gestión de Modelos de Evaluación de Calidad de Procesos" company="UTP-Students-AED-2026" webLink="http://" view-date="2026-04-13" view-index="0" gantt-divider-location="315" resource-divider-location="300" version="3.3.3316" locale="es_ES">
+    <description><![CDATA[Cronograma de Actividades del Aplicativo (Multi tenant) de Gestión de Modelos de Evaluación de Calidad de Procesos]]></description>
+    <view zooming-state="default:5" id="gantt-chart">
+        <field id="tpd3" name="Nombre" width="170" order="0"/>
+        <field id="tpd4" name="Fecha de inicio" width="64" order="1"/>
+        <field id="tpd5" name="Fecha de fin" width="65" order="2"/>
         <field id="tpd15" name="Notas" width="20" order="3"/>
         <option id="filter.completedTasks" value="false"/>
         <option id="filter.dueTodayTasks" value="false"/>
@@ -11,8 +11,8 @@
         <option id="filter.inProgressTodayTasks" value="false"/>
     </view>
     <view id="resource-table">
-        <field id="0" name="Nombre" width="210" order="0"/>
-        <field id="1" name="Función" width="86" order="1"/>
+        <field id="0" name="Nombre" width="197" order="0"/>
+        <field id="1" name="Función" width="81" order="1"/>
     </view>
     <!-- -->
     <calendars>
@@ -39,7 +39,7 @@
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
         <task id="0" uid="ce8508a5456b465489c7b22b962fc044" name="PLANIFICACION - Analisis de Requerimientos" meeting="false" start="2026-04-06" duration="15" complete="0" expand="true">
-            <task id="1" uid="3809851e8ceb43f89b182f6ec109b4b4" name="INTERFACES INICIALES" meeting="false" start="2026-04-06" duration="6" complete="0" expand="false">
+            <task id="1" uid="3809851e8ceb43f89b182f6ec109b4b4" name="INTERFACES INICIALES" meeting="false" start="2026-04-06" duration="6" complete="0" expand="true">
                 <task id="2" uid="097a12b6abfa4b5496272e2ee5f2c3eb" name="Inicio de Sesión" meeting="false" start="2026-04-06" duration="1" complete="0" expand="true">
                     <depend id="3" type="2" difference="0" hardness="Strong"/>
                 </task>
@@ -56,7 +56,7 @@
                     <depend id="9" type="2" difference="0" hardness="Strong"/>
                 </task>
             </task>
-            <task id="7" uid="fb449f8acbeb4a6e92d203c5d1f44c27" name="OPCIONES POR PERFIL: Usuario Generador" meeting="false" start="2026-04-14" duration="6" complete="0" expand="false">
+            <task id="7" uid="fb449f8acbeb4a6e92d203c5d1f44c27" name="OPCIONES POR PERFIL: Usuario Generador" meeting="false" start="2026-04-14" duration="6" complete="0" expand="true">
                 <task id="9" uid="6f9515db39d44bed87248e1e5de90fae" name="Registro de Residuos" meeting="false" start="2026-04-14" duration="2" complete="0" expand="true">
                     <depend id="10" type="2" difference="0" hardness="Strong"/>
                 </task>
@@ -67,7 +67,7 @@
                     <depend id="12" type="2" difference="0" hardness="Strong"/>
                 </task>
             </task>
-            <task id="11" uid="e192f7c13ece40dfbc311205f9233664" name="OPCIONES POR PERFIL: Usuario Operador" meeting="false" start="2026-04-22" duration="3" complete="0" expand="false">
+            <task id="11" uid="e192f7c13ece40dfbc311205f9233664" name="OPCIONES POR PERFIL: Usuario Operador" meeting="false" start="2026-04-22" duration="3" complete="0" expand="true">
                 <task id="12" uid="da11ad02397543c385c00b69d6b05a7f" name="Oferta de Residuos" meeting="false" start="2026-04-22" duration="2" complete="0" expand="true">
                     <depend id="13" type="2" difference="0" hardness="Strong"/>
                 </task>
@@ -77,7 +77,7 @@
             </task>
         </task>
         <task id="14" uid="ba265d43cca145c1859997bb28fb6474" name="DISEÑO CONCEPTUAL" meeting="false" start="2026-04-27" duration="20" complete="0" expand="true">
-            <task id="17" uid="051598abffa6478fa0fca219816e57d5" name="MODELOS" meeting="false" start="2026-04-27" duration="10" complete="0" expand="false">
+            <task id="17" uid="051598abffa6478fa0fca219816e57d5" name="MODELOS" meeting="false" start="2026-04-27" duration="10" complete="0" expand="true">
                 <task id="18" uid="5d3fb416e25047d7951a802fde1278ef" name="Empresa - Model" meeting="false" start="2026-04-27" duration="2" complete="0" expand="true">
                     <depend id="19" type="2" difference="0" hardness="Strong"/>
                 </task>
@@ -94,7 +94,7 @@
                     <depend id="23" type="2" difference="0" hardness="Strong"/>
                 </task>
             </task>
-            <task id="15" uid="e29df68f6e164ab5ae7ecb1ece075cfb" name="SKETCHING" meeting="false" start="2026-05-11" duration="9" complete="0" expand="false">
+            <task id="15" uid="e29df68f6e164ab5ae7ecb1ece075cfb" name="SKETCHING" meeting="false" start="2026-05-11" duration="9" complete="0" expand="true">
                 <task id="23" uid="9326c9111914443a8a78e6115aa6cbac" name="Inicio de Sesión" meeting="false" start="2026-05-11" duration="1" complete="0" expand="true">
                     <depend id="25" type="2" difference="0" hardness="Strong"/>
                 </task>
@@ -125,16 +125,134 @@
                     <depend id="34" type="2" difference="0" hardness="Strong"/>
                 </task>
             </task>
-            <task id="16" uid="57a0d802c30e400f8b51232b8ff9ca2b" name="WIREFRAMES" meeting="false" start="2026-05-22" duration="1" complete="0" expand="false">
+            <task id="16" uid="57a0d802c30e400f8b51232b8ff9ca2b" name="WIREFRAMES" meeting="false" start="2026-05-22" duration="1" complete="0" expand="true">
                 <task id="34" uid="7ee3c259a450487399c2214d4923208a" name="Inicio de Sesión" meeting="false" start="2026-05-22" duration="1" complete="0" expand="true"/>
+            </task>
+        </task>
+        <task id="35" uid="1388703e81ac4d768e7634ccaa7d75cf" name="Gestión de Evaluaciones de Calidad de Software" color="#000000" meeting="false" start="2026-06-01" duration="84" complete="0" expand="true">
+            <task id="36" uid="a72e077a10fb4d38807990c889efd438" name="FASE 0: Definición y Análisis Conceptual" color="#000000" meeting="false" start="2026-06-01" duration="19" complete="0" expand="true">
+                <task id="37" uid="4c9179e1fc3c4ddda0f6900a81e5af56" name="A001 - Análisis de modelos CMMI y McCall" color="#8cb6ce" meeting="false" start="2026-06-01" duration="5" complete="0" expand="true">
+                    <depend id="38" type="2" difference="0" hardness="Strong"/>
+                    <depend id="41" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="38" uid="caf92f54f6944e00bfeb1f579388e9ba" name="A002 - Diseño de arquitectura de datos y tablas" color="#8cb6ce" meeting="false" start="2026-06-08" duration="4" complete="0" expand="true">
+                    <depend id="39" type="2" difference="0" hardness="Strong"/>
+                    <depend id="41" type="2" difference="0" hardness="Strong"/>
+                    <depend id="43" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="39" uid="6b796d94d6a04a66b5ee6024f6313584" name="A003 - Definición de casos de uso y user stories" color="#8cb6ce" meeting="false" start="2026-06-12" duration="5" complete="0" expand="true">
+                    <depend id="40" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="40" uid="63b0bdf83a2848258c2d38914e256354" name="A004 - Diseño de prototipos UI/UX" color="#8cb6ce" meeting="false" start="2026-06-19" duration="5" complete="0" expand="true">
+                    <depend id="52" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="41" uid="209c56a5bc88479382a5b829755fa16d" name="A005 - Definición de métricas y umbrales" color="#8cb6ce" meeting="false" start="2026-06-12" duration="3" complete="0" expand="true">
+                    <depend id="42" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="42" uid="b46887062c60415ba113a6d9c16ff188" name="*M1 - Definición conceptual completada" color="#000000" meeting="true" start="2026-06-17" duration="0" complete="0" expand="true">
+                    <depend id="8" type="2" difference="0" hardness="Strong"/>
+                </task>
+            </task>
+            <task id="8" uid="dee373cdc7354c49b5b83ce748a92f3c" name="FASE 1: Desarrollo Backend" color="#000000" meeting="false" start="2026-06-17" duration="28" complete="0" expand="true">
+                <task id="43" uid="2a85a8cf31c7438483ab8ae12265f51f" name="B001 - Configuración del proyecto" color="#8cb6ce" meeting="false" start="2026-06-17" duration="2" complete="0" expand="true">
+                    <depend id="44" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="44" uid="8fcb5f89e8204c3299f85c76da3c7808" name="B002 - Modelos de datos ORM" color="#8cb6ce" meeting="false" start="2026-06-19" duration="5" complete="0" expand="true">
+                    <depend id="45" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="45" uid="db030ce6a6924132bfad291bfe9990b9" name="B003 - API de gestión de modelos" color="#8cb6ce" meeting="false" start="2026-06-26" duration="5" complete="0" expand="true">
+                    <depend id="46" type="2" difference="0" hardness="Strong"/>
+                    <depend id="49" type="2" difference="0" hardness="Strong"/>
+                    <depend id="54" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="46" uid="0aa1ed65ee64492190e7d38b45ee4c6f" name="B004 - API de gestión de métricas" color="#8cb6ce" meeting="false" start="2026-07-03" duration="3" complete="0" expand="true">
+                    <depend id="47" type="2" difference="0" hardness="Strong"/>
+                    <depend id="55" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="47" uid="63249cf5177146ca8d6ac4fda0e3cdde" name="B005 - API para realizar evaluaciones" color="#8cb6ce" meeting="false" start="2026-07-08" duration="7" complete="0" expand="true">
+                    <depend id="48" type="2" difference="0" hardness="Strong"/>
+                    <depend id="56" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="48" uid="66065463f3404a73b7370da3889feb90" name="B006 - API de reportes y análisis" color="#8cb6ce" meeting="false" start="2026-07-17" duration="6" complete="0" expand="true">
+                    <depend id="50" type="2" difference="0" hardness="Strong"/>
+                    <depend id="57" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="49" uid="1477f923a4be4ccbad46e5ef0e0889fb" name="B007 - Autenticación y autorización" color="#8cb6ce" meeting="false" start="2026-07-03" duration="5" complete="0" expand="true">
+                    <depend id="50" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="50" uid="dd925165d6fa4dfc85379cd850d514e3" name="*M2 - Backend MVP completado" color="#000000" meeting="true" start="2026-07-27" duration="0" complete="0" expand="true">
+                    <depend id="61" type="2" difference="0" hardness="Strong"/>
+                </task>
+            </task>
+            <task id="51" uid="b03a8be7d44a4e39a5cd4b05711bd8d0" name="FASE 2: Desarrollo Frontend" color="#000000" meeting="false" start="2026-06-26" duration="33" complete="0" expand="true">
+                <task id="52" uid="e4a90f8ba36c4c7e89c6319644b806bf" name="F001 - Setup del proyecto frontend" color="#8cb6ce" meeting="false" start="2026-06-26" duration="2" complete="0" expand="true">
+                    <depend id="53" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="53" uid="02b5dcb1718d47bdafc8e9a83cc949a5" name="F002 - Componentes UI core" color="#8cb6ce" meeting="false" start="2026-06-30" duration="6" complete="0" expand="true">
+                    <depend id="54" type="2" difference="0" hardness="Strong"/>
+                    <depend id="55" type="2" difference="0" hardness="Strong"/>
+                    <depend id="56" type="2" difference="0" hardness="Strong"/>
+                    <depend id="57" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="54" uid="60c3993371e0457d857091b5409058e8" name="F003 - Vista de administración de modelos" color="#8cb6ce" meeting="false" start="2026-07-08" duration="7" complete="0" expand="true"/>
+                <task id="55" uid="fc0b2e2e6f734b42812b1823f1b2040e" name="F004 - Vista de gestión de métricas" color="#8cb6ce" meeting="false" start="2026-07-08" duration="6" complete="0" expand="true"/>
+                <task id="56" uid="d5c3e80858e54e6995a0edfc6af8d604" name="F005 - Vista de creación de evaluaciones" color="#8cb6ce" meeting="false" start="2026-07-17" duration="8" complete="0" expand="true"/>
+                <task id="57" uid="62166ed9b2904beca58e01ee51b3261a" name="F006 - Dashboard y visualización" color="#8cb6ce" meeting="false" start="2026-07-27" duration="7" complete="0" expand="true">
+                    <depend id="58" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="58" uid="808fa8addec6465ca1c583225324e620" name="F007 - Módulo de reportes" color="#8cb6ce" meeting="false" start="2026-08-05" duration="5" complete="0" expand="true">
+                    <depend id="59" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="59" uid="e648c4fd7d4e4444b1b20332736d6fd7" name="*M3 - Frontend MVP completado" color="#000000" meeting="true" start="2026-08-12" duration="0" complete="0" expand="true">
+                    <depend id="61" type="2" difference="0" hardness="Strong"/>
+                </task>
+            </task>
+            <task id="60" uid="3ffa5240bcd54230af909cd163eea83b" name="FASE 3: Implementación Integral y QA" color="#000000" meeting="false" start="2026-08-12" duration="17" complete="0" expand="true">
+                <task id="61" uid="38fef8fd0dfe47da83f471e09e07d1e8" name="I001 - Integración frontend-backend" color="#8cb6ce" meeting="false" start="2026-08-12" duration="5" complete="0" expand="true">
+                    <depend id="62" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="62" uid="6e5b07e621c144ce8f7f6f945ba4b07d" name="I002 - Pruebas de aceptación" color="#8cb6ce" meeting="false" start="2026-08-19" duration="7" complete="0" expand="true">
+                    <depend id="63" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="63" uid="91e607744ab84be1aa84f900e0dd0b44" name="I003 - Optimización y refinamiento" color="#8cb6ce" meeting="false" start="2026-08-28" duration="5" complete="0" expand="true">
+                    <depend id="64" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="64" uid="b0b8c0fcf55b4497bae39912ae0a9745" name="*M4 - Sistema integrado funcional" color="#000000" meeting="true" start="2026-09-04" duration="0" complete="0" expand="true">
+                    <depend id="65" type="2" difference="0" hardness="Strong"/>
+                </task>
+            </task>
+            <task id="65" uid="f3a2e46a0aa3462aa52bf3c2bd02fab7" name="FASE 4: Despliegue y Producción" color="#000000" meeting="false" start="2026-09-04" duration="15" complete="0" expand="true">
+                <task id="66" uid="87339288736644c69f86b40f4917e8fc" name="D001 - Preparación entorno producción" color="#8cb6ce" meeting="false" start="2026-09-04" duration="4" complete="0" expand="true">
+                    <depend id="67" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="67" uid="5eb7492d1b80447baded605d3c697b46" name="D002 - Pipeline CI/CD" color="#8cb6ce" meeting="false" start="2026-09-10" duration="5" complete="0" expand="true">
+                    <depend id="68" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="68" uid="fe59513c19f74dc097e964b836612229" name="D003 - Despliegue en producción" color="#8cb6ce" meeting="false" start="2026-09-17" duration="3" complete="0" expand="true">
+                    <depend id="69" type="2" difference="0" hardness="Strong"/>
+                    <depend id="70" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="69" uid="e5594d6b71fc4c44b0b66ab6693d2391" name="D004 - Capacitación y transferencia" color="#8cb6ce" meeting="false" start="2026-09-22" duration="3" complete="0" expand="true">
+                    <depend id="71" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="70" uid="4e136de3eedd4429a898a92bcfe42b5c" name="D005 - Pruebas post-despliegue" color="#8cb6ce" meeting="false" start="2026-09-22" duration="3" complete="0" expand="true">
+                    <depend id="71" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="71" uid="13a90fea7018451dab2b981af066e449" name="*M5 - Proyecto completado" color="#000000" meeting="true" start="2026-09-25" duration="0" complete="0" expand="true"/>
             </task>
         </task>
     </tasks>
     <resources>
-        <resource id="0" name="Herrera Nelson" function="1" contacts="" phone="937219360"/>
-        <resource id="1" name="Rosales Mauricio" function="1" contacts="" phone="963116926"/>
-        <resource id="2" name="Grados Alexander" function="1" contacts="" phone="992308570"/>
-        <resource id="3" name="Mayo Jorge" function="2" contacts="" phone="956494959"/>
+        <resource id="0" name="Jorge Mayo Calderon" function="1" contacts="" phone="937219360"/>
+        <resource id="1" name="PM - Project Manager" function="Default:0" contacts="" phone=""/>
+        <resource id="2" name="BA - Business Analyst" function="Default:0" contacts="" phone=""/>
+        <resource id="3" name="UX - Diseñador UI/UX" function="Default:0" contacts="" phone=""/>
+        <resource id="4" name="BE1 - Backend Developer Sr" function="Default:0" contacts="" phone=""/>
+        <resource id="5" name="BE2 - Backend Developer Jr" function="Default:0" contacts="" phone=""/>
+        <resource id="6" name="FE1 - Frontend Developer Sr" function="Default:0" contacts="" phone=""/>
+        <resource id="7" name="FE2 - Frontend Developer Jr" function="Default:0" contacts="" phone=""/>
+        <resource id="8" name="QA - Tester" function="Default:0" contacts="" phone=""/>
+        <resource id="9" name="DevOps - Ingeniero DevOps" function="Default:0" contacts="" phone=""/>
     </resources>
     <allocations>
         <allocation task-id="1" resource-id="0" function="1" responsible="true" load="100.0"/>
