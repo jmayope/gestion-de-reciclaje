@@ -1,0 +1,15 @@
+{
+  "id?": 2322,
+  "created_at?": "@datetime",
+  "code?": "qweqwe",
+  "name?": "qweqwe",
+  "address?": "qweqwe",
+  "phone?": "qweqwe",
+  "latitude?": 32.2512152,
+  "longitude?": -75.111515,
+  "status?": true,
+  "created_by?": 125,
+  "updated_at?": "@datetime",
+  "updated_by?": 232,
+  "entity_id?": 23433
+}

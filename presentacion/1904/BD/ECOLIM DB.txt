@@ -1,0 +1,113 @@
+ -- =========================================
+-- TABLA USUARIOS
+-- =========================================
+CREATE TABLE usuarios (
+  id_usuario SERIAL PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  apellido VARCHAR(100) NOT NULL,
+  dni VARCHAR(15) UNIQUE,
+  correo VARCHAR(150) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  rol VARCHAR(20) NOT NULL CHECK (rol IN ('admin', 'trabajador', 'usuario')),
+  id_empresa INTEGER,
+  tipo VARCHAR(50),
+  fecha_registro TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- =========================================
+-- TABLA EMPRESA
+-- =========================================
+CREATE TABLE empresa (
+  id_empresa SERIAL PRIMARY KEY,
+  ruc VARCHAR(20) UNIQUE NOT NULL,
+  nombre VARCHAR(150) NOT NULL,
+  direccion VARCHAR(200),
+  telefono VARCHAR(20),
+  correo_electronico VARCHAR(150),
+  estado BOOLEAN DEFAULT TRUE
+);
+
+-- =========================================
+-- RELACIÓN USUARIO - EMPRESA
+-- =========================================
+ALTER TABLE usuarios
+ADD CONSTRAINT fk_usuario_empresa
+FOREIGN KEY (id_empresa)
+REFERENCES empresa(id_empresa)
+ON DELETE SET NULL;
+
+-- =========================================
+-- TABLA PLANTAS
+-- =========================================
+CREATE TABLE plantas (
+  id_planta SERIAL PRIMARY KEY,
+  id_empresa INTEGER NOT NULL,
+  nombre VARCHAR(150) NOT NULL,
+  direccion VARCHAR(200),
+  telefono VARCHAR(20),
+  latitud DECIMAL(10,6),
+  longitud DECIMAL(10,6),
+  CONSTRAINT fk_empresa
+    FOREIGN KEY (id_empresa)
+    REFERENCES empresa(id_empresa)
+    ON DELETE CASCADE
+);
+
+-- =========================================
+-- TABLA UBICACIONES
+-- =========================================
+CREATE TABLE ubicaciones (
+  id_ubicacion SERIAL PRIMARY KEY,
+  nombre_lugar VARCHAR(150) NOT NULL,
+  direccion VARCHAR(200) NOT NULL
+);
+
+-- =========================================
+-- TABLA TIPO RESIDUO
+-- =========================================
+CREATE TABLE tipo_residuo (
+  id_residuo SERIAL PRIMARY KEY,
+  nombre_residuo VARCHAR(100) NOT NULL,
+  categoria VARCHAR(100)
+);
+
+-- =========================================
+-- TABLA PROCESO RESIDUO
+-- =========================================
+CREATE TABLE proceso_residuo (
+  id_proceso SERIAL PRIMARY KEY,
+  residuo_id INTEGER NOT NULL,
+  nombre VARCHAR(150) NOT NULL,
+  orden INTEGER,
+  estado BOOLEAN DEFAULT TRUE,
+  CONSTRAINT fk_residuo_proceso
+    FOREIGN KEY (residuo_id)
+    REFERENCES tipo_residuo(id_residuo)
+    ON DELETE CASCADE
+);
+
+-- =========================================
+-- TABLA REGISTROS DE RECOLECCION
+-- =========================================
+CREATE TABLE registros_recoleccion (
+  id_registro SERIAL PRIMARY KEY,
+  id_usuario INTEGER NOT NULL,
+  id_ubicacion INTEGER NOT NULL,
+  id_residuo INTEGER NOT NULL,
+  cantidad DECIMAL(10,2) CHECK (cantidad >= 0),
+  unidad VARCHAR(10) DEFAULT 'kg',
+  fecha TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  observaciones TEXT,
+  CONSTRAINT fk_usuario
+    FOREIGN KEY (id_usuario)
+    REFERENCES usuarios(id_usuario)
+    ON DELETE CASCADE,
+  CONSTRAINT fk_ubicacion
+    FOREIGN KEY (id_ubicacion)
+    REFERENCES ubicaciones(id_ubicacion)
+    ON DELETE SET NULL,
+  CONSTRAINT fk_residuo
+    FOREIGN KEY (id_residuo)
+    REFERENCES tipo_residuo(id_residuo)
+    ON DELETE RESTRICT
+);

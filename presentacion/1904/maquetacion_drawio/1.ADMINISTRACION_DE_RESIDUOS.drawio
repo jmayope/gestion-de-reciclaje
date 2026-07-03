@@ -1,0 +1,139 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/27.0.9 Chrome/134.0.6998.205 Electron/35.4.0 Safari/537.36" version="27.0.9">
+  <diagram name="Página-1" id="Y68g4FBOTUtMeqNjH_iY">
+    <mxGraphModel dx="829" dy="843" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-2" value="" style="rounded=0;whiteSpace=wrap;html=1;movable=0;resizable=0;rotatable=0;deletable=0;editable=0;locked=1;connectable=0;" vertex="1" parent="1">
+          <mxGeometry x="80" y="120" width="670" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-3" value="Atras" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;width=16;endSize=6;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="130" y="150" as="sourcePoint" />
+            <mxPoint x="90" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-5" value="Admininistración de Residuos" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="136" y="134" width="294" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-6" value="Nuevo Residuo" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="134" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-12" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="99" y="210" width="630" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-7" value="1&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Plástico&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;60 Tn&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Recolección | Tratamiento | Exportación&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Registrado&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;04/04/26" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="Ox8G7KN9qmEpjdeyKL1c-12">
+          <mxGeometry width="630" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-8" value="2&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Plástico&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;30 Tn&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Recolección | Exportación&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Publicado&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;04/04/26" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="Ox8G7KN9qmEpjdeyKL1c-12">
+          <mxGeometry y="30" width="630" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-9" value="3&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Sólido&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;15&amp;nbsp;Tn&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Recolección &lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Publicado&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;04/04/26" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="Ox8G7KN9qmEpjdeyKL1c-12">
+          <mxGeometry y="60" width="630" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-10" value="4&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Líquido&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;20 Tn&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Recolección | Tratamiento | Valorización&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Registrado&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;04/04/26" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="Ox8G7KN9qmEpjdeyKL1c-12">
+          <mxGeometry y="90" width="630" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-11" value="5&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Semi Sólido&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;60 Tn&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Recolección | Tratamiento&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Registrado&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;04/04/26" style="rounded=0;whiteSpace=wrap;html=1;align=left;spacingLeft=10;spacingRight=10;" vertex="1" parent="Ox8G7KN9qmEpjdeyKL1c-12">
+          <mxGeometry y="120" width="630" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-13" value="FILTRAR POR TEXTO" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="140" y="170" width="320" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-15" value="ESTADO" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="480" y="170" width="101" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-18" value="" style="rounded=0;whiteSpace=wrap;html=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="400" width="390" height="540" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-19" value="Nuevo Residuo" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;" vertex="1" parent="1">
+          <mxGeometry x="250" y="410" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-20" value="X" style="rounded=1;whiteSpace=wrap;html=1;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="570" y="410" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-21" value="CANTIDAD&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start; text-wrap-mode: nowrap;&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22Admininistraci%C3%B3n%20de%20Residuos%22%20style%3D%22text%3Bhtml%3D1%3Balign%3Dleft%3BverticalAlign%3Dmiddle%3BwhiteSpace%3Dwrap%3Brounded%3D0%3BfontSize%3D20%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22136%22%20y%3D%22134%22%20width%3D%22294%22%20height%3D%2230%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="250" y="450" width="210" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-23" value="GR/ KG / Tn" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="480" y="450" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-24" value="SÓLIDO" style="whiteSpace=wrap;html=1;aspect=fixed;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="250" y="500" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-25" value="LÍQUIDO" style="whiteSpace=wrap;html=1;aspect=fixed;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="340" y="500" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-26" value="GASEOSO" style="whiteSpace=wrap;html=1;aspect=fixed;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="430" y="500" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-27" value="METÁLICO" style="whiteSpace=wrap;html=1;aspect=fixed;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="520" y="500" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-28" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="250" y="600" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-29" value="Tiene lugar de almacenamiento" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="280" y="595" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-31" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="250" y="630" as="sourcePoint" />
+            <mxPoint x="600" y="630" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-32" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="250" y="645" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-33" value="RECOLECCIÓN Y TRANSPORTE" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="280" y="640" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-34" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="250" y="685" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-35" value="VALORIZACIÓN" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="280" y="680" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-36" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="250" y="725" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-37" value="TRATAMIENTO" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="280" y="720" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-38" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="250" y="765" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-39" value="IMPORTACIÓN Y EXPORTACIÓN" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="280" y="760" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-40" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="250" y="805" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-41" value="DISPOSICIÓN FINAL" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="280" y="800" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-42" value="CANTIDAD" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="490" y="640" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-43" value="CANTIDAD" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="490" y="680" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-44" value="CANTIDAD" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="490" y="720" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-45" value="CANTIDAD" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="490" y="760" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-46" value="CANTIDAD" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="490" y="800" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-49" value="GUARDAR" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="365" y="900" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ox8G7KN9qmEpjdeyKL1c-50" value="Si el residuo NO TIENE LUGAR DE ALMACENAMIENTO, tendrá el estado de PUBLICADO. Caso contrario tendrá el estado de REGISTRADO." style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="250" y="840" width="350" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

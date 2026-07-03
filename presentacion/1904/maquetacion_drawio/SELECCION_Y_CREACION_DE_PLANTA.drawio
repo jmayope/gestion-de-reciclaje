@@ -1,0 +1,91 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/27.0.9 Chrome/134.0.6998.205 Electron/35.4.0 Safari/537.36" version="27.0.9">
+  <diagram name="Página-1" id="2uZsa2mE00gXXiUXnkF0">
+    <mxGraphModel dx="832" dy="843" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="160" width="350" height="460" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-3" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;BIENVENIDO&lt;/h1&gt;&lt;p&gt;Tu empresa tiene las siguientes plantas:&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="260" y="170" width="310" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-7" value="AGREGAR &lt;br&gt;NUEVA PLANTA" style="rounded=1;whiteSpace=wrap;html=1;fontSize=17;fontStyle=1;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="420" y="410" width="150" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-9" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="260" y="260" width="150" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-4" value="PLANTA SUR" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=bottom;spacingBottom=15;fontSize=15;" vertex="1" parent="YM3_XRm6fTrSFtPX4g8a-9">
+          <mxGeometry width="150" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-8" value="" style="image;points=[];aspect=fixed;html=1;align=center;shadow=0;dashed=0;image=img/lib/allied_telesis/buildings/School_Building.svg;" vertex="1" parent="YM3_XRm6fTrSFtPX4g8a-9">
+          <mxGeometry x="32.06" y="10" width="85.87" height="86.8" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-10" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="420" y="260" width="150" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-11" value="PLANTA NORTE" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=bottom;spacingBottom=15;fontSize=15;" vertex="1" parent="YM3_XRm6fTrSFtPX4g8a-10">
+          <mxGeometry width="150" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-12" value="" style="image;points=[];aspect=fixed;html=1;align=center;shadow=0;dashed=0;image=img/lib/allied_telesis/buildings/School_Building.svg;" vertex="1" parent="YM3_XRm6fTrSFtPX4g8a-10">
+          <mxGeometry x="32.06" y="10" width="85.87" height="86.8" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-13" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="260" y="410" width="150" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-14" value="PLANTA CENTRAL" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=bottom;spacingBottom=15;fontSize=15;" vertex="1" parent="YM3_XRm6fTrSFtPX4g8a-13">
+          <mxGeometry width="150" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-15" value="" style="image;points=[];aspect=fixed;html=1;align=center;shadow=0;dashed=0;image=img/lib/allied_telesis/buildings/School_Building.svg;" vertex="1" parent="YM3_XRm6fTrSFtPX4g8a-13">
+          <mxGeometry x="32.06" y="10" width="85.87" height="86.8" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-16" value="CONTINUAR" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="570" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-17" value="CERRAR" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="570" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-18" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="160" width="280" height="460" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-19" value="NUEVA PLANTA" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="620" y="170" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-20" value="CÓDIGO DE PLANTA" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="630" y="210" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-21" value="NOMBRE" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="630" y="250" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-22" value="DIRECCIÓN" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="630" y="290" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-23" value="TELEFONO" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="630" y="330" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-24" value="RESPONSABLE" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="630" y="370" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-25" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.misc.map;" vertex="1" parent="1">
+          <mxGeometry x="630" y="410" width="240" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-26" value="" style="verticalLabelPosition=top;html=1;shadow=0;dashed=0;verticalAlign=bottom;strokeWidth=1;shape=mxgraph.ios.iPin;fillColor2=#dd0000;fillColor3=#440000;strokeColor=#660000;" vertex="1" parent="1">
+          <mxGeometry x="745" y="470" width="10" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-27" value="" style="ellipse;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=none;strokeColor=#FF0000;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="730" y="480" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-28" value="LATITUD / LONGITUD" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#7E7E7E;" vertex="1" parent="1">
+          <mxGeometry x="630" y="540" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-29" value="GUARDAR CAMBIOS" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="695" y="579" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="YM3_XRm6fTrSFtPX4g8a-30" value="X" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="830" y="170" width="40" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

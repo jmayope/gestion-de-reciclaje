@@ -1,0 +1,15 @@
+{
+  "id?": 23323,
+  "type?": "dfsdfsdf",
+  "quantity?": 3434.343,
+  "unit_measurement?": "324234234",
+  "waste_generation_date?": "@datetime",
+  "has_storage_location?": true,
+  "state?": "sasdfsdf",
+  "status?": true,
+  "created_at?": "@datetime",
+  "created_by?": 3242342,
+  "updated_at?": "@datetime",
+  "updated_by?": 324234,
+  "entity_id?": 32342
+}
