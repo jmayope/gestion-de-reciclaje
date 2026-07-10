@@ -1,3 +1,4 @@
+import 'package:ecolim_movil/app/routes/app_pages.dart';
 import 'package:ecolim_movil/app/theme/app_colors.dart';
 import 'package:ecolim_movil/models/waste.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,12 @@ class WasteManagementView extends GetView<WasteManagementController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.offAllNamed(Routes.HOME);
+          }, 
+          icon: Icon(Icons.home)
+        ),
         title: const Text('Administración de residuos'),
         centerTitle: false,
       ),

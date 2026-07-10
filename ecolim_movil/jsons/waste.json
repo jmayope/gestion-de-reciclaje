@@ -11,5 +11,10 @@
   "created_by?": 3242342,
   "updated_at?": "@datetime",
   "updated_by?": 324234,
+  "dangerousness?": false,
+  "publish_at?": "@datetime",
+  "operations?": "$[]table_type",
+  "process_flows?": "$[]process_flow",
+  "pending_operations_count?": 2323,
   "entity_id?": 32342
 }

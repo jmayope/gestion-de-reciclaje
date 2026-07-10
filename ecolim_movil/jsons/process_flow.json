@@ -1,0 +1,18 @@
+{
+  "id?": 23123,
+  "waste_id?": 34234,
+  "previous_process_id?": "dfs",
+  "current_process_id?": "sdf",
+  "responsible_id?": "sdf",
+  "quantity?": 23423.32,
+  "latitude?": 23.3423,
+  "longitude?": 323.232,
+  "completed?": true,
+  "status?": true,
+  "entity_generator_id?": 23423,
+  "entity_operator_id?": 3234,
+  "created_by?": 2342,
+  "accepted?": false,
+  "offers?": "$[]offer",
+  "created_at?": "@datetime"
+}

@@ -20,7 +20,7 @@ class WasteManagementController extends GetxController {
   }
 
   Future<void> initialData() async {
-    theme.value =  Theme.of(Get.context!);
+    theme.value = Theme.of(Get.context!);
     isDark.value = theme.value.brightness == Brightness.dark;
   }
 

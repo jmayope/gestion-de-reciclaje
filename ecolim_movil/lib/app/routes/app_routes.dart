@@ -18,6 +18,9 @@ abstract class Routes {
   static const DEVICE_VALIDATION = _Paths.DEVICE_VALIDATION;
   static const PLAN_REGISTER = _Paths.PLAN_REGISTER;
   static const WASTE_REGISTER = _Paths.WASTE_REGISTER;
+  static const OFFER_SELECTION = _Paths.OFFER_SELECTION;
+  static const OFFER_SELECTION_DETAIL = _Paths.OFFER_SELECTION_DETAIL;
+  static const WASTE_TRACKING_DETAIL = _Paths.WASTE_TRACKING_DETAIL;
 }
 
 abstract class _Paths {
@@ -37,4 +40,7 @@ abstract class _Paths {
   static const DEVICE_VALIDATION = '/device-validation';
   static const PLAN_REGISTER = '/plan-register';
   static const WASTE_REGISTER = '/waste-register';
+  static const OFFER_SELECTION = '/offer-selection';
+  static const OFFER_SELECTION_DETAIL = '/offer-selection-detail';
+  static const WASTE_TRACKING_DETAIL = '/waste-tracking-detail';
 }

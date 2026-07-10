@@ -10,6 +10,10 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/offer_selection/bindings/offer_selection_binding.dart';
+import '../modules/offer_selection/views/offer_selection_view.dart';
+import '../modules/offer_selection_detail/bindings/offer_selection_detail_binding.dart';
+import '../modules/offer_selection_detail/views/offer_selection_detail_view.dart';
 import '../modules/plan_register/bindings/plan_register_binding.dart';
 import '../modules/plan_register/views/plan_register_view.dart';
 import '../modules/reporting/bindings/reporting_binding.dart';
@@ -30,6 +34,8 @@ import '../modules/waste_register/bindings/waste_register_binding.dart';
 import '../modules/waste_register/views/waste_register_view.dart';
 import '../modules/waste_tracking/bindings/waste_tracking_binding.dart';
 import '../modules/waste_tracking/views/waste_tracking_view.dart';
+import '../modules/waste_tracking_detail/bindings/waste_tracking_detail_binding.dart';
+import '../modules/waste_tracking_detail/views/waste_tracking_detail_view.dart';
 
 part 'app_routes.dart';
 
@@ -113,6 +119,21 @@ class AppPages {
       name: _Paths.WASTE_REGISTER,
       page: () => const WasteRegisterView(),
       binding: WasteRegisterBinding(),
+    ),
+    GetPage(
+      name: _Paths.OFFER_SELECTION,
+      page: () => const OfferSelectionView(),
+      binding: OfferSelectionBinding(),
+    ),
+    GetPage(
+      name: _Paths.OFFER_SELECTION_DETAIL,
+      page: () => const OfferSelectionDetailView(),
+      binding: OfferSelectionDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.WASTE_TRACKING_DETAIL,
+      page: () => const WasteTrackingDetailView(),
+      binding: WasteTrackingDetailBinding(),
     ),
   ];
 }

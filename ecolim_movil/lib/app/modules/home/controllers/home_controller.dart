@@ -29,8 +29,8 @@ class HomeController extends GetxController {
   Future<void> initialData() async {
     theme.value =  Theme.of(Get.context!);
     isDark.value = theme.value.brightness == Brightness.dark;
-    isGenerator.value = true;
-    companyType.value = TableType(code: "G");
+    companyType.value = TableType(code: "O");
+    isGenerator.value = companyType.value.code == "G";
   }
 
   @override
@@ -77,6 +77,15 @@ class HomeController extends GetxController {
           accent: AppColors.leaf500,
           onTap: () {
             Get.offAllNamed(Routes.WASTE_PUBLISH);
+          },
+        ),
+        MenuItem(
+          icon: Icons.sell_outlined,
+          title: 'Selección de Ofertas',
+          subtitle: 'Selecciona la mejor oferta para el proceso del residuo',
+          accent: AppColors.leaf500,
+          onTap: () {
+            Get.offAllNamed(Routes.OFFER_SELECTION);
           },
         ),
         MenuItem(

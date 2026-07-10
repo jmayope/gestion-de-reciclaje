@@ -1,0 +1,10 @@
+{
+  "id?": 213213212,
+  "created_at?": "@datetime",
+  "process_flow_id?": 13123,
+  "operator_id?": 2342,
+  "quantity?": 324234.23423,
+  "status?": true,
+  "accepted?": false,
+  "created_by?": 2323423
+}

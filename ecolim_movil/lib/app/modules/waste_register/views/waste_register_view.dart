@@ -1,3 +1,5 @@
+import 'package:ecolim_movil/app/data/constants.dart';
+import 'package:ecolim_movil/app/routes/app_pages.dart';
 import 'package:ecolim_movil/app/theme/app_colors.dart';
 import 'package:ecolim_movil/models/index.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,12 @@ class WasteRegisterView extends GetView<WasteRegisterController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.offAllNamed(Routes.WASTE_MANAGEMENT);
+          }, 
+          icon: Icon(Icons.arrow_back)
+        ),
         title: Text(controller.isEditing.value ? 'Editar residuo' : 'Registrar residuo'),
         centerTitle: false,
       ),
@@ -67,7 +75,7 @@ class WasteRegisterView extends GetView<WasteRegisterController> {
                       prefixIcon: Icon(Icons.event_outlined),
                     ),
                     child: Text(
-                      controller.wasteGenerationDate.value == null ? 'Seleccionar fecha' : _formatDate(controller.wasteGenerationDate.value),
+                      controller.wasteGenerationDate.value == null ? 'Seleccionar fecha' : formatDate(controller.wasteGenerationDate.value),
                       style: controller.wasteGenerationDate.value == null
                           ? controller.theme.value.textTheme.bodyLarge?.copyWith(color: AppColors.ink400)
                           : controller.theme.value.textTheme.bodyLarge,
@@ -81,7 +89,7 @@ class WasteRegisterView extends GetView<WasteRegisterController> {
                 // Row(
                 //   children: [
                 //     Expanded(
-                //       child: _CategoryOption(
+                //       child: CategoryOption(
                 //         label: 'No peligroso',
                 //         icon: Icons.check_circle_outline_rounded,
                 //         color: AppColors.leaf500,
@@ -91,7 +99,7 @@ class WasteRegisterView extends GetView<WasteRegisterController> {
                 //     ),
                 //     const SizedBox(width: 12),
                 //     Expanded(
-                //       child: _CategoryOption(
+                //       child: CategoryOption(
                 //         label: 'Peligroso',
                 //         icon: Icons.warning_amber_rounded,
                 //         color: AppColors.hazard,
@@ -185,27 +193,27 @@ class WasteRegisterView extends GetView<WasteRegisterController> {
                 Wrap(
                   spacing: 10,
                   runSpacing: 10,
-                  children: waste WasteOperation.values.map((op) {
-                    final selected = _operations.contains(op);
+                  children: controller.wasteOperations.map((op) {
+                    final selected = controller.wasteOperationSelecteds.contains(op);
                     return _OperationChip(
                       operation: op,
                       selected: selected,
-                      onTap: () => setState(() {
+                      onTap: () {
                         if (selected) {
-                          _operations.remove(op);
+                          controller.wasteOperationSelecteds.remove(op);
                         } else {
-                          _operations.add(op);
+                          controller.wasteOperationSelecteds.add(op);
                         }
-                      }),
+                      }
                     );
                   }).toList(),
                 ),
 
                 const SizedBox(height: 26),
-                Text('OBSERVACIÓN (OPCIONAL)', style: theme.textTheme.labelSmall),
+                Text('OBSERVACIÓN (OPCIONAL)', style: controller.theme.value.textTheme.labelSmall),
                 const SizedBox(height: 8),
                 TextFormField(
-                  controller: _observationController,
+                  controller: controller.observation,
                   maxLines: 4,
                   decoration: const InputDecoration(
                     hintText: 'Detalles adicionales sobre este residuo',
@@ -215,8 +223,8 @@ class WasteRegisterView extends GetView<WasteRegisterController> {
 
                 const SizedBox(height: 28),
                 ElevatedButton(
-                  onPressed: _loading ? null : _handleSubmit,
-                  child: _loading
+                  onPressed: controller.loading.value ? null : controller.handleSubmit,
+                  child: controller.loading.value
                       ? const SizedBox(
                           width: 22,
                           height: 22,
@@ -225,11 +233,11 @@ class WasteRegisterView extends GetView<WasteRegisterController> {
                             valueColor: AlwaysStoppedAnimation(Colors.white),
                           ),
                         )
-                      : Text(_isEditing ? 'Guardar cambios' : 'Registrar residuo'),
+                      : Text(controller.isEditing.value ? 'Guardar cambios' : 'Registrar residuo'),
                 ),
                 const SizedBox(height: 10),
                 OutlinedButton(
-                  onPressed: _loading ? null : () => Navigator.of(context).pop(),
+                  onPressed: controller.loading.value ? null : () => Navigator.of(context).pop(),
                   child: const Text('Cancelar'),
                 ),
               ],
@@ -242,23 +250,17 @@ class WasteRegisterView extends GetView<WasteRegisterController> {
   }
 }
 
-String _formatDate(DateTime date) {
-  const months = [
-    'ene', 'feb', 'mar', 'abr', 'may', 'jun',
-    'jul', 'ago', 'sep', 'oct', 'nov', 'dic',
-  ];
-  return '${date.day} de ${months[date.month - 1]} de ${date.year}';
-}
 
 
-class _CategoryOption extends StatelessWidget {
+
+class CategoryOption extends StatelessWidget {
   final String label;
   final IconData icon;
   final Color color;
   final bool selected;
   final VoidCallback onTap;
 
-  const _CategoryOption({
+  const CategoryOption({
     required this.label,
     required this.icon,
     required this.color,
@@ -305,7 +307,7 @@ class _CategoryOption extends StatelessWidget {
 }
 
 class _OperationChip extends StatelessWidget {
-  final WasteOperation operation;
+  final TableType operation;
   final bool selected;
   final VoidCallback onTap;
 
@@ -339,13 +341,13 @@ class _OperationChip extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
-              operation.icon,
+              Icons.book,
               size: 16,
               color: selected ? Colors.white : (isDark ? AppColors.textDarkSecondary : AppColors.ink600),
             ),
             const SizedBox(width: 7),
             Text(
-              operation.label,
+              operation.name!,
               style: theme.textTheme.labelLarge?.copyWith(
                 color: selected ? Colors.white : (isDark ? AppColors.textDarkSecondary : AppColors.ink600),
               ),

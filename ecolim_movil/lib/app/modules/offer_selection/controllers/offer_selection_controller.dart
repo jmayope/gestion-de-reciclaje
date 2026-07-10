@@ -2,18 +2,19 @@ import 'package:ecolim_movil/models/waste.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class WasteTrackingController extends GetxController {
-  //TODO: Implement WasteTrackingController
+class OfferSelectionController extends GetxController {
+  //TODO: Implement OfferSelectionController
 
-  final trackings = <Waste>[].obs;
-  final onlyInProgress = true.obs;
+  final wastes = <Waste>[].obs;
+  
 
   final theme = ThemeData().obs;
   final isDark = false.obs;
+
   @override
   void onInit() {
     super.onInit();
-   initialData();
+    initialData();
   }
 
   Future<void> initialData() async {
@@ -31,8 +32,10 @@ class WasteTrackingController extends GetxController {
     super.onClose();
   }
 
-  
+  List<Waste> get withPendingOffers =>
+      wastes.where((r) => r.pendingOperationsCount! > 0).toList();
 
-  List<Waste> get filtereds =>
-      onlyInProgress.value ? trackings.where((t) => !t.status!).toList() : trackings;
+  Future<void> viewDetail(Waste waste) async {
+
+  }
 }

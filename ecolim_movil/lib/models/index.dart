@@ -1,6 +1,9 @@
+export 'process_flow.dart';
+export 'offer.dart';
 export 'table_type.dart';
 export 'plant.dart';
 export 'waste.dart';
+export 'waste_process.dart';
 import 'package:quiver/core.dart';
 
 T? checkOptional<T>(Optional<T?>? optional, T? Function()? def) {
