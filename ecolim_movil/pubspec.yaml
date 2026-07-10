@@ -37,6 +37,7 @@ dependencies:
   google_fonts: ^6.2.1
   get: ^4.7.3
   quiver: ^3.2.2
+  http: ^1.6.0
 
 dev_dependencies:
   json_to_model: ^3.2.4

@@ -1,0 +1,14 @@
+{
+  "id?": 34234234,
+  "entity_id?": 3423434,
+  "person_id?": 3423423,
+  "code?": "asdasda",
+  "username?": "asdasd",
+  "password?": "asdasd",
+  "is_principal?": false,
+  "status?": false,
+  "created_at?": "@datetime",
+  "created_by?": 3423423,
+  "updated_at?": "@datetime",
+  "updated_by?": 4234234
+}

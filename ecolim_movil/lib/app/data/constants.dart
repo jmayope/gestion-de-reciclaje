@@ -5,3 +5,7 @@ String formatDate(DateTime date) {
   ];
   return '${date.day} de ${months[date.month - 1]} de ${date.year}';
 }
+
+const String ENTITY_USERS = 'entity_users';
+const String USERS = 'users';
+const String ENTITIES = 'users';

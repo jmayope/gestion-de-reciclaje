@@ -1,8 +1,10 @@
 export 'process_flow.dart';
 export 'offer.dart';
 export 'table_type.dart';
+export 'entity_user.dart';
 export 'plant.dart';
 export 'waste.dart';
+export 'user.dart';
 export 'waste_process.dart';
 import 'package:quiver/core.dart';
 
