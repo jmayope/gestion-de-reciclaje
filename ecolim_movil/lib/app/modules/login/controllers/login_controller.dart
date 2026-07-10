@@ -24,6 +24,8 @@ class LoginController extends GetxController {
   Future<void> initialData() async {
     theme.value = Theme.of(Get.context!);
     isDark.value = theme.value.brightness == Brightness.dark;
+    username.value = TextEditingValue(text: "jorgemayo.pe@gmail.com");
+    password.value = TextEditingValue(text: "123456.@");
   }
 
   @override
