@@ -42,9 +42,9 @@ public class ReporteDAO {
                 fila[2] = rs.getString("trabajador");
                 fila[3] = rs.getInt("id_ubicacion");
                 fila[4] = rs.getString("ubicacion");
-                fila[5] = rs.getString("residuo");
+                fila[5] = rs.getString("residuo").toUpperCase();
                 fila[6] = rs.getDouble("cantidad");
-                fila[7] = rs.getString("unidad");
+                fila[7] = rs.getString("unidad").toUpperCase();
                 fila[8] = rs.getTimestamp("fecha");
                 fila[9] = rs.getString("observaciones");
                 lista.add(fila);
@@ -92,9 +92,9 @@ public class ReporteDAO {
                     fila[2] = rs.getString("trabajador");
                     fila[3] = rs.getInt("id_ubicacion");
                     fila[4] = rs.getString("ubicacion");
-                    fila[5] = rs.getString("residuo");
+                    fila[5] = rs.getString("residuo").toUpperCase();
                     fila[6] = rs.getDouble("cantidad");
-                    fila[7] = rs.getString("unidad");
+                    fila[7] = rs.getString("unidad").toUpperCase();
                     fila[8] = rs.getTimestamp("fecha");
                     fila[9] = rs.getString("observaciones");
                     lista.add(fila);
@@ -143,9 +143,9 @@ public class ReporteDAO {
                     fila[2] = rs.getString("trabajador");
                     fila[3] = rs.getInt("id_ubicacion");
                     fila[4] = rs.getString("ubicacion");
-                    fila[5] = rs.getString("residuo");
+                    fila[5] = rs.getString("residuo").toUpperCase();
                     fila[6] = rs.getDouble("cantidad");
-                    fila[7] = rs.getString("unidad");
+                    fila[7] = rs.getString("unidad").toUpperCase();
                     fila[8] = rs.getTimestamp("fecha");
                     fila[9] = rs.getString("observaciones");
                     lista.add(fila);
