@@ -27,19 +27,35 @@ class SelectPlantView extends GetView<SelectPlantController> {
                 ),
                 child: Row(
                   children: [
+                    IconButton(
+                      onPressed: () async {
+                        await controller.initialData();
+                      }, 
+                      icon: Icon(Icons.refresh)
+                    ),
                     Expanded(
                       child: OutlinedButton.icon(
                         onPressed: controller.goToPlantRegistration,
-                        icon: const Icon(Icons.add_business_outlined, size: 20),
-                        label: const Text('Nueva planta'),
+                        icon: const Icon(Icons.add_business_outlined, size: 20, color: AppColors.leaf500,),
+                        label: const Text(
+                          'Nueva planta',
+                          style: TextStyle(
+                            color: AppColors.leaf500
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      flex: 2,
-                      child: ElevatedButton(
+                      child: OutlinedButton.icon(
                         onPressed: controller.selectedId.value == null ? null : controller.continueToDashboard,
-                        child: const Text('Continuar'),
+                        icon: Icon(Icons.arrow_forward, size: 20, color: AppColors.leaf500,),
+                        label: const Text(
+                          'Continuar',
+                          style: TextStyle(
+                            color: AppColors.leaf500
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -61,8 +77,8 @@ class SelectPlantView extends GetView<SelectPlantController> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    // controller.goToPlantRegistration();
-                    Get.offAllNamed(Routes.HOME);
+                    controller.goToPlantRegistration();
+                    // Get.offAllNamed(Routes.HOME);
                   }, 
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.leaf500
@@ -81,19 +97,33 @@ class SelectPlantView extends GetView<SelectPlantController> {
 
     final container = Obx(() {
       return SafeArea(
-        child: controller.hasPlants.value
-            ? PlantListView(
-                plants: controller.filtered,
-                selectedId: controller.selectedId.value,
-                onSelect: (int id) {
-                  controller.selectedId.value = id;
-                },
-                onQueryChanged: (q) {
-                  controller.query.value = q;
-                },
-                onAddPlant: controller.goToPlantRegistration,
-              )
-            : _EmptyState(onAddPlant: controller.goToPlantRegistration),
+        child: controller.loading.value ? 
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(),
+                  Text(
+                    "Cargando Información de Plantas"
+                  )
+                ],
+              ),
+            )
+          :
+            controller.hasPlants.value
+              ? PlantListView(
+                  plants: controller.filtered,
+                  selectedId: controller.selectedId.value,
+                  onSelect: (int id) {
+                    controller.selectedId.value = id;
+                  },
+                  onQueryChanged: (q) {
+                    controller.query.value = q;
+                  },
+                  onAddPlant: controller.goToPlantRegistration,
+                )
+              : EmptyState(onAddPlant: controller.goToPlantRegistration),
       );
     });
 
@@ -158,10 +188,11 @@ class PlantListView extends StatelessWidget {
                 const SizedBox(height: 18),
                 TextField(
                   onChanged: onQueryChanged,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: 'Buscar por nombre o dirección',
                     prefixIcon: Icon(Icons.search_rounded),
                   ),
+                  
                 ),
                 const SizedBox(height: 8),
               ],
@@ -196,7 +227,7 @@ class PlantListView extends StatelessWidget {
               itemBuilder: (context, index) {
                 final plant = plants[index];
                 final isSelected = plant.id == selectedId;
-                return _PlantCard(
+                return PlantCard(
                   plant: plant,
                   isSelected: isSelected,
                   onTap: plant.status! ? () => onSelect(plant.id!) : null,
@@ -209,12 +240,12 @@ class PlantListView extends StatelessWidget {
   }
 }
 
-class _PlantCard extends StatelessWidget {
+class PlantCard extends StatelessWidget {
   final Plant plant;
   final bool isSelected;
   final VoidCallback? onTap;
 
-  const _PlantCard({
+  const PlantCard({
     required this.plant,
     required this.isSelected,
     required this.onTap,
@@ -273,8 +304,8 @@ class _PlantCard extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            plant.name!,
-                            style: theme.textTheme.titleMedium,
+                            plant.name!.toUpperCase(),
+                            style: theme.textTheme.titleSmall,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
@@ -284,8 +315,8 @@ class _PlantCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      plant.address!,
-                      style: theme.textTheme.bodyMedium,
+                      plant.address!.toUpperCase(),
+                      style: theme.textTheme.bodySmall,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -340,9 +371,9 @@ class _StatusChip extends StatelessWidget {
   }
 }
 
-class _EmptyState extends StatelessWidget {
+class EmptyState extends StatelessWidget {
   final VoidCallback onAddPlant;
-  const _EmptyState({required this.onAddPlant});
+  const EmptyState({required this.onAddPlant});
 
   @override
   Widget build(BuildContext context) {

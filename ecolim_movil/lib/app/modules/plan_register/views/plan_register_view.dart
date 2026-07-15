@@ -27,6 +27,18 @@ class PlanRegisterView extends GetView<PlanRegisterController> {
                   subtitle: 'Información básica que identifica la planta',
                 ),
                 const SizedBox(height: 16),
+                Text('CÓDIGO DE LA PLANTA', style: controller.theme.value.textTheme.labelSmall),
+                const SizedBox(height: 8),
+                TextFormField(
+                  controller: controller.code,
+                  decoration: const InputDecoration(
+                    hintText: 'Ej. PLA001, PLANTA NARANJA LIMA, P01',
+                    prefixIcon: Icon(Icons.tag),
+                  ),
+                  validator: (v) =>
+                      (v == null || v.trim().isEmpty) ? 'Ingresa el nombre de la planta' : null,
+                ),
+                const SizedBox(height: 16),
                 Text('NOMBRE DE LA PLANTA', style: controller.theme.value.textTheme.labelSmall),
                 const SizedBox(height: 8),
                 TextFormField(
@@ -38,33 +50,6 @@ class PlanRegisterView extends GetView<PlanRegisterController> {
                   validator: (v) =>
                       (v == null || v.trim().isEmpty) ? 'Ingresa el nombre de la planta' : null,
                 ),
-                const SizedBox(height: 18),
-                Text('TIPO DE PLANTA', style: controller.theme.value.textTheme.labelSmall),
-                const SizedBox(height: 8),
-                DropdownButtonFormField<Type>(
-                  initialValue: controller.plantTypeSelected.value,
-                  decoration: const InputDecoration(
-                    hintText: 'Selecciona el tipo',
-                    prefixIcon: Icon(Icons.category_outlined),
-                  ),
-                  items: controller.plantTypes
-                      .map((t) => DropdownMenuItem(value: t, child: Text(t.name!)))
-                      .toList(),
-                  onChanged: (v) {controller.plantTypeSelected.value = v!;},
-                  validator: (v) => v == null ? 'Selecciona un tipo de planta' : null,
-                ),
-                const SizedBox(height: 18),
-                Text('DESCRIPCIÓN (OPCIONAL)', style: controller.theme.value.textTheme.labelSmall),
-                const SizedBox(height: 8),
-                TextFormField(
-                  controller: controller.description,
-                  maxLines: 3,
-                  decoration: const InputDecoration(
-                    hintText: 'Notas adicionales sobre la planta',
-                    alignLabelWithHint: true,
-                  ),
-                ),
-
                 const SizedBox(height: 32),
                 const SectionHeader(
                   step: '2',
@@ -84,23 +69,6 @@ class PlanRegisterView extends GetView<PlanRegisterController> {
                   validator: (v) {
                     if (v == null || v.trim().isEmpty) return 'Ingresa un teléfono';
                     if (v.trim().length < 6) return 'Teléfono inválido';
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 18),
-                Text('CORREO ELECTRÓNICO', style: controller.theme.value.textTheme.labelSmall),
-                const SizedBox(height: 8),
-                TextFormField(
-                  controller: controller.email,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
-                    hintText: 'planta@empresa.com',
-                    prefixIcon: Icon(Icons.mail_outline_rounded),
-                  ),
-                  validator: (v) {
-                    if (v == null || v.trim().isEmpty) return 'Ingresa un correo';
-                    final ok = RegExp(r'^[\w\.\-]+@[\w\-]+\.[a-zA-Z]{2,}$').hasMatch(v.trim());
-                    if (!ok) return 'Correo inválido';
                     return null;
                   },
                 ),
@@ -209,6 +177,12 @@ class PlanRegisterView extends GetView<PlanRegisterController> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.offAllNamed(Routes.SELECT_PLANT);
+          }, 
+          icon: Icon(Icons.arrow_back)
+        ),
         title: const Text('Registro de planta'),
         centerTitle: false,
       ),

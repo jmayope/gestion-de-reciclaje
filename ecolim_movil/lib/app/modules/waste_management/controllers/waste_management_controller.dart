@@ -1,6 +1,10 @@
+import 'package:ecolim_movil/app/data/constants.dart';
+import 'package:ecolim_movil/app/data/services/preference.service.dart';
+import 'package:ecolim_movil/app/data/services/supabase.service.dart';
 import 'package:ecolim_movil/app/modules/waste_management/views/waste_management_view.dart';
 import 'package:ecolim_movil/app/routes/app_pages.dart';
 import 'package:ecolim_movil/models/table_type.dart';
+import 'package:ecolim_movil/models/user.dart';
 import 'package:ecolim_movil/models/waste.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,7 +16,9 @@ class WasteManagementController extends GetxController {
   final filter = "".obs;
   final theme = ThemeData().obs;
   final isDark = false.obs;
-  
+  final userLoged = User().obs;
+  final supabase = Get.put(SupabaseService());
+
   @override
   void onInit() {
     super.onInit();
@@ -22,6 +28,9 @@ class WasteManagementController extends GetxController {
   Future<void> initialData() async {
     theme.value = Theme.of(Get.context!);
     isDark.value = theme.value.brightness == Brightness.dark;
+    userLoged.value = await PreferenceService.getSession();
+    final resultWastes = await supabase.select(WASTES, filters: {"entity_id": userLoged.value.currentEntity!.id!});
+    wastes.value = (resultWastes as Iterable).map((w) => Waste.fromJson(w)).toList();
   }
 
   @override

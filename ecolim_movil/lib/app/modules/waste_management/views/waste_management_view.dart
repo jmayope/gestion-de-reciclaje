@@ -11,23 +11,9 @@ class WasteManagementView extends GetView<WasteManagementController> {
   const WasteManagementView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Get.offAllNamed(Routes.HOME);
-          }, 
-          icon: Icon(Icons.home)
-        ),
-        title: const Text('Administración de residuos'),
-        centerTitle: false,
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: controller.goToRegisterWaste,
-        icon: const Icon(Icons.add_rounded),
-        label: const Text('Registrar residuo'),
-      ),
-      body: SafeArea(
+
+    final container = Obx(() {
+      return SafeArea(
         child: Column(
           children: [
             Padding(
@@ -92,7 +78,32 @@ class WasteManagementView extends GetView<WasteManagementController> {
             ),
           ],
         ),
+      );
+    });
+
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.offAllNamed(Routes.HOME);
+          }, 
+          icon: Icon(Icons.home)
+        ),
+        title: const Text('Administración de residuos'),
+        centerTitle: false,
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Colors.white,
+        onPressed: controller.goToRegisterWaste,
+        icon: const Icon(Icons.add_rounded, color: AppColors.leaf500),
+        label: const Text(
+          'Registrar residuo',
+          style: TextStyle(
+            color: AppColors.leaf500
+          )
+        ),
+      ),
+      body: container,
     );
   }
 }
@@ -191,7 +202,7 @@ class WasteCard extends StatelessWidget {
             const SizedBox(height: 12),
             Row(
               children: [
-                _InfoPill(icon: Icons.scale_outlined, label: '${waste.quantity} ton'),
+                _InfoPill(icon: Icons.scale_outlined, label: '${waste.quantity} ${waste.unitMeasurement}'),
                 const SizedBox(width: 8),
                 _InfoPill(
                   icon: Icons.event_outlined,

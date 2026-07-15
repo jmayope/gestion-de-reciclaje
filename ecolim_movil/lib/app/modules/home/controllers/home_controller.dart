@@ -1,15 +1,19 @@
 import 'package:ecolim_movil/app/data/additional_models/menu_item.dart';
 import 'package:ecolim_movil/app/data/additional_models/stat_data.dart';
+import 'package:ecolim_movil/app/data/constants.dart';
+import 'package:ecolim_movil/app/data/services/preference.service.dart';
+import 'package:ecolim_movil/app/data/services/supabase.service.dart';
 import 'package:ecolim_movil/app/routes/app_pages.dart';
 import 'package:ecolim_movil/app/theme/app_colors.dart';
+import 'package:ecolim_movil/models/user.dart';
+import 'package:ecolim_movil/models/waste.dart';
 import 'package:flutter/material.dart';
 import 'package:ecolim_movil/models/table_type.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
 
-  final count = 0.obs;
+  
   final initials = 'JM'.obs;
   final username = 'lookmmm'.obs;
   final companyName = 'Pepito SAC'.obs;
@@ -20,6 +24,15 @@ class HomeController extends GetxController {
   final isDark = false.obs;
   final isGenerator = false.obs;
 
+  final userLoged = User().obs;
+  final allWastes = <Waste>[].obs;
+  final registereds = int.parse("0").obs;
+  final publisheds = int.parse("0").obs;
+  final offerByReview = int.parse("0").obs;
+  final initialStats = <StatData>[].obs;
+
+  final supabase = Get.put(SupabaseService());
+
   @override
   void onInit() {
     super.onInit();
@@ -27,9 +40,29 @@ class HomeController extends GetxController {
   }
 
   Future<void> initialData() async {
+    userLoged.value = await PreferenceService.getSession();
+    final resultCompanyTypes = await supabase.select(TYPES, filters: {"category": "TIPO_ENTIDAD"});
+    List<TableType> companyTypes = (resultCompanyTypes as Iterable).map((ct) => TableType.fromJson(ct)).toList();
+
+    final resultWastes = await supabase.select(WASTES, filters: {"entity_id": userLoged.value.currentEntity!.id!});
+    allWastes.value = (resultWastes as Iterable).map((w) => Waste.fromJson(w)).toList();
+    
+    registereds.value = allWastes.where((w) => w.state == "R").toList().length;
+    publisheds.value = allWastes.where((w) => w.state == "P").toList().length;
+    
+    initialStats.value = [
+      StatData(label: "Registrados", value: registereds.value.toString(), icon: Icons.inventory_2_outlined),
+      StatData(label: 'Publicados', value: publisheds.value.toString(), icon: Icons.campaign_outlined),
+      StatData(label: 'Ofertas por revisar', value: '3', icon: Icons.local_offer_outlined),
+    ];
+
+    initials.value = userLoged.value.username!.substring(0,2).toUpperCase();
+    username.value = userLoged.value.username!;
+    companyName.value = userLoged.value.currentEntity!.name!.toUpperCase();
+    plantName.value = userLoged.value.currentPlant!.name!.toUpperCase();
     theme.value =  Theme.of(Get.context!);
     isDark.value = theme.value.brightness == Brightness.dark;
-    companyType.value = TableType(code: "O");
+    companyType.value = companyTypes.singleWhere((ct) => ct.code! == userLoged.value.currentEntity!.type!);
     isGenerator.value = companyType.value.code == "G";
   }
 
@@ -45,15 +78,11 @@ class HomeController extends GetxController {
 
   List<StatData> get stats {
     if (companyType.value.code == "G") {
-      return const [
-        StatData(label: 'Registrados', value: '18', icon: Icons.inventory_2_outlined),
-        StatData(label: 'Publicados', value: '5', icon: Icons.campaign_outlined),
-        StatData(label: 'Ofertas por revisar', value: '3', icon: Icons.local_offer_outlined),
-      ];
+      return initialStats;
     }
     return const [
-      StatData(label: 'Ofertas activas', value: '7', icon: Icons.local_offer_outlined),
-      StatData(label: 'En seguimiento', value: '4', icon: Icons.timeline_outlined),
+      StatData(label: 'Ofertas activas', value: '0', icon: Icons.local_offer_outlined),
+      StatData(label: 'En seguimiento', value: '0', icon: Icons.timeline_outlined),
       StatData(label: 'Completados', value: '12', icon: Icons.task_alt_outlined),
     ];
   }
@@ -130,5 +159,4 @@ class HomeController extends GetxController {
     ];
   }
 
-  void increment() => count.value++;
 }

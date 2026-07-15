@@ -15,6 +15,10 @@ class User {
     this.password,
     this.isPrincipal,
     this.status,
+    this.token,
+    this.entities,
+    this.currentEntity,
+    this.currentPlant,
     this.createdAt,
     this.createdBy,
     this.updatedAt,
@@ -29,6 +33,10 @@ class User {
   final String? password;
   final bool? isPrincipal;
   final bool? status;
+  final String? token;
+  final List<Entity>? entities;
+  final Entity? currentEntity;
+  final Plant? currentPlant;
   final DateTime? createdAt;
   final int? createdBy;
   final DateTime? updatedAt;
@@ -43,6 +51,10 @@ class User {
     password: json['password']?.toString(),
     isPrincipal: json['is_principal'] != null ? json['is_principal'] as bool : null,
     status: json['status'] != null ? json['status'] as bool : null,
+    token: json['token']?.toString(),
+    entities: json['entities'] != null ? (json['entities'] as List? ?? []).map((e) => Entity.fromJson(e as Map<String, dynamic>)).toList() : null,
+    currentEntity: json['current_entity'] != null ? Entity.fromJson(json['current_entity'] as Map<String, dynamic>) : null,
+    currentPlant: json['current_plant'] != null ? Plant.fromJson(json['current_plant'] as Map<String, dynamic>) : null,
     createdAt: json['created_at'] != null ? DateTime.parse(json['created_at'] as String) : null,
     createdBy: json['created_by'] != null ? json['created_by'] as int : null,
     updatedAt: json['updated_at'] != null ? DateTime.parse(json['updated_at'] as String) : null,
@@ -58,6 +70,10 @@ class User {
     'password': password,
     'is_principal': isPrincipal,
     'status': status,
+    'token': token,
+    'entities': entities?.map((e) => e.toJson()).toList(),
+    'current_entity': currentEntity?.toJson(),
+    'current_plant': currentPlant?.toJson(),
     'created_at': createdAt?.toIso8601String(),
     'created_by': createdBy,
     'updated_at': updatedAt?.toIso8601String(),
@@ -73,6 +89,10 @@ class User {
     password: password,
     isPrincipal: isPrincipal,
     status: status,
+    token: token,
+    entities: entities?.map((e) => e.clone()).toList(),
+    currentEntity: currentEntity?.clone(),
+    currentPlant: currentPlant?.clone(),
     createdAt: createdAt,
     createdBy: createdBy,
     updatedAt: updatedAt,
@@ -89,6 +109,10 @@ class User {
     Optional<String?>? password,
     Optional<bool?>? isPrincipal,
     Optional<bool?>? status,
+    Optional<String?>? token,
+    Optional<List<Entity>?>? entities,
+    Optional<Entity?>? currentEntity,
+    Optional<Plant?>? currentPlant,
     Optional<DateTime?>? createdAt,
     Optional<int?>? createdBy,
     Optional<DateTime?>? updatedAt,
@@ -102,6 +126,10 @@ class User {
     password: checkOptional(password, () => this.password),
     isPrincipal: checkOptional(isPrincipal, () => this.isPrincipal),
     status: checkOptional(status, () => this.status),
+    token: checkOptional(token, () => this.token),
+    entities: checkOptional(entities, () => this.entities),
+    currentEntity: checkOptional(currentEntity, () => this.currentEntity),
+    currentPlant: checkOptional(currentPlant, () => this.currentPlant),
     createdAt: checkOptional(createdAt, () => this.createdAt),
     createdBy: checkOptional(createdBy, () => this.createdBy),
     updatedAt: checkOptional(updatedAt, () => this.updatedAt),
@@ -110,8 +138,8 @@ class User {
 
   @override
   bool operator ==(Object other) => identical(this, other)
-    || other is User && id == other.id && entityId == other.entityId && personId == other.personId && code == other.code && username == other.username && password == other.password && isPrincipal == other.isPrincipal && status == other.status && createdAt == other.createdAt && createdBy == other.createdBy && updatedAt == other.updatedAt && updatedBy == other.updatedBy;
+    || other is User && id == other.id && entityId == other.entityId && personId == other.personId && code == other.code && username == other.username && password == other.password && isPrincipal == other.isPrincipal && status == other.status && token == other.token && entities == other.entities && currentEntity == other.currentEntity && currentPlant == other.currentPlant && createdAt == other.createdAt && createdBy == other.createdBy && updatedAt == other.updatedAt && updatedBy == other.updatedBy;
 
   @override
-  int get hashCode => id.hashCode ^ entityId.hashCode ^ personId.hashCode ^ code.hashCode ^ username.hashCode ^ password.hashCode ^ isPrincipal.hashCode ^ status.hashCode ^ createdAt.hashCode ^ createdBy.hashCode ^ updatedAt.hashCode ^ updatedBy.hashCode;
+  int get hashCode => id.hashCode ^ entityId.hashCode ^ personId.hashCode ^ code.hashCode ^ username.hashCode ^ password.hashCode ^ isPrincipal.hashCode ^ status.hashCode ^ token.hashCode ^ entities.hashCode ^ currentEntity.hashCode ^ currentPlant.hashCode ^ createdAt.hashCode ^ createdBy.hashCode ^ updatedAt.hashCode ^ updatedBy.hashCode;
 }

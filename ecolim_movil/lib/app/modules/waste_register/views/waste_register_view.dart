@@ -12,18 +12,9 @@ class WasteRegisterView extends GetView<WasteRegisterController> {
   const WasteRegisterView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Get.offAllNamed(Routes.WASTE_MANAGEMENT);
-          }, 
-          icon: Icon(Icons.arrow_back)
-        ),
-        title: Text(controller.isEditing.value ? 'Editar residuo' : 'Registrar residuo'),
-        centerTitle: false,
-      ),
-      body: SafeArea(
+
+    final container = Obx(() {
+      return SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
@@ -41,21 +32,36 @@ class WasteRegisterView extends GetView<WasteRegisterController> {
                     prefixIcon: Icon(Icons.category_outlined),
                   ),
                   items: controller.wasteTypes
-                      .map((t) => DropdownMenuItem(value: t, child: Text(t.name!)))
+                      .map((t) => DropdownMenuItem(value: t, child: Text(t.name!.toUpperCase())))
                       .toList(),
                   onChanged: (v) { controller.wasteTypeSelected.value = v!;},
                   validator: (v) => v == null ? 'Selecciona un tipo de residuo' : null,
                 ),
                 const SizedBox(height: 18),
-                Text('CANTIDAD (TONELADAS)', style: controller.theme.value.textTheme.labelSmall),
+                Text('UNIDAD DE MEDIDA', style: controller.theme.value.textTheme.labelSmall),
+                const SizedBox(height: 8),
+                DropdownButtonFormField<TableType>(
+                  initialValue: controller.unitMeasurementSelected.value,
+                  decoration: const InputDecoration(
+                    hintText: 'Selecciona la Unidad',
+                    prefixIcon: Icon(Icons.numbers),
+                  ),
+                  items: controller.unitMeasurements
+                      .map((t) => DropdownMenuItem(value: t, child: Text(t.name!.toUpperCase())))
+                      .toList(),
+                  onChanged: (v) { controller.unitMeasurementSelected.value = v!;},
+                  validator: (v) => v == null ? 'Selecciona una Unidad de Medida' : null,
+                ),
+                const SizedBox(height: 18),
+                Text('CANTIDAD (${controller.unitMeasurementSelected.value.name!.toUpperCase()})', style: controller.theme.value.textTheme.labelSmall),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: controller.quantity,
                   keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: 'Ej. 2.5',
                     prefixIcon: Icon(Icons.scale_outlined),
-                    suffixText: 'ton',
+                    suffixText: controller.unitMeasurementSelected.value.code!.toUpperCase(),
                   ),
                   validator: (v) {
                     if (v == null || v.trim().isEmpty) return 'Ingresa la cantidad';
@@ -83,9 +89,9 @@ class WasteRegisterView extends GetView<WasteRegisterController> {
                   ),
                 ),
 
-                const SizedBox(height: 26),
-                Text('CATEGORÍA', style: controller.theme.value.textTheme.labelSmall),
-                const SizedBox(height: 8),
+                // const SizedBox(height: 26),
+                // Text('CATEGORÍA', style: controller.theme.value.textTheme.labelSmall),
+                // const SizedBox(height: 8),
                 // Row(
                 //   children: [
                 //     Expanded(
@@ -209,20 +215,8 @@ class WasteRegisterView extends GetView<WasteRegisterController> {
                   }).toList(),
                 ),
 
-                const SizedBox(height: 26),
-                Text('OBSERVACIÓN (OPCIONAL)', style: controller.theme.value.textTheme.labelSmall),
-                const SizedBox(height: 8),
-                TextFormField(
-                  controller: controller.observation,
-                  maxLines: 4,
-                  decoration: const InputDecoration(
-                    hintText: 'Detalles adicionales sobre este residuo',
-                    alignLabelWithHint: true,
-                  ),
-                ),
-
                 const SizedBox(height: 28),
-                ElevatedButton(
+                OutlinedButton(
                   onPressed: controller.loading.value ? null : controller.handleSubmit,
                   child: controller.loading.value
                       ? const SizedBox(
@@ -233,18 +227,42 @@ class WasteRegisterView extends GetView<WasteRegisterController> {
                             valueColor: AlwaysStoppedAnimation(Colors.white),
                           ),
                         )
-                      : Text(controller.isEditing.value ? 'Guardar cambios' : 'Registrar residuo'),
+                      : Text(
+                          controller.isEditing.value ? 'Guardar cambios' : 'Registrar residuo',
+                          style: TextStyle(
+                            color: AppColors.leaf500
+                          ),
+                        ),
                 ),
                 const SizedBox(height: 10),
                 OutlinedButton(
                   onPressed: controller.loading.value ? null : () => Navigator.of(context).pop(),
-                  child: const Text('Cancelar'),
+                  child: const Text(
+                    'Cancelar',
+                    style: TextStyle(
+                      color: AppColors.hazard
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
         ),
+      );
+    });
+
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.offAllNamed(Routes.WASTE_MANAGEMENT);
+          }, 
+          icon: Icon(Icons.arrow_back)
+        ),
+        title: Text(controller.isEditing.value ? 'Editar residuo' : 'Registrar residuo'),
+        centerTitle: false,
       ),
+      body: container,
     );
     
   }

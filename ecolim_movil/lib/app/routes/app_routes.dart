@@ -21,6 +21,7 @@ abstract class Routes {
   static const OFFER_SELECTION = _Paths.OFFER_SELECTION;
   static const OFFER_SELECTION_DETAIL = _Paths.OFFER_SELECTION_DETAIL;
   static const WASTE_TRACKING_DETAIL = _Paths.WASTE_TRACKING_DETAIL;
+  static const SELECT_ENTITY = _Paths.SELECT_ENTITY;
 }
 
 abstract class _Paths {
@@ -43,4 +44,5 @@ abstract class _Paths {
   static const OFFER_SELECTION = '/offer-selection';
   static const OFFER_SELECTION_DETAIL = '/offer-selection-detail';
   static const WASTE_TRACKING_DETAIL = '/waste-tracking-detail';
+  static const SELECT_ENTITY = '/select-entity';
 }

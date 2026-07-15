@@ -22,6 +22,8 @@ import '../modules/requirement_register/bindings/requirement_register_binding.da
 import '../modules/requirement_register/views/requirement_register_view.dart';
 import '../modules/responsible_legal_register/bindings/responsible_legal_register_binding.dart';
 import '../modules/responsible_legal_register/views/responsible_legal_register_view.dart';
+import '../modules/select_entity/bindings/select_entity_binding.dart';
+import '../modules/select_entity/views/select_entity_view.dart';
 import '../modules/select_plant/bindings/select_plant_binding.dart';
 import '../modules/select_plant/views/select_plant_view.dart';
 import '../modules/waste_management/bindings/waste_management_binding.dart';
@@ -134,6 +136,11 @@ class AppPages {
       name: _Paths.WASTE_TRACKING_DETAIL,
       page: () => const WasteTrackingDetailView(),
       binding: WasteTrackingDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.SELECT_ENTITY,
+      page: () => const SelectEntityView(),
+      binding: SelectEntityBinding(),
     ),
   ];
 }

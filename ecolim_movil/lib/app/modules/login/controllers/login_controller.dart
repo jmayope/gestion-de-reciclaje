@@ -1,12 +1,15 @@
 import 'dart:math';
 
 import 'package:ecolim_movil/app/data/constants.dart';
+import 'package:ecolim_movil/app/data/services/preference.service.dart';
 import 'package:ecolim_movil/app/data/services/supabase.service.dart';
 import 'package:ecolim_movil/app/routes/app_pages.dart';
+import 'package:ecolim_movil/models/entity.dart';
 import 'package:ecolim_movil/models/entity_user.dart';
 import 'package:ecolim_movil/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quiver/core.dart';
 
 class LoginController extends GetxController {
   //TODO: Implement LoginController
@@ -31,10 +34,11 @@ class LoginController extends GetxController {
   }
 
   Future<void> initialData() async {
+    
     theme.value = Theme.of(Get.context!);
     isDark.value = theme.value.brightness == Brightness.dark;
-    username.value = TextEditingValue(text: "jorgemayo.pe@gmail.com");
-    password.value = TextEditingValue(text: "123456.@");
+    username.value = TextEditingValue(text: "mrosalesm");
+    password.value = TextEditingValue(text: "123456");
   }
 
   @override
@@ -79,26 +83,34 @@ class LoginController extends GetxController {
         );
         return;
       }
-
-      List<EntityUser> entityUsers = resultEntityUsers.map((r) => EntityUser.fromJson(r)).toList();
-
-      final entities = await supabase.select(ENTITIES, filters: {"id": entityUsers.first.entityId! });
-      print(entities);
-      
-      return;
-      
-      if (resultEntityUsers.isEmpty) {
-      } else {
-        print("Ir a selecionar entidad");
+      print(resultEntityUsers);
+      List<EntityUser> entityUsers = (resultEntityUsers as Iterable).map((r) => EntityUser.fromJson(r)).toList();
+      print(entityUsers.first.entityId!);
+      final resultEntities = await supabase.select(ENTITIES, filters: {"id": entityUsers.first.entityId! });
+      print(resultEntities);
+      if (resultEntities.isEmpty) {
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+          const SnackBar(content: Text('No tienes entidades asignadas.')),
+        );
         return;
       }
+      List<Entity> entities = (resultEntities as Iterable).map((e) => Entity.fromJson(e)).toList();
 
-
-
-      print(resultEntityUsers);
-
+      userLoged.value = userLoged.value.copyWith(entities: Optional.of(entities));
+      if (userLoged.value.entities!.length == 1) {
+        userLoged.value = userLoged.value.copyWith(currentEntity: Optional.of(userLoged.value.entities!.first));
+        bool saved = await PreferenceService.setSession(userLoged.value);
+        if (userLoged.value.currentEntity!.type == "G") {
+          Get.offAllNamed(Routes.SELECT_PLANT);
+        } else {
+          Get.offAllNamed(Routes.HOME);
+        }
+      } else {
+        bool saved = await PreferenceService.setSession(userLoged.value);
+        Get.offAllNamed(Routes.SELECT_ENTITY);
+      }
     } catch (e) {
-      print("Error al momento de traer los usuarios por condición + $e");
+      print("$e");
     } finally {
       logging.value = false;
     }

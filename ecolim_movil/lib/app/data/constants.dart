@@ -6,6 +6,19 @@ String formatDate(DateTime date) {
   return '${date.day} de ${months[date.month - 1]} de ${date.year}';
 }
 
+String formatDateToYYYYMMDD(DateTime date) {
+  return date.toIso8601String().split('T')[0];
+}
+
+String formatDateToISOWithTimezone(DateTime date) {
+  return date.toIso8601String();
+}
+
+const String TOKEN_NAME = "ecolim_token";
+
 const String ENTITY_USERS = 'entity_users';
 const String USERS = 'users';
-const String ENTITIES = 'users';
+const String ENTITIES = 'entities';
+const String PLANTS = 'plants';
+const String TYPES = 'types';
+const String WASTES = 'wastes';

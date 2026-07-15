@@ -5,6 +5,7 @@ export 'entity_user.dart';
 export 'plant.dart';
 export 'waste.dart';
 export 'user.dart';
+export 'entity.dart';
 export 'waste_process.dart';
 import 'package:quiver/core.dart';
 

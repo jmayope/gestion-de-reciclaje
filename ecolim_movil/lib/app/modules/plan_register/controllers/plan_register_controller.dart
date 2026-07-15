@@ -1,4 +1,8 @@
+import 'package:ecolim_movil/app/data/constants.dart';
+import 'package:ecolim_movil/app/data/services/preference.service.dart';
+import 'package:ecolim_movil/app/data/services/supabase.service.dart';
 import 'package:ecolim_movil/app/routes/app_pages.dart';
+import 'package:ecolim_movil/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../models/type.dart';
@@ -10,18 +14,16 @@ class PlanRegisterController extends GetxController {
   final theme = ThemeData().obs;
   final isDark = false.obs;
 
+  final code = TextEditingController();
   final name = TextEditingController();
-  final description = TextEditingController();
   final phone = TextEditingController();
-  final email = TextEditingController();
   final address = TextEditingController();
   final latitude = TextEditingController();
   final longitude = TextEditingController();
-
-  final plantTypeSelected = Type().obs;
-  final plantTypes = <Type>[].obs;
   final locationPicked = false.obs;
   final loading = false.obs;
+  final userLoged = User().obs;
+  final supabase = Get.put(SupabaseService());
 
   @override
   void onInit() {
@@ -30,6 +32,7 @@ class PlanRegisterController extends GetxController {
   }
 
   Future<void> initialData() async {
+    userLoged.value = await PreferenceService.getSession();
     theme.value =  Theme.of(Get.context!);
     isDark.value = theme.value.brightness == Brightness.dark;
   }
@@ -66,11 +69,23 @@ class PlanRegisterController extends GetxController {
       return;
     }
     loading.value = true;
-    
 
-    // TODO: enviar datos al backend y regresar a Selección de Planta con
-    // la nueva planta ya disponible / preseleccionada.
-    await Future.delayed(const Duration(milliseconds: 3200));
+    final newPlant = {
+      "code": code.value.text,
+      "name": name.value.text,
+      "address": address.value.text,
+      "phone": phone.value.text,
+      "latitude": latitude.value.text,
+      "longitude": longitude.value.text,
+      "entity_id": userLoged.value.currentEntity!.id!,
+      "status": false
+    };
+
+    final resultPlants = await supabase.insert(PLANTS, newPlant);
+    ScaffoldMessenger.of(Get.context!).showSnackBar(
+      const SnackBar(content: Text('Planta creada correctamente')),
+    );
+    await Future.delayed(const Duration(milliseconds: 2200));
 
     loading.value = false;
 

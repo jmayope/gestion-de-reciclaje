@@ -1,0 +1,14 @@
+{ 
+  "id?": 3,
+  "code?": "20165421153",
+  "name?": "InRe",
+  "address?": "Jr.La libertad s / n - El callao, ",
+  "phone?": "+51951257654, ",
+  "type?": "G",
+  "status?": true,
+  "created_at?": "@datetime",
+  "created_by?": 34232,
+  "updated_at?": "@datetime",
+  "updated_by?": 322423,
+  "email?": "null "
+}
