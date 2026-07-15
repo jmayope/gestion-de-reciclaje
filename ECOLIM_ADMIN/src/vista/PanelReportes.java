@@ -12,6 +12,8 @@ import java.awt.*;
 import java.io.FileOutputStream;
 import java.sql.Timestamp;
 import java.util.List;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 public class PanelReportes extends JPanel {
 
@@ -29,53 +31,104 @@ public class PanelReportes extends JPanel {
     }
 
     private void initComponents() {
-        setLayout(new BorderLayout(10, 10));
-        setBackground(new Color(245, 245, 245));
+        setLayout(new BorderLayout());
+        setBackground(new Color(245, 247, 250));
 
-        JLabel titulo = new JLabel("Reportes de Reciclaje", SwingConstants.CENTER);
-        titulo.setFont(new Font("Segoe UI", Font.BOLD, 28));
-        titulo.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
-        add(titulo, BorderLayout.NORTH);
+        JPanel panelPrincipal = new JPanel(new BorderLayout());
+        panelPrincipal.setBackground(new Color(245, 247, 247));
+        panelPrincipal.setBorder(new EmptyBorder(20, 20, 20, 20));
+        add(panelPrincipal, BorderLayout.CENTER);
 
-        JPanel panelSuperior = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        panelSuperior.setBackground(new Color(245, 245, 245));
+        // ── Panel superior (TÍTULO + CONTROLES) ─────────────────────────────
+        JPanel panelSuperior = new JPanel();
+        panelSuperior.setLayout(new BoxLayout(panelSuperior, BoxLayout.Y_AXIS));
+        panelSuperior.setBackground(new Color(245, 247, 247));
+
+        JLabel titulo = new JLabel("Reportes de Reciclaje");
+        titulo.setFont(new Font("Segoe UI", Font.BOLD, 30));
+        titulo.setForeground(new Color(30, 30, 30));
+
+        JLabel subtitulo = new JLabel("Generación y filtrado de reportes");
+        subtitulo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        subtitulo.setForeground(Color.GRAY);
+
+        panelSuperior.add(titulo);
+        panelSuperior.add(Box.createVerticalStrut(4));
+        panelSuperior.add(subtitulo);
+        panelSuperior.add(Box.createVerticalStrut(16));
+
+        // ── Panel filtros ────────────────────────────────────────────────────
+        JPanel panelFiltros = new JPanel(new FlowLayout(FlowLayout.LEFT, 12, 0));
+        panelFiltros.setBackground(new Color(245, 247, 247));
 
         cbUsuarios = new JComboBox<>();
         cbUbicaciones = new JComboBox<>();
 
-        JButton btnMostrarTodo = new JButton("Mostrar todo");
-        JButton btnFiltrarUsuario = new JButton("Filtrar por usuario");
-        JButton btnFiltrarUbicacion = new JButton("Filtrar por ubicación");
-        JButton btnExcelUsuario = new JButton("Excel por usuario");
-        JButton btnExcelUbicacion = new JButton("Excel por ubicación");
+        cbUsuarios.setPreferredSize(new Dimension(200, 38));
+        cbUbicaciones.setPreferredSize(new Dimension(200, 38));
 
-        panelSuperior.add(new JLabel("Usuario:"));
-        panelSuperior.add(cbUsuarios);
-        panelSuperior.add(btnFiltrarUsuario);
-        panelSuperior.add(btnExcelUsuario);
+        cbUsuarios.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        cbUbicaciones.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
-        panelSuperior.add(new JLabel("Ubicación:"));
-        panelSuperior.add(cbUbicaciones);
-        panelSuperior.add(btnFiltrarUbicacion);
-        panelSuperior.add(btnExcelUbicacion);
+        JButton btnMostrarTodo       = crearBoton("Mostrar todo", new Color(97, 97, 97));
+        JButton btnFiltrarUsuario    = crearBoton("Filtrar usuario", new Color(25, 118, 210));
+        JButton btnFiltrarUbicacion  = crearBoton("Filtrar ubicación", new Color(25, 118, 210));
+        JButton btnExcelUsuario      = crearBoton("Excel usuario", new Color(46, 125, 50));
+        JButton btnExcelUbicacion    = crearBoton("Excel ubicación", new Color(46, 125, 50));
 
-        panelSuperior.add(btnMostrarTodo);
+        panelFiltros.add(new JLabel("Usuario:"));
+        panelFiltros.add(cbUsuarios);
+        panelFiltros.add(btnFiltrarUsuario);
+        panelFiltros.add(btnExcelUsuario);
 
-        add(panelSuperior, BorderLayout.SOUTH);
+        panelFiltros.add(new JLabel("Ubicación:"));
+        panelFiltros.add(cbUbicaciones);
+        panelFiltros.add(btnFiltrarUbicacion);
+        panelFiltros.add(btnExcelUbicacion);
 
+        panelFiltros.add(btnMostrarTodo);
+
+        panelSuperior.add(panelFiltros);
+        panelPrincipal.add(panelSuperior, BorderLayout.NORTH);
+
+        // ── TABLA ────────────────────────────────────────────────────────────
         modelo = new DefaultTableModel(
-                new Object[]{"ID Registro", "ID Usuario", "Trabajador", "ID Ubicación", "Ubicación", "Residuo", "Cantidad", "Unidad", "Fecha", "Observaciones"}, 0
+                new Object[]{
+                    "ID Registro", "ID Usuario", "Trabajador",
+                    "ID Ubicación", "Ubicación", "Residuo",
+                    "Cantidad", "Unidad", "Fecha", "Observaciones"
+                }, 0
         ) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
+            @Override public boolean isCellEditable(int r, int c) { return false; }
         };
 
         tabla = new JTable(modelo);
-        tabla.setRowHeight(24);
-        add(new JScrollPane(tabla), BorderLayout.CENTER);
+        tabla.setRowHeight(36);
+        tabla.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        tabla.setGridColor(new Color(235, 235, 235));
+        tabla.setShowVerticalLines(false);
+        tabla.setSelectionBackground(new Color(52, 120, 246));
+        tabla.setSelectionForeground(Color.WHITE);
 
+        tabla.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 13));
+        tabla.getTableHeader().setBackground(new Color(18, 33, 61));
+        tabla.getTableHeader().setForeground(Color.WHITE);
+        tabla.getTableHeader().setReorderingAllowed(false);
+
+        JScrollPane scroll = new JScrollPane(tabla);
+        scroll.setBorder(BorderFactory.createEmptyBorder());
+
+        JPanel cardTabla = new JPanel(new BorderLayout());
+        cardTabla.setBackground(Color.WHITE);
+        cardTabla.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(new Color(225, 225, 225), 1, true),
+                new EmptyBorder(15, 15, 15, 15)
+        ));
+        cardTabla.add(scroll, BorderLayout.CENTER);
+
+        panelPrincipal.add(cardTabla, BorderLayout.CENTER);
+
+        // ── Eventos ──────────────────────────────────────────────────────────
         btnMostrarTodo.addActionListener(e -> cargarReporteGeneral());
         btnFiltrarUsuario.addActionListener(e -> filtrarPorUsuario());
         btnFiltrarUbicacion.addActionListener(e -> filtrarPorUbicacion());
@@ -263,5 +316,21 @@ public class PanelReportes extends JPanel {
         public String toString() {
             return texto;
         }
+    }
+    
+    // ════════════════════════════════════════════════════════════════════════
+    //  UTIL
+    // ════════════════════════════════════════════════════════════════════════
+
+    private JButton crearBoton(String texto, Color color) {
+        JButton btn = new JButton(texto);
+        btn.setPreferredSize(new Dimension(130, 40));
+        btn.setBackground(color);
+        btn.setForeground(Color.WHITE);
+        btn.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btn.setFocusPainted(false);
+        btn.setBorderPainted(false);
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        return btn;
     }
 }

@@ -7,6 +7,8 @@ public class User {
     private long id;
     private Long entityId;
     private Long personId;
+    private String entityName;
+    private String personName;
     private String code;
     private String username;
     private String password;
@@ -20,15 +22,12 @@ public class User {
     public User() {
     }
 
-    public User(long id, Long entityId, Long personId, String code,
-                String username, String password,
-                boolean isPrincipal, boolean status,
-                OffsetDateTime createdAt, Long createdBy,
-                OffsetDateTime updatedAt, Long updatedBy) {
-
+    public User(long id, Long entityId, Long personId, String entityName, String personName, String code, String username, String password, boolean isPrincipal, boolean status, OffsetDateTime createdAt, Long createdBy, OffsetDateTime updatedAt, Long updatedBy) {
         this.id = id;
         this.entityId = entityId;
         this.personId = personId;
+        this.entityName = entityName;
+        this.personName = personName;
         this.code = code;
         this.username = username;
         this.password = password;
@@ -64,6 +63,22 @@ public class User {
         this.personId = personId;
     }
 
+    public String getEntityName() {
+        return entityName;
+    }
+
+    public void setEntityName(String entityName) {
+        this.entityName = entityName;
+    }
+
+    public String getPersonName() {
+        return personName;
+    }
+
+    public void setPersonName(String personName) {
+        this.personName = personName;
+    }
+
     public String getCode() {
         return code;
     }
@@ -88,12 +103,12 @@ public class User {
         this.password = password;
     }
 
-    public boolean isPrincipal() {
+    public boolean isIsPrincipal() {
         return isPrincipal;
     }
 
-    public void setPrincipal(boolean principal) {
-        isPrincipal = principal;
+    public void setIsPrincipal(boolean isPrincipal) {
+        this.isPrincipal = isPrincipal;
     }
 
     public boolean isStatus() {

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/main/ECOLIM_ADMIN.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/vista/LoginAdmin.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/vista/MenuPrincipal.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/vista/PanelDevices.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/vista/PanelEntities.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/vista/PanelUsuarios.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/vista/PanelUsers.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/vista/PanelPeople.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/vista/PanelPlantas.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/vista/PanelTypes.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/vista/PanelEstadisticas.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/vista/PanelProcessFlows.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/vista/PanelRegistros.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/vista/PanelReportes.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/vista/PanelRoles.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/estructura/CacheRegistros.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/dao/ReporteDAO.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/dao/WasteDAO.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/dao/RegistroDAO.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/modelo/RegistroRecoleccion.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/modelo/Waste.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/vista/PanelResiduos.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/modelo/People.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/dao/UserDAO.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/modelo/User.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/modelo/Type.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/modelo/Usuario.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/util/EmailSender.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/modelo/Role.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/dao/RoleDAO.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/dao/EntityUserDAO.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/ECOLIM_ADMIN/src/dao/UserRoleDAO.java</file>
+        </group>
+    </open-files>
+</project-private>

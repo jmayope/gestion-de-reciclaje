@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package vista;
 
 import dao.PlantaDAO;
@@ -14,6 +10,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.math.BigDecimal;
 import java.util.List;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 public class PanelPlantas extends JPanel {
 
@@ -31,30 +29,51 @@ public class PanelPlantas extends JPanel {
     private void initComponents() {
 
         setLayout(new BorderLayout());
-        setBackground(new Color(245, 245, 245));
+        setBackground(new Color(245, 247, 250));
 
-        JPanel panelSuperior = new JPanel(new BorderLayout());
-        panelSuperior.setBackground(new Color(245, 245, 245));
+        JPanel panelPrincipal = new JPanel(new BorderLayout());
+        panelPrincipal.setBackground(new Color(245, 247, 250));
+        panelPrincipal.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        JLabel titulo = new JLabel("Gestión de Plantas", SwingConstants.CENTER);
-        titulo.setFont(new Font("Segoe UI", Font.BOLD, 28));
-        titulo.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
+        add(panelPrincipal, BorderLayout.CENTER);
 
-        panelSuperior.add(titulo, BorderLayout.NORTH);
+        // ── Panel superior ───────────────────────────────────────────────
+        JPanel panelSuperior = new JPanel();
+        panelSuperior.setLayout(new BoxLayout(panelSuperior, BoxLayout.Y_AXIS));
+        panelSuperior.setBackground(new Color(245, 247, 250));
 
-        JPanel panelBusqueda = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        panelBusqueda.setBackground(new Color(245, 245, 245));
+        JLabel titulo = new JLabel("Gestión de Plantas");
+        titulo.setFont(new Font("Segoe UI", Font.BOLD, 30));
+        titulo.setForeground(new Color(30, 30, 30));
+
+        JLabel subtitulo = new JLabel("Administración de plantas de reciclaje");
+        subtitulo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        subtitulo.setForeground(Color.GRAY);
+
+        panelSuperior.add(titulo);
+        panelSuperior.add(Box.createVerticalStrut(4));
+        panelSuperior.add(subtitulo);
+        panelSuperior.add(Box.createVerticalStrut(16));
+
+        // ── Barra de búsqueda ────────────────────────────────────────────
+        JPanel panelBusqueda = new JPanel(new FlowLayout(FlowLayout.LEFT, 12, 0));
+        panelBusqueda.setBackground(new Color(245, 247, 250));
 
         JLabel lblBuscar = new JLabel("Buscar:");
-        txtBuscar = new JTextField(25);
+        lblBuscar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+
+        txtBuscar = new JTextField();
+        txtBuscar.setPreferredSize(new Dimension(300, 38));
+        txtBuscar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
         panelBusqueda.add(lblBuscar);
         panelBusqueda.add(txtBuscar);
 
-        panelSuperior.add(panelBusqueda, BorderLayout.SOUTH);
+        panelSuperior.add(panelBusqueda);
 
-        add(panelSuperior, BorderLayout.NORTH);
+        panelPrincipal.add(panelSuperior, BorderLayout.NORTH);
 
+        // ── Modelo de tabla ──────────────────────────────────────────────
         modelo = new DefaultTableModel(
                 new Object[]{
                         "ID",
@@ -65,23 +84,52 @@ public class PanelPlantas extends JPanel {
                         "Latitud",
                         "Longitud",
                         "Estado"
-                }, 0
-        ) {
+                }, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
 
+        // ── Tabla ────────────────────────────────────────────────────────
         tabla = new JTable(modelo);
 
-        add(new JScrollPane(tabla), BorderLayout.CENTER);
+        tabla.setRowHeight(36);
+        tabla.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        tabla.setGridColor(new Color(235, 235, 235));
+        tabla.setShowVerticalLines(false);
 
-        JPanel panelBotones = new JPanel();
+        tabla.setSelectionBackground(new Color(52, 120, 246));
+        tabla.setSelectionForeground(Color.WHITE);
 
-        JButton btnAgregar = new JButton("Agregar");
-        JButton btnModificar = new JButton("Modificar");
-        JButton btnEliminar = new JButton("Eliminar");
+        tabla.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 13));
+        tabla.getTableHeader().setBackground(new Color(18, 33, 61));
+        tabla.getTableHeader().setForeground(Color.WHITE);
+        tabla.getTableHeader().setReorderingAllowed(false);
+
+        JScrollPane scroll = new JScrollPane(tabla);
+        scroll.setBorder(BorderFactory.createEmptyBorder());
+
+        JPanel cardTabla = new JPanel(new BorderLayout());
+        cardTabla.setBackground(Color.WHITE);
+        cardTabla.setBorder(
+                BorderFactory.createCompoundBorder(
+                        new LineBorder(new Color(225, 225, 225), 1, true),
+                        new EmptyBorder(15, 15, 15, 15)
+                )
+        );
+
+        cardTabla.add(scroll, BorderLayout.CENTER);
+
+        panelPrincipal.add(cardTabla, BorderLayout.CENTER);
+
+        // ── Botones ──────────────────────────────────────────────────────
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 15));
+        panelBotones.setBackground(new Color(245, 247, 250));
+
+        JButton btnAgregar = crearBoton("Agregar", new Color(46, 125, 50));
+        JButton btnModificar = crearBoton("Modificar", new Color(25, 118, 210));
+        JButton btnEliminar = crearBoton("Eliminar", new Color(198, 40, 40));
 
         btnAgregar.addActionListener(e -> agregarPlanta());
         btnModificar.addActionListener(e -> modificarPlanta());
@@ -91,8 +139,9 @@ public class PanelPlantas extends JPanel {
         panelBotones.add(btnModificar);
         panelBotones.add(btnEliminar);
 
-        add(panelBotones, BorderLayout.SOUTH);
+        panelPrincipal.add(panelBotones, BorderLayout.SOUTH);
 
+        // ── Listener búsqueda ───────────────────────────────────────────
         txtBuscar.getDocument().addDocumentListener(new DocumentListener() {
 
             @Override
@@ -128,7 +177,7 @@ public class PanelPlantas extends JPanel {
                     p.getPhone(),
                     p.getLatitude(),
                     p.getLongitude(),
-                    p.isStatus() ? "Activo" : "Inactivo"
+                    p.isStatus() ? "ACTIVO" : "INACTIVO"
             });
         }
     }
@@ -371,5 +420,21 @@ public class PanelPlantas extends JPanel {
                         "No se pudo eliminar la planta.");
             }
         }
+    }
+    
+    // ════════════════════════════════════════════════════════════════════════
+    //  UTIL
+    // ════════════════════════════════════════════════════════════════════════
+
+    private JButton crearBoton(String texto, Color color) {
+        JButton btn = new JButton(texto);
+        btn.setPreferredSize(new Dimension(130, 40));
+        btn.setBackground(color);
+        btn.setForeground(Color.WHITE);
+        btn.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btn.setFocusPainted(false);
+        btn.setBorderPainted(false);
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        return btn;
     }
 }

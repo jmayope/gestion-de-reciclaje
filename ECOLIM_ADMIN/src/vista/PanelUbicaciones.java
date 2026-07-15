@@ -9,6 +9,8 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 public class PanelUbicaciones extends JPanel {
 
@@ -24,32 +26,52 @@ public class PanelUbicaciones extends JPanel {
 
     private void initComponents() {
         setLayout(new BorderLayout());
-        setBackground(new Color(245, 245, 245));
+        setBackground(new Color(245, 247, 250));
 
-        JPanel panelSuperior = new JPanel(new BorderLayout());
-        panelSuperior.setBackground(new Color(245, 245, 245));
+        JPanel panelPrincipal = new JPanel(new BorderLayout());
+        panelPrincipal.setBackground(new Color(245, 247, 250));
+        panelPrincipal.setBorder(new EmptyBorder(20, 20, 20, 20));
+        add(panelPrincipal, BorderLayout.CENTER);
 
-        JLabel titulo = new JLabel("Gestión de Ubicaciones", SwingConstants.CENTER);
-        titulo.setFont(new Font("Segoe UI", Font.BOLD, 28));
-        titulo.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
-        panelSuperior.add(titulo, BorderLayout.NORTH);
+        // ── Panel Superior ─────────────────────────────────────────────
+        JPanel panelSuperior = new JPanel();
+        panelSuperior.setLayout(new BoxLayout(panelSuperior, BoxLayout.Y_AXIS));
+        panelSuperior.setBackground(new Color(245, 247, 250));
 
-        JPanel panelBusqueda = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        panelBusqueda.setBackground(new Color(245, 245, 245));
+        JLabel titulo = new JLabel("Gestión de Ubicaciones");
+        titulo.setFont(new Font("Segoe UI", Font.BOLD, 30));
+        titulo.setForeground(new Color(30, 30, 30));
+
+        JLabel subtitulo = new JLabel("Administración de ubicaciones registradas");
+        subtitulo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        subtitulo.setForeground(Color.GRAY);
+
+        panelSuperior.add(titulo);
+        panelSuperior.add(Box.createVerticalStrut(4));
+        panelSuperior.add(subtitulo);
+        panelSuperior.add(Box.createVerticalStrut(16));
+
+        // ── Barra de búsqueda ─────────────────────────────────────────
+        JPanel panelBusqueda = new JPanel(new FlowLayout(FlowLayout.LEFT, 12, 0));
+        panelBusqueda.setBackground(new Color(245, 247, 250));
 
         JLabel lblBuscar = new JLabel("Buscar:");
-        txtBuscar = new JTextField(25);
+        lblBuscar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+
+        txtBuscar = new JTextField();
+        txtBuscar.setPreferredSize(new Dimension(300, 38));
+        txtBuscar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
         panelBusqueda.add(lblBuscar);
         panelBusqueda.add(txtBuscar);
 
-        panelSuperior.add(panelBusqueda, BorderLayout.SOUTH);
+        panelSuperior.add(panelBusqueda);
 
-        add(panelSuperior, BorderLayout.NORTH);
+        panelPrincipal.add(panelSuperior, BorderLayout.NORTH);
 
+        // ── Tabla ─────────────────────────────────────────────────────
         modelo = new DefaultTableModel(
-                new Object[]{"ID", "Nombre del Lugar", "Dirección"}, 0
-        ) {
+                new Object[]{"ID", "Nombre del Lugar", "Dirección"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -57,12 +79,39 @@ public class PanelUbicaciones extends JPanel {
         };
 
         tabla = new JTable(modelo);
-        add(new JScrollPane(tabla), BorderLayout.CENTER);
 
-        JPanel panelBotones = new JPanel();
-        JButton btnAgregar = new JButton("Agregar");
-        JButton btnModificar = new JButton("Modificar");
-        JButton btnEliminar = new JButton("Eliminar");
+        tabla.setRowHeight(36);
+        tabla.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        tabla.setGridColor(new Color(235, 235, 235));
+        tabla.setShowVerticalLines(false);
+        tabla.setSelectionBackground(new Color(52, 120, 246));
+        tabla.setSelectionForeground(Color.WHITE);
+
+        tabla.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 13));
+        tabla.getTableHeader().setBackground(new Color(18, 33, 61));
+        tabla.getTableHeader().setForeground(Color.WHITE);
+        tabla.getTableHeader().setReorderingAllowed(false);
+
+        JScrollPane scroll = new JScrollPane(tabla);
+        scroll.setBorder(BorderFactory.createEmptyBorder());
+
+        JPanel cardTabla = new JPanel(new BorderLayout());
+        cardTabla.setBackground(Color.WHITE);
+        cardTabla.setBorder(BorderFactory.createCompoundBorder(
+                new LineBorder(new Color(225, 225, 225), 1, true),
+                new EmptyBorder(15, 15, 15, 15)));
+
+        cardTabla.add(scroll, BorderLayout.CENTER);
+
+        panelPrincipal.add(cardTabla, BorderLayout.CENTER);
+
+        // ── Botones ───────────────────────────────────────────────────
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 15));
+        panelBotones.setBackground(new Color(245, 247, 250));
+
+        JButton btnAgregar = crearBoton("Agregar", new Color(46, 125, 50));
+        JButton btnModificar = crearBoton("Modificar", new Color(25, 118, 210));
+        JButton btnEliminar = crearBoton("Eliminar", new Color(198, 40, 40));
 
         btnAgregar.addActionListener(e -> agregarUbicacion());
         btnModificar.addActionListener(e -> modificarUbicacion());
@@ -72,8 +121,9 @@ public class PanelUbicaciones extends JPanel {
         panelBotones.add(btnModificar);
         panelBotones.add(btnEliminar);
 
-        add(panelBotones, BorderLayout.SOUTH);
+        panelPrincipal.add(panelBotones, BorderLayout.SOUTH);
 
+        // ── Búsqueda en tiempo real ──────────────────────────────────
         txtBuscar.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -208,5 +258,21 @@ public class PanelUbicaciones extends JPanel {
                 JOptionPane.showMessageDialog(this, "No se pudo eliminar la ubicación.");
             }
         }
+    }
+    
+    // ════════════════════════════════════════════════════════════════════════
+    //  UTIL
+    // ════════════════════════════════════════════════════════════════════════
+
+    private JButton crearBoton(String texto, Color color) {
+        JButton btn = new JButton(texto);
+        btn.setPreferredSize(new Dimension(130, 40));
+        btn.setBackground(color);
+        btn.setForeground(Color.WHITE);
+        btn.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btn.setFocusPainted(false);
+        btn.setBorderPainted(false);
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        return btn;
     }
 }
