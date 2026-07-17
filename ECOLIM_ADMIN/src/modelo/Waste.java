@@ -31,6 +31,10 @@ public class Waste {
     private String unitMeasurementName;
     private String stateName;
 
+    // ===== Información del último proceso (Manifiestos) =====
+    private String currentProcessId;
+    private Boolean processCompleted;
+
     // ── Constructores ────────────────────────────────────────────────────────
     public Waste() {
     }
@@ -208,8 +212,22 @@ public class Waste {
     public void setStateName(String stateName) {
         this.stateName = stateName;
     }
-    
-    
+
+    public String getCurrentProcessId() {
+        return currentProcessId;
+    }
+
+    public void setCurrentProcessId(String currentProcessId) {
+        this.currentProcessId = currentProcessId;
+    }
+
+    public Boolean getProcessCompleted() {
+        return processCompleted;
+    }
+
+    public void setProcessCompleted(Boolean processCompleted) {
+        this.processCompleted = processCompleted;
+    }
 
     // ── equals / hashCode (basados en clave de negocio: id) ──────────────────
     @Override

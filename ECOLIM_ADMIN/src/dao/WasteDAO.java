@@ -22,7 +22,9 @@ public class WasteDAO {
                 + "e.name AS entityName, "
                 + "tt.name AS typeName, "
                 + "tu.name AS unitMeasurementName, "
-                + "ts.name AS stateName "
+                + "ts.name AS stateName, "
+                + "pf.current_process_id, "
+                + "pf.completed "
                 + "FROM wastes w "
                 + "INNER JOIN entities e ON e.id = w.entity_id "
                 + "LEFT JOIN types tt ON tt.category='" + CATEGORIA_TIPO_RESIDUO + "' "
@@ -31,6 +33,14 @@ public class WasteDAO {
                 + "AND tu.code = w.unit_measurement "
                 + "LEFT JOIN types ts ON ts.category='" + CATEGORIA_ESTADO_RESIDUO + "' "
                 + "AND ts.code = w.state "
+                + "LEFT JOIN ( "
+                + "   SELECT DISTINCT ON (waste_id) "
+                + "          waste_id, "
+                + "          current_process_id, "
+                + "          completed "
+                + "   FROM process_flows "
+                + "   ORDER BY waste_id, created_at DESC "
+                + ") pf ON pf.waste_id = w.id "
                 + "ORDER BY w.id DESC";
 
         try (
@@ -360,6 +370,96 @@ public class WasteDAO {
         return list;
     }
 
+    // ════════════════════════════════════════════════════════════════════
+    //  AGREGADO PARA MANIFIESTOS
+    // ════════════════════════════════════════════════════════════════════
+    /**
+     * Filtra residuos por empresa generadora exacta (w.entity_id = ?).
+     */
+    public List<Waste> listByEntity(long entityId) {
+
+        List<Waste> list = new ArrayList<>();
+
+        String sql
+                = "SELECT w.*, "
+                + "e.name AS entityName, "
+                + "tt.name AS typeName, "
+                + "tu.name AS unitMeasurementName, "
+                + "ts.name AS stateName "
+                + "FROM wastes w "
+                + "INNER JOIN entities e ON e.id = w.entity_id "
+                + "LEFT JOIN types tt ON tt.category='" + CATEGORIA_TIPO_RESIDUO + "' "
+                + "AND tt.code = w.type "
+                + "LEFT JOIN types tu ON tu.category='" + CATEGORIA_UNIDAD_MEDIDA + "' "
+                + "AND tu.code = w.unit_measurement "
+                + "LEFT JOIN types ts ON ts.category='" + CATEGORIA_ESTADO_RESIDUO + "' "
+                + "AND ts.code = w.state "
+                + "WHERE w.entity_id = ? "
+                + "ORDER BY w.id DESC";
+
+        try (
+                Connection con = ConexionSupabase.conectar(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setLong(1, entityId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(mapRow(rs));
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error listByEntity: " + e.getMessage());
+        }
+
+        return list;
+    }
+
+    /**
+     * Filtra residuos por código de tipo exacto (w.type = ?). A diferencia de
+     * findByType() (que hace LIKE sobre el nombre), este es exacto — evita que
+     * un código de una sola letra (ej. "P") matchee cualquier nombre que la
+     * contenga.
+     */
+    public List<Waste> listByTypeCode(String typeCode) {
+
+        List<Waste> list = new ArrayList<>();
+
+        String sql
+                = "SELECT w.*, "
+                + "e.name AS entityName, "
+                + "tt.name AS typeName, "
+                + "tu.name AS unitMeasurementName, "
+                + "ts.name AS stateName "
+                + "FROM wastes w "
+                + "INNER JOIN entities e ON e.id = w.entity_id "
+                + "LEFT JOIN types tt ON tt.category='" + CATEGORIA_TIPO_RESIDUO + "' "
+                + "AND tt.code = w.type "
+                + "LEFT JOIN types tu ON tu.category='" + CATEGORIA_UNIDAD_MEDIDA + "' "
+                + "AND tu.code = w.unit_measurement "
+                + "LEFT JOIN types ts ON ts.category='" + CATEGORIA_ESTADO_RESIDUO + "' "
+                + "AND ts.code = w.state "
+                + "WHERE w.type = ? "
+                + "ORDER BY w.id DESC";
+
+        try (
+                Connection con = ConexionSupabase.conectar(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, typeCode);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(mapRow(rs));
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error listByTypeCode: " + e.getMessage());
+        }
+
+        return list;
+    }
+
     private Waste mapRow(ResultSet rs) throws SQLException {
 
         Waste w = new Waste();
@@ -413,6 +513,13 @@ public class WasteDAO {
         w.setStateName(stateName != null
                 ? stateName.toUpperCase()
                 : "");
+
+        w.setCurrentProcessId(rs.getString("current_process_id"));
+
+        Object completed = rs.getObject("completed");
+        if (completed != null) {
+            w.setProcessCompleted((Boolean) completed);
+        }
 
         return w;
     }

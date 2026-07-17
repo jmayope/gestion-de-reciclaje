@@ -196,7 +196,7 @@ public class PanelUsers extends JPanel {
                 ? persona.getFullName()
                 : "Sin persona",
                 u.getUsername(),
-                u.isPrincipal()
+                u.isIsPrincipal()
                 ? "Principal"
                 : "Secundario",
                 u.isStatus()
@@ -246,7 +246,7 @@ public class PanelUsers extends JPanel {
 
                 case "Rol" ->
                     coincide
-                            = (u.isPrincipal()
+                            = (u.isIsPrincipal()
                                     ? "principal"
                                     : "secundario")
                                     .contains(texto);
@@ -292,7 +292,7 @@ public class PanelUsers extends JPanel {
                     ? persona.getFullName()
                     : "Sin persona",
                     u.getUsername(),
-                    u.isPrincipal()
+                    u.isIsPrincipal()
                     ? "Principal"
                     : "Secundario",
                     u.isStatus()
@@ -380,7 +380,7 @@ public class PanelUsers extends JPanel {
             u.setUsername(txtUsername.getText());
             u.setPassword(password);
 
-            if (u.isPrincipal()) {
+            if (u.isIsPrincipal()) {
 
                 if (userDAO.existePrincipalPorEmpresa(
                         entidad.getId())) {
@@ -477,7 +477,7 @@ public class PanelUsers extends JPanel {
                 = new JComboBox<>(new String[]{"Principal", "Secundario"});
 
         cbRol.setSelectedItem(
-                u.isPrincipal() ? "Principal" : "Secundario"
+                u.isIsPrincipal() ? "Principal" : "Secundario"
         );
 
         Object[] campos = {
@@ -510,7 +510,7 @@ public class PanelUsers extends JPanel {
                     new String(txtPassword.getPassword())
             );
 
-            if (u.isPrincipal()) {
+            if (u.isIsPrincipal()) {
 
                 if (userDAO.existeOtroPrincipal(
                         u.getEntityId(),
@@ -686,7 +686,7 @@ public class PanelUsers extends JPanel {
 
                     sb.append("│    ├── ");
 
-                    if (u.isPrincipal()) {
+                    if (u.isIsPrincipal()) {
 
                         sb.append("[PRINCIPAL] ");
 
