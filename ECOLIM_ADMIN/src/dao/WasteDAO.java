@@ -373,9 +373,14 @@ public class WasteDAO {
     // ════════════════════════════════════════════════════════════════════
     //  AGREGADO PARA MANIFIESTOS
     // ════════════════════════════════════════════════════════════════════
+<<<<<<< HEAD
     /**
      * Filtra residuos por empresa generadora exacta (w.entity_id = ?).
      */
+=======
+
+    /** Filtra residuos por empresa generadora exacta (w.entity_id = ?). */
+>>>>>>> 12188c7625f1324a30c172c6ffc60e9898860646
     public List<Waste> listByEntity(long entityId) {
 
         List<Waste> list = new ArrayList<>();

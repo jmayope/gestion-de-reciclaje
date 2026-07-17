@@ -357,6 +357,10 @@ public class ProcessFlowDAO {
     //  responsible_id / next_process_id / started_at / completed_at,
     //  que la tabla ya tiene pero el mapeo original no usaba.
     // ════════════════════════════════════════════════════════════════════
+<<<<<<< HEAD
+=======
+
+>>>>>>> 12188c7625f1324a30c172c6ffc60e9898860646
     /**
      * Toda la cadena de operaciones de un residuo, en el orden en que se
      * crearon (R -> T -> V -> D). Solo trae los eslabones que existan de
@@ -367,7 +371,12 @@ public class ProcessFlowDAO {
 
         String sql = "SELECT * FROM process_flows WHERE waste_id = ? ORDER BY created_at ASC, id ASC";
 
+<<<<<<< HEAD
         try (Connection con = ConexionSupabase.conectar(); PreparedStatement ps = con.prepareStatement(sql)) {
+=======
+        try (Connection con = ConexionSupabase.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+>>>>>>> 12188c7625f1324a30c172c6ffc60e9898860646
 
             ps.setLong(1, wasteId);
 
@@ -384,6 +393,7 @@ public class ProcessFlowDAO {
         return lista;
     }
 
+<<<<<<< HEAD
     /**
      * Último eslabón registrado de un residuo (el más reciente).
      */
@@ -395,6 +405,14 @@ public class ProcessFlowDAO {
 
             System.out.println("Conexión: "
                     + (System.currentTimeMillis() - inicio));
+=======
+    /** Último eslabón registrado de un residuo (el más reciente). */
+    public ProcessFlow obtenerUltimoProceso(long wasteId) {
+        String sql = "SELECT * FROM process_flows WHERE waste_id = ? ORDER BY created_at DESC, id DESC LIMIT 1";
+
+        try (Connection con = ConexionSupabase.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+>>>>>>> 12188c7625f1324a30c172c6ffc60e9898860646
 
             ps.setLong(1, wasteId);
 
@@ -404,6 +422,7 @@ public class ProcessFlowDAO {
                 }
             }
 
+<<<<<<< HEAD
             //
             long inicio2 = System.currentTimeMillis();
 
@@ -413,6 +432,8 @@ public class ProcessFlowDAO {
                     + (System.currentTimeMillis() - inicio2));
             //
 
+=======
+>>>>>>> 12188c7625f1324a30c172c6ffc60e9898860646
         } catch (Exception e) {
             System.out.println("Error obtenerUltimoProceso: " + e.getMessage());
         }
@@ -450,4 +471,8 @@ public class ProcessFlowDAO {
 
         return p;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 12188c7625f1324a30c172c6ffc60e9898860646

@@ -53,7 +53,10 @@ public class PanelManifest extends JPanel {
         initComponents();
         cargarCombos();
         cargarManifiestosGeneral();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 12188c7625f1324a30c172c6ffc60e9898860646
     }
 
     private void initComponents() {
@@ -96,12 +99,21 @@ public class PanelManifest extends JPanel {
         cbEmpresas.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         cbResiduos.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
+<<<<<<< HEAD
         JButton btnMostrarTodo = crearBoton("Mostrar todo", new Color(97, 97, 97));
         JButton btnFiltrarEmpresa = crearBoton("Filtrar empresa", new Color(25, 118, 210));
         JButton btnFiltrarResiduo = crearBoton("Filtrar residuo", new Color(25, 118, 210));
         JButton btnActivarDesact = crearBoton("Activar/Desactivar", new Color(255, 143, 0));
         JButton btnDeshacer = crearBoton("Deshacer", new Color(97, 97, 97));
         JButton btnGenerarPdf = crearBoton("Generar PDF", new Color(46, 125, 50));
+=======
+        JButton btnMostrarTodo      = crearBoton("Mostrar todo", new Color(97, 97, 97));
+        JButton btnFiltrarEmpresa   = crearBoton("Filtrar empresa", new Color(25, 118, 210));
+        JButton btnFiltrarResiduo   = crearBoton("Filtrar residuo", new Color(25, 118, 210));
+        JButton btnActivarDesact    = crearBoton("Activar/Desactivar", new Color(255, 143, 0));
+        JButton btnDeshacer         = crearBoton("Deshacer", new Color(97, 97, 97));
+        JButton btnGenerarPdf       = crearBoton("Generar PDF", new Color(46, 125, 50));
+>>>>>>> 12188c7625f1324a30c172c6ffc60e9898860646
 
         panelFiltros.add(new JLabel("Empresa:"));
         panelFiltros.add(cbEmpresas);
@@ -126,10 +138,14 @@ public class PanelManifest extends JPanel {
                     "Operación Actual", "Estado Operación", "Estado Residuo", "Registro", "Fecha"
                 }, 0
         ) {
+<<<<<<< HEAD
             @Override
             public boolean isCellEditable(int r, int c) {
                 return false;
             }
+=======
+            @Override public boolean isCellEditable(int r, int c) { return false; }
+>>>>>>> 12188c7625f1324a30c172c6ffc60e9898860646
         };
 
         tabla = new JTable(modelo);
@@ -223,6 +239,7 @@ public class PanelManifest extends JPanel {
 
         for (Waste w : lista) {
 
+<<<<<<< HEAD
             String operacionActual = "-";
             String estadoOperacion = "-";
 
@@ -237,6 +254,17 @@ public class PanelManifest extends JPanel {
                             ? "COMPLETADO"
                             : "PENDIENTE";
                 }
+=======
+            ProcessFlow ultimo = processFlowDAO.obtenerUltimoProceso(w.getId());
+
+            String operacionActual = "-";
+            String estadoOperacion = "-";
+
+            if (ultimo != null) {
+                operacionActual = mapaOperaciones.getOrDefault(
+                        ultimo.getCurrentProcessId(), ultimo.getCurrentProcessId());
+                estadoOperacion = ultimo.estadoLegible();
+>>>>>>> 12188c7625f1324a30c172c6ffc60e9898860646
             }
 
             modelo.addRow(new Object[]{
@@ -258,6 +286,10 @@ public class PanelManifest extends JPanel {
     // ════════════════════════════════════════════════════════════════════
     //  ACTIVAR / DESACTIVAR  +  DESHACER  (tomado de PanelUsers)
     // ════════════════════════════════════════════════════════════════════
+<<<<<<< HEAD
+=======
+
+>>>>>>> 12188c7625f1324a30c172c6ffc60e9898860646
     private void cambiarEstadoManifiesto() {
 
         int fila = tabla.getSelectedRow();
@@ -334,6 +366,10 @@ public class PanelManifest extends JPanel {
     // ════════════════════════════════════════════════════════════════════
     //  EXPORTAR PDF
     // ════════════════════════════════════════════════════════════════════
+<<<<<<< HEAD
+=======
+
+>>>>>>> 12188c7625f1324a30c172c6ffc60e9898860646
     private void generarPdfSeleccionado() {
 
         int fila = tabla.getSelectedRow();
@@ -385,6 +421,10 @@ public class PanelManifest extends JPanel {
     // ════════════════════════════════════════════════════════════════════
     //  UTIL
     // ════════════════════════════════════════════════════════════════════
+<<<<<<< HEAD
+=======
+
+>>>>>>> 12188c7625f1324a30c172c6ffc60e9898860646
     private JButton crearBoton(String texto, Color color) {
         JButton btn = new JButton(texto);
         btn.setPreferredSize(new Dimension(150, 40));
@@ -398,7 +438,10 @@ public class PanelManifest extends JPanel {
     }
 
     private static class ItemComboEmpresa {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 12188c7625f1324a30c172c6ffc60e9898860646
         private final long id;
         private final String texto;
 
@@ -407,6 +450,7 @@ public class PanelManifest extends JPanel {
             this.texto = texto;
         }
 
+<<<<<<< HEAD
         long getId() {
             return id;
         }
@@ -419,6 +463,15 @@ public class PanelManifest extends JPanel {
 
     private static class ItemComboResiduo {
 
+=======
+        long getId() { return id; }
+
+        @Override
+        public String toString() { return texto; }
+    }
+
+    private static class ItemComboResiduo {
+>>>>>>> 12188c7625f1324a30c172c6ffc60e9898860646
         private final String code;
         private final String texto;
 
@@ -427,6 +480,7 @@ public class PanelManifest extends JPanel {
             this.texto = texto;
         }
 
+<<<<<<< HEAD
         String getCode() {
             return code;
         }
@@ -439,6 +493,15 @@ public class PanelManifest extends JPanel {
 
     private static class CambioEstado {
 
+=======
+        String getCode() { return code; }
+
+        @Override
+        public String toString() { return texto; }
+    }
+
+    private static class CambioEstado {
+>>>>>>> 12188c7625f1324a30c172c6ffc60e9898860646
         final long wasteId;
         final boolean estadoAnterior;
 
@@ -447,4 +510,8 @@ public class PanelManifest extends JPanel {
             this.estadoAnterior = estadoAnterior;
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 12188c7625f1324a30c172c6ffc60e9898860646
