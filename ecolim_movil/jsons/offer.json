@@ -1,10 +1,11 @@
 {
   "id?": 213213212,
   "created_at?": "@datetime",
+  "waste_id?": 343,
   "process_flow_id?": 13123,
-  "operator_id?": 2342,
   "quantity?": 324234.23423,
   "status?": true,
+  "entity_operator_id?": 2342,
   "accepted?": false,
   "created_by?": 2323423
 }

@@ -1,5 +1,6 @@
 import 'package:ecolim_movil/app/routes/app_pages.dart';
 import 'package:ecolim_movil/app/theme/app_colors.dart';
+import 'package:ecolim_movil/models/index.dart';
 import 'package:ecolim_movil/models/waste.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,20 @@ class WasteManagementView extends GetView<WasteManagementController> {
   Widget build(BuildContext context) {
 
     final container = Obx(() {
-      return SafeArea(
+      return controller.loading.value ?
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              Text(
+                "Cargando Residuos"
+              )
+            ],
+          ),
+        )
+      : SafeArea(
         child: Column(
           children: [
             Padding(
@@ -67,9 +81,13 @@ class WasteManagementView extends GetView<WasteManagementController> {
                       separatorBuilder: (_, __) => const SizedBox(height: 12),
                       itemBuilder: (context, index) {
                         final waste = controller.filtered[index];
+                        final wasteType = controller.wasteTypes.singleWhere((wt) => wt.code == waste.type);
+                        final unitMeasurement = controller.unitMeasurements.singleWhere((u) => u.code == waste.unitMeasurement);
                         return WasteCard(
                           waste: waste,
-                          onTap: () => controller.goToDetail(waste),
+                          wasteType: wasteType,
+                          unitMeasurement: unitMeasurement,
+                          onTap: () => waste.state != "R" ? null : controller.goToDetail(waste),
                           onWithdraw: waste.state == "R" || waste.state == "A" ? () => controller.requestWithdrawal(waste)
                               : null,
                         );
@@ -160,10 +178,12 @@ class _FilterChip extends StatelessWidget {
 
 class WasteCard extends StatelessWidget {
   final Waste waste;
+  final TableType unitMeasurement;
+  final TableType wasteType;
   final VoidCallback onTap;
   final VoidCallback? onWithdraw;
 
-  const WasteCard({required this.waste, required this.onTap, required this.onWithdraw});
+  const WasteCard({required this.waste, required this.unitMeasurement, required this.wasteType, required this.onTap, required this.onWithdraw});
 
   @override
   Widget build(BuildContext context) {
@@ -190,19 +210,19 @@ class WasteCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(waste.id.toString(), style: theme.textTheme.labelSmall),
+                      Text("ID: #${waste.id}", style: theme.textTheme.labelSmall),
                       const SizedBox(height: 2),
-                      Text(waste.type!, style: theme.textTheme.titleMedium),
+                      Text(wasteType.name!.toUpperCase(), style: theme.textTheme.titleMedium),
                     ],
                   ),
                 ),
-                _StatusBadge(state: waste.state!),
+                StatusBadge(state: waste.state!),
               ],
             ),
             const SizedBox(height: 12),
             Row(
               children: [
-                _InfoPill(icon: Icons.scale_outlined, label: '${waste.quantity} ${waste.unitMeasurement}'),
+                _InfoPill(icon: Icons.scale_outlined, label: '${waste.quantity} ${unitMeasurement.name!}'),
                 const SizedBox(width: 8),
                 _InfoPill(
                   icon: Icons.event_outlined,
@@ -280,9 +300,9 @@ class WasteCard extends StatelessWidget {
   }
 }
 
-class _StatusBadge extends StatelessWidget {
+class StatusBadge extends StatelessWidget {
   final String state;
-  const _StatusBadge({required this.state});
+  const StatusBadge({required this.state});
 
   @override
   Widget build(BuildContext context) {
@@ -295,7 +315,8 @@ class _StatusBadge extends StatelessWidget {
       child: Text(
         state,
         style: Theme.of(context).textTheme.labelSmall?.copyWith(
-              color: AppColors.leaf500,
+              color: Colors.white,
+              fontSize: 14,
               fontWeight: FontWeight.w700,
             ),
       ),

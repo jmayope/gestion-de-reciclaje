@@ -23,8 +23,10 @@ class Waste {
     this.publishAt,
     this.operations,
     this.processFlows,
+    this.offers,
     this.pendingOperationsCount,
     this.entityId,
+    this.selected,
   });
 
   final int? id;
@@ -43,8 +45,10 @@ class Waste {
   final DateTime? publishAt;
   final List<TableType>? operations;
   final List<ProcessFlow>? processFlows;
+  final List<Offer>? offers;
   final int? pendingOperationsCount;
   final int? entityId;
+  final bool? selected;
 
   factory Waste.fromJson(Map<String,dynamic> json) => Waste(
     id: json['id'] != null ? json['id'] as int : null,
@@ -63,8 +67,10 @@ class Waste {
     publishAt: json['publish_at'] != null ? DateTime.parse(json['publish_at'] as String) : null,
     operations: json['operations'] != null ? (json['operations'] as List? ?? []).map((e) => TableType.fromJson(e as Map<String, dynamic>)).toList() : null,
     processFlows: json['process_flows'] != null ? (json['process_flows'] as List? ?? []).map((e) => ProcessFlow.fromJson(e as Map<String, dynamic>)).toList() : null,
+    offers: json['offers'] != null ? (json['offers'] as List? ?? []).map((e) => Offer.fromJson(e as Map<String, dynamic>)).toList() : null,
     pendingOperationsCount: json['pending_operations_count'] != null ? json['pending_operations_count'] as int : null,
-    entityId: json['entity_id'] != null ? json['entity_id'] as int : null
+    entityId: json['entity_id'] != null ? json['entity_id'] as int : null,
+    selected: json['selected'] != null ? json['selected'] as bool : null
   );
   
   Map<String, dynamic> toJson() => {
@@ -84,8 +90,10 @@ class Waste {
     'publish_at': publishAt?.toIso8601String(),
     'operations': operations?.map((e) => e.toJson()).toList(),
     'process_flows': processFlows?.map((e) => e.toJson()).toList(),
+    'offers': offers?.map((e) => e.toJson()).toList(),
     'pending_operations_count': pendingOperationsCount,
-    'entity_id': entityId
+    'entity_id': entityId,
+    'selected': selected
   };
 
   Waste clone() => Waste(
@@ -105,8 +113,10 @@ class Waste {
     publishAt: publishAt,
     operations: operations?.map((e) => e.clone()).toList(),
     processFlows: processFlows?.map((e) => e.clone()).toList(),
+    offers: offers?.map((e) => e.clone()).toList(),
     pendingOperationsCount: pendingOperationsCount,
-    entityId: entityId
+    entityId: entityId,
+    selected: selected
   );
 
 
@@ -127,8 +137,10 @@ class Waste {
     Optional<DateTime?>? publishAt,
     Optional<List<TableType>?>? operations,
     Optional<List<ProcessFlow>?>? processFlows,
+    Optional<List<Offer>?>? offers,
     Optional<int?>? pendingOperationsCount,
-    Optional<int?>? entityId
+    Optional<int?>? entityId,
+    Optional<bool?>? selected
   }) => Waste(
     id: checkOptional(id, () => this.id),
     type: checkOptional(type, () => this.type),
@@ -146,14 +158,16 @@ class Waste {
     publishAt: checkOptional(publishAt, () => this.publishAt),
     operations: checkOptional(operations, () => this.operations),
     processFlows: checkOptional(processFlows, () => this.processFlows),
+    offers: checkOptional(offers, () => this.offers),
     pendingOperationsCount: checkOptional(pendingOperationsCount, () => this.pendingOperationsCount),
     entityId: checkOptional(entityId, () => this.entityId),
+    selected: checkOptional(selected, () => this.selected),
   );
 
   @override
   bool operator ==(Object other) => identical(this, other)
-    || other is Waste && id == other.id && type == other.type && quantity == other.quantity && unitMeasurement == other.unitMeasurement && wasteGenerationDate == other.wasteGenerationDate && hasStorageLocation == other.hasStorageLocation && state == other.state && status == other.status && createdAt == other.createdAt && createdBy == other.createdBy && updatedAt == other.updatedAt && updatedBy == other.updatedBy && dangerousness == other.dangerousness && publishAt == other.publishAt && operations == other.operations && processFlows == other.processFlows && pendingOperationsCount == other.pendingOperationsCount && entityId == other.entityId;
+    || other is Waste && id == other.id && type == other.type && quantity == other.quantity && unitMeasurement == other.unitMeasurement && wasteGenerationDate == other.wasteGenerationDate && hasStorageLocation == other.hasStorageLocation && state == other.state && status == other.status && createdAt == other.createdAt && createdBy == other.createdBy && updatedAt == other.updatedAt && updatedBy == other.updatedBy && dangerousness == other.dangerousness && publishAt == other.publishAt && operations == other.operations && processFlows == other.processFlows && offers == other.offers && pendingOperationsCount == other.pendingOperationsCount && entityId == other.entityId && selected == other.selected;
 
   @override
-  int get hashCode => id.hashCode ^ type.hashCode ^ quantity.hashCode ^ unitMeasurement.hashCode ^ wasteGenerationDate.hashCode ^ hasStorageLocation.hashCode ^ state.hashCode ^ status.hashCode ^ createdAt.hashCode ^ createdBy.hashCode ^ updatedAt.hashCode ^ updatedBy.hashCode ^ dangerousness.hashCode ^ publishAt.hashCode ^ operations.hashCode ^ processFlows.hashCode ^ pendingOperationsCount.hashCode ^ entityId.hashCode;
+  int get hashCode => id.hashCode ^ type.hashCode ^ quantity.hashCode ^ unitMeasurement.hashCode ^ wasteGenerationDate.hashCode ^ hasStorageLocation.hashCode ^ state.hashCode ^ status.hashCode ^ createdAt.hashCode ^ createdBy.hashCode ^ updatedAt.hashCode ^ updatedBy.hashCode ^ dangerousness.hashCode ^ publishAt.hashCode ^ operations.hashCode ^ processFlows.hashCode ^ offers.hashCode ^ pendingOperationsCount.hashCode ^ entityId.hashCode ^ selected.hashCode;
 }

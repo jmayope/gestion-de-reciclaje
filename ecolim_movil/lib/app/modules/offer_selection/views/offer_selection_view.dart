@@ -1,5 +1,6 @@
 import 'package:ecolim_movil/app/routes/app_pages.dart';
 import 'package:ecolim_movil/app/theme/app_colors.dart';
+import 'package:ecolim_movil/models/table_type.dart';
 import 'package:ecolim_movil/models/waste.dart';
 import 'package:flutter/material.dart';
 
@@ -11,18 +12,19 @@ class OfferSelectionView extends GetView<OfferSelectionController> {
   const OfferSelectionView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Get.offAllNamed(Routes.HOME);
-          }, 
-          icon: Icon(Icons.home)
-        ),
-        title: const Text('Selección de oferta'),
-        centerTitle: false,
-      ),
-      body: SafeArea(
+    final container = Obx(() {
+      return controller.loading.value ? 
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              Text("Cargando Residuos Publicados")
+            ],
+          ),
+        )
+      : SafeArea(
         child: controller.wastes.isEmpty
             ? Center(
                 child: Padding(
@@ -61,15 +63,30 @@ class OfferSelectionView extends GetView<OfferSelectionController> {
                 separatorBuilder: (_, __) => const SizedBox(height: 12),
                 itemBuilder: (context, index) {
                   final waste = controller.wastes[index];
+                  final wasteType = controller.wasteTypes.singleWhere((wt) => wt.code == waste.type);
                   return ResiduoOffersCard(
                     waste: waste,
+                    wasteType: wasteType,
                     onTap: () async {
                       Get.offAllNamed(Routes.OFFER_SELECTION_DETAIL, arguments: {"waste": waste});
                     },
                   );
                 },
               ),
+      );
+    });
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.offAllNamed(Routes.HOME);
+          }, 
+          icon: Icon(Icons.home)
+        ),
+        title: const Text('Selección de oferta'),
+        centerTitle: false,
       ),
+      body: container,
     );
   }
 }
@@ -77,9 +94,10 @@ class OfferSelectionView extends GetView<OfferSelectionController> {
 
 class ResiduoOffersCard extends StatelessWidget {
   final Waste waste;
+  final TableType wasteType;
   final VoidCallback onTap;
 
-  const ResiduoOffersCard({required this.waste, required this.onTap});
+  const ResiduoOffersCard({required this.waste, required this.wasteType, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -106,15 +124,15 @@ class ResiduoOffersCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Expanded(child: Text(waste.type!, style: theme.textTheme.titleMedium)),
-                      if (waste.dangerousness!)
+                      Expanded(child: Text(wasteType.name!.toUpperCase(), style: theme.textTheme.titleMedium)),
+                      if ((waste.dangerousness ?? false)!)
                         const Padding(
                           padding: EdgeInsets.only(left: 6),
                           child: Icon(Icons.warning_amber_rounded, size: 16, color: AppColors.hazard),
                         ),
                     ],
                   ),
-                  Text(waste.id.toString(), style: theme.textTheme.labelSmall),
+                  Text("ID #${waste.id}", style: theme.textTheme.labelSmall),
                   const SizedBox(height: 10),
                   Wrap(
                     spacing: 8,
@@ -139,7 +157,7 @@ class ResiduoOffersCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
-                          '$totalOffers oferta(s) recibidas',
+                          '${waste.offers!.length} oferta(s) recibidas',
                           style: theme.textTheme.labelSmall
                               ?.copyWith(color: AppColors.info, fontWeight: FontWeight.w700),
                         ),

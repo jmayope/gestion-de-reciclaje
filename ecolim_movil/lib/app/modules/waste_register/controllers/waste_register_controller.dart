@@ -22,6 +22,9 @@ class WasteRegisterController extends GetxController {
   final theme = ThemeData().obs;
   final isDark = false.obs;
   final hasStorage = false.obs;
+  final waste = Waste().obs;
+
+  var arguments = Get.arguments;
 
   final wasteOperationSelecteds = <TableType>[].obs;
 
@@ -37,7 +40,9 @@ class WasteRegisterController extends GetxController {
 
   Future<void> initialData() async {
     userLoged.value = await PreferenceService.getSession();
-
+    
+    print(waste.isBlank);
+    
     final resultTypes = await supabase.select(TYPES, filters: {"category": "TIPO_RESIDUO"});
     wasteTypes.value = (resultTypes as Iterable).map((t) => TableType.fromJson(t)).toList();
     if (wasteTypes.isNotEmpty) {
@@ -57,6 +62,16 @@ class WasteRegisterController extends GetxController {
 
     theme.value =  Theme.of(Get.context!);
     isDark.value = theme.value.brightness == Brightness.dark;
+
+    if (arguments != null) {
+      waste.value = arguments["waste"];
+
+      wasteTypeSelected.value = wasteTypes.singleWhere((wt) => wt.code! == waste.value.type);
+      unitMeasurementSelected.value = unitMeasurements.singleWhere((u) => u.code == waste.value.unitMeasurement);
+      quantity.value = TextEditingValue(text: waste.value.quantity.toString());
+      wasteGenerationDate.value = waste.value.wasteGenerationDate!;
+      hasStorage.value = waste.value.hasStorageLocation!;
+    }
     
   }
 
@@ -119,6 +134,45 @@ class WasteRegisterController extends GetxController {
       );
       return;
     }
+    Waste wasteCreated = (resultNewWaste as Iterable).map((w) => Waste.fromJson(w)).toList().first;
+    print(resultNewWaste);
+    print(wasteOperationSelecteds);
+    wasteOperationSelecteds.sort((a, b) => a.order! - b.order!);
+    for (var i = 0; i < wasteOperationSelecteds.length; i++) {
+      String previous_process_id = "";
+      String next_process_id = "";
+      TableType w = wasteOperationSelecteds[i];
+      if (i > 0) {
+        previous_process_id = wasteOperationSelecteds[i-1].code!;
+      }
+      if (i + 1 < wasteOperationSelecteds.length) {
+        next_process_id = wasteOperationSelecteds[i+1].code!;
+      }
+      if (i +1 == wasteOperationSelecteds.length) {
+        next_process_id = "";
+      }
+      final newProcessFlow = {
+        "waste_id": wasteCreated.id!,
+        "previous_process_id": previous_process_id,
+        "current_process_id": w.code,
+        "next_process_id": next_process_id,
+        "quantity": wasteCreated.quantity,
+        "latitude": 12.343,
+        "longitude": 75.323,
+        "completed": false,
+        "status": true,
+        "entity_generator_id": userLoged.value.id!,
+        "created_by": userLoged.value.id!
+      };
+
+      final resultNewProcessFlow = await supabase.insert(PROCESS_FLOWS, newProcessFlow);
+    }
+    wasteOperationSelecteds.forEach((w) async {
+      
+    });
+    ScaffoldMessenger.of(Get.context!).showSnackBar(
+      const SnackBar(content: Text('Residuo creado satisfactoriamente.')),
+    );
     await Future.delayed(const Duration(milliseconds: 1200));
     loading.value = false;
     Get.offAllNamed(Routes.WASTE_MANAGEMENT);

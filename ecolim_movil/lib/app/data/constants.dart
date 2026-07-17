@@ -22,3 +22,5 @@ const String ENTITIES = 'entities';
 const String PLANTS = 'plants';
 const String TYPES = 'types';
 const String WASTES = 'wastes';
+const String PROCESS_FLOWS = 'process_flows';
+const String OFFERS = 'waste_offers';

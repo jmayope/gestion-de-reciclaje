@@ -17,8 +17,10 @@ class WasteManagementController extends GetxController {
   final theme = ThemeData().obs;
   final isDark = false.obs;
   final userLoged = User().obs;
+  final unitMeasurements = <TableType>[].obs;
+  final wasteTypes = <TableType>[].obs;
   final supabase = Get.put(SupabaseService());
-
+  final loading = true.obs;
   @override
   void onInit() {
     super.onInit();
@@ -31,6 +33,11 @@ class WasteManagementController extends GetxController {
     userLoged.value = await PreferenceService.getSession();
     final resultWastes = await supabase.select(WASTES, filters: {"entity_id": userLoged.value.currentEntity!.id!});
     wastes.value = (resultWastes as Iterable).map((w) => Waste.fromJson(w)).toList();
+    final resultWasteTypes = await supabase.select(TYPES, filters: {"category": "TIPO_RESIDUO"});
+    wasteTypes.value = (resultWasteTypes as Iterable).map((wt) => TableType.fromJson(wt)).toList();
+    final resultUnitMeasurements = await supabase.select(TYPES, filters: {"category": "UNIDAD_MEDIDA"});
+    unitMeasurements.value = (resultUnitMeasurements as Iterable).map((u) => TableType.fromJson(u)).toList();
+    loading.value = false;
   }
 
   @override
@@ -52,6 +59,7 @@ class WasteManagementController extends GetxController {
       final matchesFilter = filter.isEmpty || filter.isBlank == true;
       final matchesQuery = query.trim().isEmpty ||
           w.type!.toLowerCase().contains(query.toLowerCase()) ||
+          w.quantity!.toString().toLowerCase().contains(query.toLowerCase()) ||
           w.id.toString().toLowerCase().contains(query.toLowerCase());
       return matchesFilter && matchesQuery;
     }).toList();

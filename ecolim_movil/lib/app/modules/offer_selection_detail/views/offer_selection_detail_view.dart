@@ -84,7 +84,7 @@ class _ResiduoSummary extends StatelessWidget {
               ],
             ),
           ),
-          if (waste.dangerousness!)
+          if ((waste.dangerousness ?? false))
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
               decoration: BoxDecoration(

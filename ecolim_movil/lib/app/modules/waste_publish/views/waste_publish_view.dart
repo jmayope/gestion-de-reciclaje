@@ -1,9 +1,11 @@
 import 'package:ecolim_movil/app/routes/app_pages.dart';
 import 'package:ecolim_movil/app/theme/app_colors.dart';
+import 'package:ecolim_movil/models/index.dart';
 import 'package:ecolim_movil/models/waste.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:quiver/core.dart';
 
 import '../controllers/waste_publish_controller.dart';
 
@@ -11,25 +13,19 @@ class WastePublishView extends GetView<WastePublishController> {
   const WastePublishView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Get.offAllNamed(Routes.HOME);
-          }, 
-          icon: Icon(Icons.arrow_back)
-        ),
-        title: const Text('Publicación de residuos'),
-        centerTitle: false,
-        actions: [
-          if (controller.hasWastes.value)
-            TextButton(
-              onPressed: controller.toggleAll,
-              child: Text(controller.allSelected ? 'Ninguno' : 'Todos'),
-            ),
-        ],
-      ),
-      body: SafeArea(
+    final container = Obx(() {
+      return controller.loading.value ? 
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              Text("Cargando Residuos publicados")
+            ],
+          ),
+        )
+      : SafeArea(
         child: controller.hasWastes.value
             ? Column(
                 children: [
@@ -49,7 +45,7 @@ class WastePublishView extends GetView<WastePublishController> {
                           const SizedBox(width: 10),
                           Expanded(
                             child: Text(
-                              'Selecciona los residuos agrupados que deseas publicar. '
+                              'Selecciona los residuos registrados que deseas publicar. '
                               'Una vez publicados, los operadores podrán ofertar por ellos.',
                               style: controller.theme.value.textTheme.bodyMedium,
                             ),
@@ -66,10 +62,15 @@ class WastePublishView extends GetView<WastePublishController> {
                       separatorBuilder: (_, __) => const SizedBox(height: 12),
                       itemBuilder: (context, index) {
                         final waste = controller.wastes[index];
+                        final wasteType = controller.wasteTypes.singleWhere((wt) => wt.code == waste.type);
                         return SelectableWasteCard(
                           waste: waste,
-                          selected: controller.selecteds.contains(waste.id),
-                          onTap: () => controller.toggle(waste.id.toString()),
+                          wasteType: wasteType,
+                          selected: (waste.selected ?? false),
+                          onTap: () async {
+                            controller.wastes[index] = waste.copyWith(selected: Optional.of(!(waste.selected ?? false)!));
+                            await controller.toggle(waste.id.toString());
+                          },
                         );
                       },
                     ),
@@ -77,8 +78,11 @@ class WastePublishView extends GetView<WastePublishController> {
                 ],
               )
             : const EmptyPublicationState(),
-      ),
-      bottomNavigationBar: controller.hasWastes.value
+      );
+    });
+
+    final navigator = Obx(() {
+      return controller.hasWastes.value
           ? SafeArea(
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 180),
@@ -109,7 +113,41 @@ class WastePublishView extends GetView<WastePublishController> {
                 ),
               ),
             )
-          : null,
+          : Container();
+    });
+
+    final actions = [
+      Obx(() {
+        if (!controller.hasWastes.value) return const SizedBox.shrink();
+        
+        return TextButton(
+          onPressed: () {
+            for (int i = 0; i < controller.wastes.length; i++) {
+              controller.wastes[i] = controller.wastes[i].copyWith(
+                selected: Optional.of(!(controller.wastes[i].selected ?? false))
+              );
+            }
+            controller.toggleAll();
+          },
+          child: Text(controller.allSelected ? 'Ninguno' : 'Todos'),
+        );
+      }),
+    ];
+
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.offAllNamed(Routes.HOME);
+          }, 
+          icon: Icon(Icons.arrow_back)
+        ),
+        title: const Text('Publicación de residuos'),
+        centerTitle: false,
+        actions: actions,
+      ),
+      body: container,
+      bottomNavigationBar: navigator,
     );
   }
 }
@@ -117,11 +155,13 @@ class WastePublishView extends GetView<WastePublishController> {
 
 class SelectableWasteCard extends StatelessWidget {
   final Waste waste;
+  final TableType wasteType;
   final bool selected;
   final VoidCallback onTap;
 
   const SelectableWasteCard({
     required this.waste,
+    required this.wasteType,
     required this.selected,
     required this.onTap,
   });
@@ -166,9 +206,9 @@ class SelectableWasteCard extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: Text(waste.type!, style: theme.textTheme.titleMedium),
+                        child: Text(wasteType.name!.toUpperCase(), style: theme.textTheme.titleMedium),
                       ),
-                      if (waste.dangerousness!)
+                      if ((waste.dangerousness?? false))
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
                           decoration: BoxDecoration(
@@ -190,13 +230,13 @@ class SelectableWasteCard extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 2),
-                  Text(waste.id.toString(), style: theme.textTheme.labelSmall),
+                  Text("ID #${waste.id}", style: theme.textTheme.labelSmall),
                   const SizedBox(height: 10),
                   Row(
                     children: [
                       Icon(Icons.scale_outlined, size: 14, color: AppColors.ink400),
                       const SizedBox(width: 5),
-                      Text('${waste.quantity} ton', style: theme.textTheme.bodyMedium),
+                      Text('${waste.quantity} ${waste.unitMeasurement}', style: theme.textTheme.bodyMedium),
                     ],
                   ),
                   const SizedBox(height: 4),
@@ -206,7 +246,7 @@ class SelectableWasteCard extends StatelessWidget {
                       const SizedBox(width: 5),
                       Expanded(
                         child: Text(
-                          '${waste.hasStorageLocation! ? "TIENE" : "NO TIENE"} LUGAR DE ALMACENAMIENTO',
+                          '${(waste.hasStorageLocation ?? false) ? "TIENE" : "NO TIENE"} LUGAR DE ALMACENAMIENTO',
                           style: theme.textTheme.bodyMedium,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -225,14 +265,14 @@ class SelectableWasteCard extends StatelessWidget {
 
 class PublishConfirmSheet extends StatelessWidget {
   final List<Waste> wastes;
-  const PublishConfirmSheet({required this.wastes});
+  final List<TableType> wasteTypes;
+  const PublishConfirmSheet({required this.wastes, required this.wasteTypes});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final totalTon = wastes.fold<double>(0, (sum, w) => sum + w.quantity!);
-
     return Padding(
       padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Container(
@@ -276,7 +316,7 @@ class PublishConfirmSheet extends StatelessWidget {
                     children: [
                       Text('Confirmar publicación', style: theme.textTheme.titleLarge),
                       Text(
-                        '${wastes.length} residuo(s) · ${totalTon.toStringAsFixed(1)} ton en total',
+                        '${wastes.length} residuo(s) · ${totalTon.toStringAsFixed(1)} Tn/Kg en total',
                         style: theme.textTheme.bodyMedium,
                       ),
                     ],
@@ -293,18 +333,19 @@ class PublishConfirmSheet extends StatelessWidget {
                 separatorBuilder: (_, __) => const Divider(height: 20),
                 itemBuilder: (context, index) {
                   final w = wastes[index];
+                  final wt = wasteTypes.singleWhere((wt) => wt.code == w.type);
                   return Row(
                     children: [
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(w.type!.toString(), style: theme.textTheme.titleMedium),
-                            Text(w.id.toString(), style: theme.textTheme.labelSmall),
+                            Text(wt.name!.toString().toUpperCase(), style: theme.textTheme.titleMedium),
+                            Text("ID #${w.id}", style: theme.textTheme.labelSmall),
                           ],
                         ),
                       ),
-                      Text('${w.quantity} ton', style: theme.textTheme.bodyMedium),
+                      Text('${w.quantity} ${w.unitMeasurement}', style: theme.textTheme.bodyMedium),
                     ],
                   );
                 },
@@ -338,7 +379,7 @@ class PublishConfirmSheet extends StatelessWidget {
               children: [
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: () => Navigator.of(context).pop(false),
+                    onPressed: () => Get.close(1),
                     child: const Text('Cancelar'),
                   ),
                 ),
@@ -387,7 +428,7 @@ class EmptyPublicationState extends StatelessWidget {
             ),
             const SizedBox(height: 22),
             Text(
-              'No tienes residuos agrupados',
+              'No tienes residuos registrados',
               textAlign: TextAlign.center,
               style: theme.textTheme.headlineSmall,
             ),
