@@ -91,6 +91,8 @@ public class RegistroDAO {
         // Fallback a BD si por algún motivo no está en cache
         return buscarEnDB(id);
     }
+    
+    
 
     // ═══════════════════════════════════════════════════════════════════════
     //  ESCRITURA  (actualizan cache + BD en la misma operación)
