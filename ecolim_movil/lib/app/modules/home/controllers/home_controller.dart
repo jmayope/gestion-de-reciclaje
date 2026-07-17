@@ -59,7 +59,9 @@ class HomeController extends GetxController {
     initials.value = userLoged.value.username!.substring(0,2).toUpperCase();
     username.value = userLoged.value.username!;
     companyName.value = userLoged.value.currentEntity!.name!.toUpperCase();
-    plantName.value = userLoged.value.currentPlant!.name!.toUpperCase();
+    if (userLoged.value.currentPlant != null) {
+      plantName.value = userLoged.value.currentPlant!.name!.toUpperCase();
+    }
     theme.value =  Theme.of(Get.context!);
     isDark.value = theme.value.brightness == Brightness.dark;
     companyType.value = companyTypes.singleWhere((ct) => ct.code! == userLoged.value.currentEntity!.type!);
@@ -117,15 +119,15 @@ class HomeController extends GetxController {
             Get.offAllNamed(Routes.OFFER_SELECTION);
           },
         ),
-        MenuItem(
-          icon: Icons.insert_chart_outlined_rounded,
-          title: 'Reportería',
-          subtitle: 'Residuos registrados, publicados y ofertados',
-          accent: AppColors.info,
-          onTap: () {
-            Get.offAllNamed(Routes.REPORTING);
-          },
-        ),
+        // MenuItem(
+        //   icon: Icons.insert_chart_outlined_rounded,
+        //   title: 'Reportería',
+        //   subtitle: 'Residuos registrados, publicados y ofertados',
+        //   accent: AppColors.info,
+        //   onTap: () {
+        //     Get.offAllNamed(Routes.REPORTING);
+        //   },
+        // ),
       ];
     }
     return [
@@ -147,16 +149,21 @@ class HomeController extends GetxController {
           Get.offAllNamed(Routes.WASTE_TRACKING);
         },
       ),
-      MenuItem(
-        icon: Icons.insert_chart_outlined_rounded,
-        title: 'Reportería',
-        subtitle: 'Historial de ofertas realizadas',
-        accent: AppColors.info,
-        onTap: () {
-          Get.offAllNamed(Routes.REPORTING);
-        },
-      ),
+      // MenuItem(
+      //   icon: Icons.insert_chart_outlined_rounded,
+      //   title: 'Reportería',
+      //   subtitle: 'Historial de ofertas realizadas',
+      //   accent: AppColors.info,
+      //   onTap: () {
+      //     Get.offAllNamed(Routes.REPORTING);
+      //   },
+      // ),
     ];
+  }
+
+  Future<void> logout() async {
+    await PreferenceService.clearAll();
+    Get.offAllNamed(Routes.DEVICE_VALIDATION);
   }
 
 }

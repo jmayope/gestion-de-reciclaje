@@ -7,5 +7,7 @@
   "status?": true,
   "entity_operator_id?": 2342,
   "accepted?": false,
-  "created_by?": 2323423
+  "created_by?": 2323423,
+  "updated_by?": 2342342,
+  "updated_at?": "@datetime"
 }

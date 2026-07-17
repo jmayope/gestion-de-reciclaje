@@ -1,6 +1,7 @@
 import 'package:ecolim_movil/app/data/constants.dart';
 import 'package:ecolim_movil/app/routes/app_pages.dart';
 import 'package:ecolim_movil/app/theme/app_colors.dart';
+import 'package:ecolim_movil/models/index.dart';
 import 'package:ecolim_movil/models/offer.dart';
 import 'package:ecolim_movil/models/process_flow.dart';
 import 'package:ecolim_movil/models/waste.dart';
@@ -14,40 +15,69 @@ class OfferSelectionDetailView extends GetView<OfferSelectionDetailController> {
   const OfferSelectionDetailView({super.key});
   @override
   Widget build(BuildContext context) {
+    final container = Obx(() {
+      return controller.loading.value ?
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              Text("Cargando información del Residuo")
+            ],
+          ),
+        )
+      : SafeArea(
+        child: ListView(
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
+          children: [
+            ResidueSummary(waste: controller.waste.value, wasteType: controller.wasteType.value,),
+            const SizedBox(height: 24),
+            ...controller.operations.map((o) {
+              TableType currentProcess = controller.wasteOperations.singleWhere((wo) => wo.code == o.currentProcessId);
+              TableType nextProcess = controller.wasteOperations.singleWhere((wo) => wo.code == o.nextProcessId, orElse: () => TableType());
+              List<Entity> entities = controller.entities.where((e) => o.offers!.map((o) => o.entityOperatorId).contains(e.id)).toList();
+              return OperationSection(group: o, currentProccess: currentProcess, nextProcess: nextProcess, entities: entities, onSelect: (offer) => controller.confirmSelection(o, offer));
+            })
+          ],
+        ),
+      );
+    });
+
+    final title = Obx(() {
+      return controller.loading.value ? 
+        Row(
+          children: [
+            CircularProgressIndicator(),
+            Text("Cargando")
+          ],
+        )
+      : Text(controller.wasteType.value.name!);
+    });
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
             Get.offAllNamed(Routes.OFFER_SELECTION);
           }, 
-          icon: Icon(Icons.home)
+          icon: Icon(Icons.arrow_back)
         ),
-        title: Text(controller.waste.value.type!),
+        title: title,
         centerTitle: false,
       ),
-      body: SafeArea(
-        child: ListView(
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
-          children: [
-            _ResiduoSummary(waste: controller.waste.value),
-            const SizedBox(height: 24),
-            for (final group in []) ...[
-              OperationSection(group: group, onSelect: (offer) => controller.confirmSelection(group, offer)),
-              const SizedBox(height: 22),
-            ],
-          ],
-        ),
-      ),
+      body: container,
     );
   }
 }
 
 
 
-class _ResiduoSummary extends StatelessWidget {
+class ResidueSummary extends StatelessWidget {
   final Waste waste;
-  const _ResiduoSummary({required this.waste});
+  final TableType wasteType;
+  const ResidueSummary({required this.waste, required this.wasteType});
 
   @override
   Widget build(BuildContext context) {
@@ -79,8 +109,8 @@ class _ResiduoSummary extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(waste.id.toString(), style: theme.textTheme.labelSmall),
-                Text('${waste.quantity} ton totales', style: theme.textTheme.bodyMedium),
+                Text("ID #${waste.id}", style: theme.textTheme.labelSmall),
+                Text('${waste.quantity} ${waste.unitMeasurement} totales', style: theme.textTheme.bodyMedium),
               ],
             ),
           ),
@@ -103,9 +133,12 @@ class _ResiduoSummary extends StatelessWidget {
 
 class OperationSection extends StatelessWidget {
   final ProcessFlow group;
+  final TableType currentProccess;
+  final TableType nextProcess;
+  final List<Entity> entities;
   final ValueChanged<Offer> onSelect;
 
-  const OperationSection({required this.group, required this.onSelect});
+  const OperationSection({required this.group, required this.currentProccess, required this.nextProcess, required this.entities, required this.onSelect});
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +152,7 @@ class OperationSection extends StatelessWidget {
           children: [
             Icon(Icons.ac_unit_rounded, size: 18, color: isDark ? AppColors.leafBright : AppColors.pine900),
             const SizedBox(width: 8),
-            Text(group.currentProcessId!.toString(), style: theme.textTheme.titleLarge),
+            Text(currentProccess.name!.toString(), style: theme.textTheme.titleLarge),
           ],
         ),
         const SizedBox(height: 10),
@@ -138,23 +171,29 @@ class OperationSection extends StatelessWidget {
           )
         else
           Column(
-            children: group.offers!
-                .map((offer) => Padding(
+            children: [
+              ...group.offers!
+                .map((offer) {
+                  Entity entity = entities.singleWhere((e) => e.id == offer.entityOperatorId);
+                  return Padding(
                       padding: const EdgeInsets.only(bottom: 10),
-                      child: _OfferCard(offer: offer, onSelect: () => onSelect(offer)),
-                    ))
-                .toList(),
+                      child: OfferCard(offer: offer, entity: entity, onSelect: () => onSelect(offer)),
+                    );
+                })
+                
+              ],
           ),
       ],
     );
   }
 }
 
-class _OfferCard extends StatelessWidget {
+class OfferCard extends StatelessWidget {
   final Offer offer;
+  final Entity entity;
   final VoidCallback onSelect;
 
-  const _OfferCard({required this.offer, required this.onSelect});
+  const OfferCard({required this.offer, required this.entity, required this.onSelect});
 
   @override
   Widget build(BuildContext context) {
@@ -181,7 +220,7 @@ class _OfferCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(offer.createdBy.toString(), style: theme.textTheme.titleMedium),
+                Text(entity.name!.toUpperCase(), style: theme.textTheme.titleMedium),
                 const SizedBox(height: 2),
                 Text(
                   '${offer.quantity} ton · ${formatDate(offer.createdAt!)}',

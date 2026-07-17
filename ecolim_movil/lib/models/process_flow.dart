@@ -11,6 +11,7 @@ class ProcessFlow {
     this.wasteId,
     this.previousProcessId,
     this.currentProcessId,
+    this.nextProcessId,
     this.responsibleId,
     this.quantity,
     this.latitude,
@@ -29,6 +30,7 @@ class ProcessFlow {
   final int? wasteId;
   final String? previousProcessId;
   final String? currentProcessId;
+  final String? nextProcessId;
   final String? responsibleId;
   final double? quantity;
   final double? latitude;
@@ -47,6 +49,7 @@ class ProcessFlow {
     wasteId: json['waste_id'] != null ? json['waste_id'] as int : null,
     previousProcessId: json['previous_process_id']?.toString(),
     currentProcessId: json['current_process_id']?.toString(),
+    nextProcessId: json['next_process_id']?.toString(),
     responsibleId: json['responsible_id']?.toString(),
     quantity: json['quantity'] != null ? (json['quantity'] as num).toDouble() : null,
     latitude: json['latitude'] != null ? (json['latitude'] as num).toDouble() : null,
@@ -66,6 +69,7 @@ class ProcessFlow {
     'waste_id': wasteId,
     'previous_process_id': previousProcessId,
     'current_process_id': currentProcessId,
+    'next_process_id': nextProcessId,
     'responsible_id': responsibleId,
     'quantity': quantity,
     'latitude': latitude,
@@ -85,6 +89,7 @@ class ProcessFlow {
     wasteId: wasteId,
     previousProcessId: previousProcessId,
     currentProcessId: currentProcessId,
+    nextProcessId: nextProcessId,
     responsibleId: responsibleId,
     quantity: quantity,
     latitude: latitude,
@@ -105,6 +110,7 @@ class ProcessFlow {
     Optional<int?>? wasteId,
     Optional<String?>? previousProcessId,
     Optional<String?>? currentProcessId,
+    Optional<String?>? nextProcessId,
     Optional<String?>? responsibleId,
     Optional<double?>? quantity,
     Optional<double?>? latitude,
@@ -122,6 +128,7 @@ class ProcessFlow {
     wasteId: checkOptional(wasteId, () => this.wasteId),
     previousProcessId: checkOptional(previousProcessId, () => this.previousProcessId),
     currentProcessId: checkOptional(currentProcessId, () => this.currentProcessId),
+    nextProcessId: checkOptional(nextProcessId, () => this.nextProcessId),
     responsibleId: checkOptional(responsibleId, () => this.responsibleId),
     quantity: checkOptional(quantity, () => this.quantity),
     latitude: checkOptional(latitude, () => this.latitude),
@@ -138,8 +145,8 @@ class ProcessFlow {
 
   @override
   bool operator ==(Object other) => identical(this, other)
-    || other is ProcessFlow && id == other.id && wasteId == other.wasteId && previousProcessId == other.previousProcessId && currentProcessId == other.currentProcessId && responsibleId == other.responsibleId && quantity == other.quantity && latitude == other.latitude && longitude == other.longitude && completed == other.completed && status == other.status && entityGeneratorId == other.entityGeneratorId && entityOperatorId == other.entityOperatorId && createdBy == other.createdBy && accepted == other.accepted && offers == other.offers && createdAt == other.createdAt;
+    || other is ProcessFlow && id == other.id && wasteId == other.wasteId && previousProcessId == other.previousProcessId && currentProcessId == other.currentProcessId && nextProcessId == other.nextProcessId && responsibleId == other.responsibleId && quantity == other.quantity && latitude == other.latitude && longitude == other.longitude && completed == other.completed && status == other.status && entityGeneratorId == other.entityGeneratorId && entityOperatorId == other.entityOperatorId && createdBy == other.createdBy && accepted == other.accepted && offers == other.offers && createdAt == other.createdAt;
 
   @override
-  int get hashCode => id.hashCode ^ wasteId.hashCode ^ previousProcessId.hashCode ^ currentProcessId.hashCode ^ responsibleId.hashCode ^ quantity.hashCode ^ latitude.hashCode ^ longitude.hashCode ^ completed.hashCode ^ status.hashCode ^ entityGeneratorId.hashCode ^ entityOperatorId.hashCode ^ createdBy.hashCode ^ accepted.hashCode ^ offers.hashCode ^ createdAt.hashCode;
+  int get hashCode => id.hashCode ^ wasteId.hashCode ^ previousProcessId.hashCode ^ currentProcessId.hashCode ^ nextProcessId.hashCode ^ responsibleId.hashCode ^ quantity.hashCode ^ latitude.hashCode ^ longitude.hashCode ^ completed.hashCode ^ status.hashCode ^ entityGeneratorId.hashCode ^ entityOperatorId.hashCode ^ createdBy.hashCode ^ accepted.hashCode ^ offers.hashCode ^ createdAt.hashCode;
 }

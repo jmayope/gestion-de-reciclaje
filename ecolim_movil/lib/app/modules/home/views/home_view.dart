@@ -26,9 +26,7 @@ class HomeView extends GetView<HomeController> {
                 companyName: controller.companyName.value,
                 plantName: controller.companyType.value.code == "G" ? controller.plantName.value : null,
                 companyType: controller.companyType.value,
-                onLogout: () {
-                  Get.offAllNamed(Routes.DEVICE_VALIDATION);
-                },
+                onLogout: () async  => controller.logout(),
                 // Selector visible solo para previsualizar ambos roles
                 // durante el diseño. Quitar al conectar la sesión real.
                 onDebugToggleRole: () {
@@ -78,9 +76,8 @@ class HomeView extends GetView<HomeController> {
     });
 
     return Scaffold(
-      body: container
-       
-    );;
+      body: container 
+    );
   }
   
 }

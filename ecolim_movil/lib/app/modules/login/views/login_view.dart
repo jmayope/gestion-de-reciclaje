@@ -38,6 +38,9 @@ class LoginView extends GetView<LoginController> {
                   }
                   return null;
                 },
+                onChanged: (String v) {
+                  controller.username.value = TextEditingValue(text: v);
+                },
               ),
               const SizedBox(height: 18),
               Text(

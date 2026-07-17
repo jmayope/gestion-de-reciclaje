@@ -3,6 +3,7 @@
   "waste_id?": 34234,
   "previous_process_id?": "dfs",
   "current_process_id?": "sdf",
+  "next_process_id?": "sdf",
   "responsible_id?": "sdf",
   "quantity?": 23423.32,
   "latitude?": 23.3423,

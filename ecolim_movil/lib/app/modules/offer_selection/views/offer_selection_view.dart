@@ -68,7 +68,7 @@ class OfferSelectionView extends GetView<OfferSelectionController> {
                     waste: waste,
                     wasteType: wasteType,
                     onTap: () async {
-                      Get.offAllNamed(Routes.OFFER_SELECTION_DETAIL, arguments: {"waste": waste});
+                      Get.offAllNamed(Routes.OFFER_SELECTION_DETAIL, arguments: {"waste": waste, "wasteType": wasteType});
                     },
                   );
                 },

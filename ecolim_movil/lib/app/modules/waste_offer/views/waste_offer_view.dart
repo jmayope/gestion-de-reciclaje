@@ -1,7 +1,12 @@
+import 'dart:math';
+
 import 'package:ecolim_movil/app/data/additional_models/operation_slot.dart';
 import 'package:ecolim_movil/app/routes/app_pages.dart';
 import 'package:ecolim_movil/app/theme/app_colors.dart';
+import 'package:ecolim_movil/models/entity.dart';
+import 'package:ecolim_movil/models/index.dart';
 import 'package:ecolim_movil/models/table_type.dart';
+import 'package:ecolim_movil/models/user.dart';
 import 'package:ecolim_movil/models/waste.dart';
 import 'package:flutter/material.dart';
 
@@ -13,18 +18,20 @@ class WasteOfferView extends GetView<WasteOfferController> {
   const WasteOfferView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Get.offAllNamed(Routes.HOME);
-          }, 
-          icon: Icon(Icons.home)
-        ),
-        title: const Text('Ofertar residuos'),
-        centerTitle: false,
-      ),
-      body: SafeArea(
+
+    final container = Obx(() {
+      return controller.loading.value ?
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              Text("Cargando Residuos Publicados")
+            ],
+          ),
+        )
+        : SafeArea(
         child: Column(
           children: [
             Padding(
@@ -50,26 +57,47 @@ class WasteOfferView extends GetView<WasteOfferController> {
                       separatorBuilder: (_, __) => const SizedBox(height: 14),
                       itemBuilder: (context, index) {
                         final waste = controller.filtereds[index];
-                        return _OfferableWasteCard(
+                        final wasteType = controller.wasteTypes.singleWhere((wt) => wt.code == waste.type);
+                        final entity = controller.entities.singleWhere((e) => e.id == waste.entityId);
+                        return OfferableWasteCard(
                           waste: waste,
-                          onOperationTap: (slot) => controller.openOfferSheet(waste, slot),
+                          wasteType: wasteType,
+                          entity: entity,
+                          onOperationTap: (slot) => controller.openOfferSheet(waste, wasteType, entity, slot),
                         );
                       },
                     ),
             ),
           ],
         ),
+      );
+
+    });
+
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.offAllNamed(Routes.HOME);
+          }, 
+          icon: Icon(Icons.home)
+        ),
+        title: const Text('Ofertar residuos'),
+        centerTitle: false,
       ),
+      body: container,
     );
   }
 }
 
 
-class _OfferableWasteCard extends StatelessWidget {
+class OfferableWasteCard extends StatelessWidget {
   final Waste waste;
+  final TableType wasteType;
+  final Entity entity;
   final ValueChanged<TableType> onOperationTap;
 
-  const _OfferableWasteCard({required this.waste, required this.onOperationTap});
+  const OfferableWasteCard({required this.waste, required this.wasteType, required this.entity, required this.onOperationTap});
 
   @override
   Widget build(BuildContext context) {
@@ -102,12 +130,12 @@ class _OfferableWasteCard extends StatelessWidget {
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
-                  waste.createdBy.toString(),
+                  "${entity.name}".toUpperCase(),
                   style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              Text(_timeAgo(waste.publishAt!), style: theme.textTheme.labelSmall),
+              Text(_timeAgo((waste.publishAt ?? waste.createdAt)!), style: theme.textTheme.labelSmall),
             ],
           ),
           const SizedBox(height: 12),
@@ -118,13 +146,13 @@ class _OfferableWasteCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(waste.type.toString(), style: theme.textTheme.titleLarge),
+                    Text(wasteType.name!.toString(), style: theme.textTheme.titleLarge),
                     const SizedBox(height: 2),
-                    Text(waste.id.toString(), style: theme.textTheme.labelSmall),
+                    Text("ID #${waste.id}", style: theme.textTheme.labelSmall),
                   ],
                 ),
               ),
-              if (waste.dangerousness!)
+              if ((waste.dangerousness ?? false))
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
                   decoration: BoxDecoration(
@@ -149,7 +177,7 @@ class _OfferableWasteCard extends StatelessWidget {
             children: [
               Icon(Icons.scale_outlined, size: 14, color: AppColors.ink400),
               const SizedBox(width: 5),
-              Text('${waste.quantity} ton disponibles', style: theme.textTheme.bodyMedium),
+              Text('${waste.quantity} ${waste.unitMeasurement} disponibles', style: theme.textTheme.bodyMedium),
             ],
           ),
           const SizedBox(height: 14),
@@ -225,35 +253,34 @@ class _OfferableWasteCard extends StatelessWidget {
 /// Hoja para registrar la oferta sobre una operación específica.
 class OfferFormSheet extends StatefulWidget {
   final Waste waste;
+  final TableType wasteType;
+  final Entity entity;
   final TableType slot;
 
-  const OfferFormSheet({required this.waste, required this.slot});
+  const OfferFormSheet({required this.waste, required this.wasteType, required this.entity, required this.slot});
 
   @override
   State<OfferFormSheet> createState() => OfferFormSheetState();
 }
 
 class OfferFormSheetState extends State<OfferFormSheet> {
-  final _formKey = GlobalKey<FormState>();
-  final _quantityController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  final quantity = TextEditingController();
   bool _loading = false;
 
   @override
   void dispose() {
-    _quantityController.dispose();
+    quantity.dispose();
     super.dispose();
   }
 
   Future<void> _submit() async {
-    if (!_formKey.currentState!.validate()) return;
-    setState(() => _loading = true);
-
-    // TODO: enviar la oferta al backend (cantidad + operación + residuo).
+    if (!formKey.currentState!.validate()) return;
+    _loading = true;
     await Future.delayed(const Duration(milliseconds: 1000));
-
-    if (!mounted) return;
-    setState(() => _loading = false);
-    Navigator.of(context).pop(true);
+    _loading = false;
+    Navigator.of(Get.context!).pop(ResultModal(quantity: double.parse(quantity.value.text), status: true));
+    
   }
 
   @override
@@ -270,7 +297,7 @@ class OfferFormSheetState extends State<OfferFormSheet> {
           borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
         ),
         child: Form(
-          key: _formKey,
+          key: formKey,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -305,7 +332,7 @@ class OfferFormSheetState extends State<OfferFormSheet> {
                       children: [
                         Text('Ofertar por ${widget.slot.name}',
                             style: theme.textTheme.titleLarge),
-                        Text('${widget.waste.type} · ${widget.waste.id}',
+                        Text('${widget.wasteType.name} · ID #${widget.waste.id}',
                             style: theme.textTheme.bodyMedium),
                       ],
                     ),
@@ -324,9 +351,9 @@ class OfferFormSheetState extends State<OfferFormSheet> {
                     Icon(Icons.domain_outlined, size: 16, color: AppColors.ink400),
                     const SizedBox(width: 8),
                     Expanded(
-                      child: Text(widget.waste.createdBy.toString(), style: theme.textTheme.bodyMedium),
+                      child: Text(widget.entity.name!.toUpperCase(), style: theme.textTheme.bodyMedium),
                     ),
-                    Text('${widget.waste.quantity} Tn', style: theme.textTheme.bodyMedium),
+                    Text('${widget.waste.quantity} ${widget.waste.unitMeasurement}', style: theme.textTheme.bodyMedium),
                   ],
                 ),
               ),
@@ -334,7 +361,7 @@ class OfferFormSheetState extends State<OfferFormSheet> {
               Text('CANTIDAD A OFERTAR (TONELADAS)', style: theme.textTheme.labelSmall),
               const SizedBox(height: 8),
               TextFormField(
-                controller: _quantityController,
+                controller: quantity,
                 keyboardType: const TextInputType.numberWithOptions(decimal: true),
                 decoration: const InputDecoration(
                   hintText: 'Ej. 2.0',
@@ -379,7 +406,7 @@ class OfferFormSheetState extends State<OfferFormSheet> {
                 children: [
                   Expanded(
                     child: OutlinedButton(
-                      onPressed: _loading ? null : () => Navigator.of(context).pop(false),
+                      onPressed: _loading ? null : () => Navigator.of(context).pop(ResultModal(status: false)),
                       child: const Text('Cancelar'),
                     ),
                   ),

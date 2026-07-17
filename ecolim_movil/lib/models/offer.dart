@@ -16,6 +16,8 @@ class Offer {
     this.entityOperatorId,
     this.accepted,
     this.createdBy,
+    this.updatedBy,
+    this.updatedAt,
   });
 
   final int? id;
@@ -27,6 +29,8 @@ class Offer {
   final int? entityOperatorId;
   final bool? accepted;
   final int? createdBy;
+  final int? updatedBy;
+  final DateTime? updatedAt;
 
   factory Offer.fromJson(Map<String,dynamic> json) => Offer(
     id: json['id'] != null ? json['id'] as int : null,
@@ -37,7 +41,9 @@ class Offer {
     status: json['status'] != null ? json['status'] as bool : null,
     entityOperatorId: json['entity_operator_id'] != null ? json['entity_operator_id'] as int : null,
     accepted: json['accepted'] != null ? json['accepted'] as bool : null,
-    createdBy: json['created_by'] != null ? json['created_by'] as int : null
+    createdBy: json['created_by'] != null ? json['created_by'] as int : null,
+    updatedBy: json['updated_by'] != null ? json['updated_by'] as int : null,
+    updatedAt: json['updated_at'] != null ? DateTime.parse(json['updated_at'] as String) : null
   );
   
   Map<String, dynamic> toJson() => {
@@ -49,7 +55,9 @@ class Offer {
     'status': status,
     'entity_operator_id': entityOperatorId,
     'accepted': accepted,
-    'created_by': createdBy
+    'created_by': createdBy,
+    'updated_by': updatedBy,
+    'updated_at': updatedAt?.toIso8601String()
   };
 
   Offer clone() => Offer(
@@ -61,7 +69,9 @@ class Offer {
     status: status,
     entityOperatorId: entityOperatorId,
     accepted: accepted,
-    createdBy: createdBy
+    createdBy: createdBy,
+    updatedBy: updatedBy,
+    updatedAt: updatedAt
   );
 
 
@@ -74,7 +84,9 @@ class Offer {
     Optional<bool?>? status,
     Optional<int?>? entityOperatorId,
     Optional<bool?>? accepted,
-    Optional<int?>? createdBy
+    Optional<int?>? createdBy,
+    Optional<int?>? updatedBy,
+    Optional<DateTime?>? updatedAt
   }) => Offer(
     id: checkOptional(id, () => this.id),
     createdAt: checkOptional(createdAt, () => this.createdAt),
@@ -85,12 +97,14 @@ class Offer {
     entityOperatorId: checkOptional(entityOperatorId, () => this.entityOperatorId),
     accepted: checkOptional(accepted, () => this.accepted),
     createdBy: checkOptional(createdBy, () => this.createdBy),
+    updatedBy: checkOptional(updatedBy, () => this.updatedBy),
+    updatedAt: checkOptional(updatedAt, () => this.updatedAt),
   );
 
   @override
   bool operator ==(Object other) => identical(this, other)
-    || other is Offer && id == other.id && createdAt == other.createdAt && wasteId == other.wasteId && processFlowId == other.processFlowId && quantity == other.quantity && status == other.status && entityOperatorId == other.entityOperatorId && accepted == other.accepted && createdBy == other.createdBy;
+    || other is Offer && id == other.id && createdAt == other.createdAt && wasteId == other.wasteId && processFlowId == other.processFlowId && quantity == other.quantity && status == other.status && entityOperatorId == other.entityOperatorId && accepted == other.accepted && createdBy == other.createdBy && updatedBy == other.updatedBy && updatedAt == other.updatedAt;
 
   @override
-  int get hashCode => id.hashCode ^ createdAt.hashCode ^ wasteId.hashCode ^ processFlowId.hashCode ^ quantity.hashCode ^ status.hashCode ^ entityOperatorId.hashCode ^ accepted.hashCode ^ createdBy.hashCode;
+  int get hashCode => id.hashCode ^ createdAt.hashCode ^ wasteId.hashCode ^ processFlowId.hashCode ^ quantity.hashCode ^ status.hashCode ^ entityOperatorId.hashCode ^ accepted.hashCode ^ createdBy.hashCode ^ updatedBy.hashCode ^ updatedAt.hashCode;
 }

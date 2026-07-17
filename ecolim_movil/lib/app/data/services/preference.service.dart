@@ -17,4 +17,9 @@ class PreferenceService {
     final raw = prefs.getString(TOKEN_NAME) ?? '{}';
     return User.fromJson(jsonDecode(raw));
   }
+
+  static Future<void> clearAll() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
 }

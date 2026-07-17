@@ -37,8 +37,8 @@ class LoginController extends GetxController {
     
     theme.value = Theme.of(Get.context!);
     isDark.value = theme.value.brightness == Brightness.dark;
-    username.value = TextEditingValue(text: "mrosalesm");
-    password.value = TextEditingValue(text: "123456");
+    // username.value = TextEditingValue(text: "jorgemayo.pe");
+    // password.value = TextEditingValue(text: "123456.@");
   }
 
   @override

@@ -1,3 +1,4 @@
+export 'result_modal.dart';
 export 'process_flow.dart';
 export 'offer.dart';
 export 'table_type.dart';
