@@ -6,27 +6,28 @@ import java.time.OffsetDateTime;
 public class ProcessFlow {
 
     private long id;
-
     private Long wasteId;
-
     private String previousProcessId;
     private String currentProcessId;
-
     private BigDecimal quantity;
-
     private BigDecimal longitude;
     private BigDecimal latitude;
-
     private boolean completed;
     private boolean status;
-
     private Long entityGeneratorId;
     private Long entityOperatorId;
-
     private OffsetDateTime createdAt;
     private Long createdBy;
     private OffsetDateTime updatedAt;
     private Long updatedBy;
+
+    // ── Campos agregados: existen en la tabla process_flows pero el DAO
+    // original no los leía. Necesarios para armar el manifiesto (quién
+    // hizo la operación, hacia qué operación sigue, cuándo empezó/terminó).
+    private Long responsibleId;
+    private String nextProcessId;
+    private OffsetDateTime startedAt;
+    private OffsetDateTime completedAt;
 
     public ProcessFlow() {
     }
@@ -149,5 +150,47 @@ public class ProcessFlow {
 
     public void setUpdatedBy(Long updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    public Long getResponsibleId() {
+        return responsibleId;
+    }
+
+    public void setResponsibleId(Long responsibleId) {
+        this.responsibleId = responsibleId;
+    }
+
+    public String getNextProcessId() {
+        return nextProcessId;
+    }
+
+    public void setNextProcessId(String nextProcessId) {
+        this.nextProcessId = nextProcessId;
+    }
+
+    public OffsetDateTime getStartedAt() {
+        return startedAt;
+    }
+
+    public void setStartedAt(OffsetDateTime startedAt) {
+        this.startedAt = startedAt;
+    }
+
+    public OffsetDateTime getCompletedAt() {
+        return completedAt;
+    }
+
+    public void setCompletedAt(OffsetDateTime completedAt) {
+        this.completedAt = completedAt;
+    }
+
+    /**
+     * Deriva el estado "legible" de este eslabón para mostrarlo en el
+     * manifiesto: Completado / En Proceso / Pendiente.
+     */
+    public String estadoLegible() {
+        if (completed) return "Completado";
+        if (startedAt != null) return "En Proceso";
+        return "Pendiente";
     }
 }
