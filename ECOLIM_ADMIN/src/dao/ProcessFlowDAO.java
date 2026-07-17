@@ -4,6 +4,7 @@ import conexion.ConexionSupabase;
 import modelo.ProcessFlow;
 
 import java.sql.*;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,27 +12,22 @@ public class ProcessFlowDAO {
 
     public List<ProcessFlow> listProcessFlows() {
 
-        List<ProcessFlow> list =
-                new ArrayList<>();
+        List<ProcessFlow> list
+                = new ArrayList<>();
 
-        String sql =
-                "SELECT * FROM process_flows ORDER BY id";
+        String sql
+                = "SELECT * FROM process_flows ORDER BY id";
 
         try (
-                Connection con =
-                        ConexionSupabase.conectar();
-
-                PreparedStatement ps =
-                        con.prepareStatement(sql);
-
-                ResultSet rs =
-                        ps.executeQuery()
-        ) {
+                Connection con
+                = ConexionSupabase.conectar(); PreparedStatement ps
+                = con.prepareStatement(sql); ResultSet rs
+                = ps.executeQuery()) {
 
             while (rs.next()) {
 
-                ProcessFlow p =
-                        new ProcessFlow();
+                ProcessFlow p
+                        = new ProcessFlow();
 
                 p.setId(
                         rs.getLong("id")
@@ -92,7 +88,7 @@ public class ProcessFlowDAO {
 
             System.out.println(
                     "Error listProcessFlows: "
-                            + e.getMessage()
+                    + e.getMessage()
             );
         }
 
@@ -119,12 +115,9 @@ public class ProcessFlowDAO {
                 """;
 
         try (
-                Connection con =
-                        ConexionSupabase.conectar();
-
-                PreparedStatement ps =
-                        con.prepareStatement(sql)
-        ) {
+                Connection con
+                = ConexionSupabase.conectar(); PreparedStatement ps
+                = con.prepareStatement(sql)) {
 
             ps.setObject(
                     1,
@@ -182,7 +175,7 @@ public class ProcessFlowDAO {
 
             System.out.println(
                     "Error insertProcessFlow: "
-                            + e.getMessage()
+                    + e.getMessage()
             );
 
             return false;
@@ -208,12 +201,9 @@ public class ProcessFlowDAO {
                 """;
 
         try (
-                Connection con =
-                        ConexionSupabase.conectar();
-
-                PreparedStatement ps =
-                        con.prepareStatement(sql)
-        ) {
+                Connection con
+                = ConexionSupabase.conectar(); PreparedStatement ps
+                = con.prepareStatement(sql)) {
 
             ps.setObject(1, p.getWasteId());
 
@@ -243,7 +233,7 @@ public class ProcessFlowDAO {
 
             System.out.println(
                     "Error updateProcessFlow: "
-                            + e.getMessage()
+                    + e.getMessage()
             );
 
             return false;
@@ -252,16 +242,13 @@ public class ProcessFlowDAO {
 
     public boolean deleteProcessFlow(long id) {
 
-        String sql =
-                "DELETE FROM process_flows WHERE id=?";
+        String sql
+                = "DELETE FROM process_flows WHERE id=?";
 
         try (
-                Connection con =
-                        ConexionSupabase.conectar();
-
-                PreparedStatement ps =
-                        con.prepareStatement(sql)
-        ) {
+                Connection con
+                = ConexionSupabase.conectar(); PreparedStatement ps
+                = con.prepareStatement(sql)) {
 
             ps.setLong(1, id);
 
@@ -271,7 +258,7 @@ public class ProcessFlowDAO {
 
             System.out.println(
                     "Error deleteProcessFlow: "
-                            + e.getMessage()
+                    + e.getMessage()
             );
 
             return false;
@@ -280,16 +267,13 @@ public class ProcessFlowDAO {
 
     public ProcessFlow findById(long id) {
 
-        String sql =
-                "SELECT * FROM process_flows WHERE id=?";
+        String sql
+                = "SELECT * FROM process_flows WHERE id=?";
 
         try (
-                Connection con =
-                        ConexionSupabase.conectar();
-
-                PreparedStatement ps =
-                        con.prepareStatement(sql)
-        ) {
+                Connection con
+                = ConexionSupabase.conectar(); PreparedStatement ps
+                = con.prepareStatement(sql)) {
 
             ps.setLong(1, id);
 
@@ -297,8 +281,8 @@ public class ProcessFlowDAO {
 
                 if (rs.next()) {
 
-                    ProcessFlow p =
-                            new ProcessFlow();
+                    ProcessFlow p
+                            = new ProcessFlow();
 
                     p.setId(
                             rs.getLong("id")
@@ -360,10 +344,135 @@ public class ProcessFlowDAO {
 
             System.out.println(
                     "Error findById: "
-                            + e.getMessage()
+                    + e.getMessage()
             );
         }
 
         return null;
     }
+
+    // ════════════════════════════════════════════════════════════════════
+    //  AGREGADO PARA MANIFIESTOS
+    //  A diferencia de los métodos de arriba, estos dos SÍ leen
+    //  responsible_id / next_process_id / started_at / completed_at,
+    //  que la tabla ya tiene pero el mapeo original no usaba.
+    // ════════════════════════════════════════════════════════════════════
+<<<<<<< HEAD
+=======
+
+>>>>>>> 12188c7625f1324a30c172c6ffc60e9898860646
+    /**
+     * Toda la cadena de operaciones de un residuo, en el orden en que se
+     * crearon (R -> T -> V -> D). Solo trae los eslabones que existan de
+     * verdad, por eso el manifiesto termina siendo dinámico.
+     */
+    public List<ProcessFlow> listarCadenaPorResiduo(long wasteId) {
+        List<ProcessFlow> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM process_flows WHERE waste_id = ? ORDER BY created_at ASC, id ASC";
+
+<<<<<<< HEAD
+        try (Connection con = ConexionSupabase.conectar(); PreparedStatement ps = con.prepareStatement(sql)) {
+=======
+        try (Connection con = ConexionSupabase.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+>>>>>>> 12188c7625f1324a30c172c6ffc60e9898860646
+
+            ps.setLong(1, wasteId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    lista.add(mapExtendido(rs));
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error listarCadenaPorResiduo: " + e.getMessage());
+        }
+
+        return lista;
+    }
+
+<<<<<<< HEAD
+    /**
+     * Último eslabón registrado de un residuo (el más reciente).
+     */
+    public ProcessFlow obtenerUltimoProceso(long wasteId) {
+        String sql = "SELECT * FROM process_flows WHERE waste_id = ? ORDER BY created_at DESC, id DESC LIMIT 1";
+        long inicio = System.currentTimeMillis();
+
+        try (Connection con = ConexionSupabase.conectar(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+            System.out.println("Conexión: "
+                    + (System.currentTimeMillis() - inicio));
+=======
+    /** Último eslabón registrado de un residuo (el más reciente). */
+    public ProcessFlow obtenerUltimoProceso(long wasteId) {
+        String sql = "SELECT * FROM process_flows WHERE waste_id = ? ORDER BY created_at DESC, id DESC LIMIT 1";
+
+        try (Connection con = ConexionSupabase.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+>>>>>>> 12188c7625f1324a30c172c6ffc60e9898860646
+
+            ps.setLong(1, wasteId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return mapExtendido(rs);
+                }
+            }
+
+<<<<<<< HEAD
+            //
+            long inicio2 = System.currentTimeMillis();
+
+            ResultSet rs = ps.executeQuery();
+
+            System.out.println("Consulta: "
+                    + (System.currentTimeMillis() - inicio2));
+            //
+
+=======
+>>>>>>> 12188c7625f1324a30c172c6ffc60e9898860646
+        } catch (Exception e) {
+            System.out.println("Error obtenerUltimoProceso: " + e.getMessage());
+        }
+
+        return null;
+    }
+
+    private ProcessFlow mapExtendido(ResultSet rs) throws SQLException {
+        ProcessFlow p = new ProcessFlow();
+
+        p.setId(rs.getLong("id"));
+        p.setWasteId((Long) rs.getObject("waste_id"));
+        p.setPreviousProcessId(rs.getString("previous_process_id"));
+        p.setCurrentProcessId(rs.getString("current_process_id"));
+        p.setQuantity(rs.getBigDecimal("quantity"));
+        p.setLongitude(rs.getBigDecimal("longitude"));
+        p.setLatitude(rs.getBigDecimal("latitude"));
+        p.setCompleted(rs.getBoolean("completed"));
+        p.setStatus(rs.getBoolean("status"));
+        p.setEntityGeneratorId((Long) rs.getObject("entity_generator_id"));
+        p.setEntityOperatorId((Long) rs.getObject("entity_operator_id"));
+
+        p.setResponsibleId((Long) rs.getObject("responsible_id"));
+        p.setNextProcessId(rs.getString("next_process_id"));
+
+        Timestamp started = rs.getTimestamp("started_at");
+        if (started != null) {
+            p.setStartedAt(started.toInstant().atOffset(ZoneOffset.UTC));
+        }
+
+        Timestamp completedAt = rs.getTimestamp("completed_at");
+        if (completedAt != null) {
+            p.setCompletedAt(completedAt.toInstant().atOffset(ZoneOffset.UTC));
+        }
+
+        return p;
+    }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 12188c7625f1324a30c172c6ffc60e9898860646

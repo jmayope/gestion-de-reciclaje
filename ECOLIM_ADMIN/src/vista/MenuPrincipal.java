@@ -23,9 +23,9 @@ public class MenuPrincipal extends JFrame {
     private JButton btnUser;
     private JButton btnEntity;
     private JButton btnPeople;
-    // private JButton btnProcessFlow;
     private JButton btnWastes;
     private JButton btnType;
+    private JButton btnManifest;
     private JButton btnCerrarSesion;
 
     private final Usuario admin;
@@ -135,6 +135,7 @@ public class MenuPrincipal extends JFrame {
         btnRegistros    = crearBoton("Recolección de residuos", y); y += espacio;
         btnWastes       = crearBoton("Residuos", y); y += espacio;
         btnReportes     = crearBoton("Reportes", y); y += espacio;
+        btnManifest     = crearBoton("Manifiesto", y); y += espacio;
         btnEstadisticas = crearBoton("Estadísticas", y); y += espacio;
 
         y += 20;
@@ -156,6 +157,7 @@ public class MenuPrincipal extends JFrame {
         panelMenu.add(btnRegistros);
         panelMenu.add(btnWastes);
         panelMenu.add(btnReportes);
+        panelMenu.add(btnManifest);
         panelMenu.add(btnEstadisticas);
 
         panelMenu.add(btnCerrarSesion);
@@ -282,6 +284,9 @@ public class MenuPrincipal extends JFrame {
         btnDevices.addActionListener(
                 e -> mostrarPanel(new PanelDevices())
         );
+        
+        btnManifest.addActionListener(
+                e -> mostrarPanel(new PanelManifest(admin.getIdUsuario())));
 
         btnCerrarSesion.addActionListener(e -> {
 

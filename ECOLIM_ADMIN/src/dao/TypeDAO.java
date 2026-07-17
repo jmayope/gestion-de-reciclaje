@@ -5,7 +5,9 @@ import modelo.Type;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TypeDAO {
 
@@ -23,22 +25,7 @@ public class TypeDAO {
         ) {
 
             while (rs.next()) {
-
-                Type t = new Type();
-
-                t.setId(rs.getLong("id"));
-                t.setCategory(rs.getString("category"));
-                t.setCode(rs.getString("code"));
-                t.setName(rs.getString("name"));
-                t.setDescripcion(rs.getString("descripcion"));
-
-                t.setAdditionalFields(
-                        rs.getString("additional_fields")
-                );
-
-                t.setStatus(rs.getBoolean("status"));
-
-                list.add(t);
+                list.add(mapType(rs));
             }
 
         } catch (Exception e) {
@@ -184,29 +171,7 @@ public class TypeDAO {
             try (ResultSet rs = ps.executeQuery()) {
 
                 if (rs.next()) {
-
-                    Type t = new Type();
-
-                    t.setId(rs.getLong("id"));
-                    t.setCategory(rs.getString("category"));
-                    t.setCode(rs.getString("code"));
-                    t.setName(rs.getString("name"));
-
-                    t.setDescripcion(
-                            rs.getString("descripcion")
-                    );
-
-                    t.setAdditionalFields(
-                            rs.getString(
-                                    "additional_fields"
-                            )
-                    );
-
-                    t.setStatus(
-                            rs.getBoolean("status")
-                    );
-
-                    return t;
+                    return mapType(rs);
                 }
             }
 
@@ -219,5 +184,66 @@ public class TypeDAO {
         }
 
         return null;
+    }
+
+    // ════════════════════════════════════════════════════════════════════
+    //  AGREGADO PARA MANIFIESTOS
+    // ════════════════════════════════════════════════════════════════════
+
+    /** Lista todos los items activos de una categoría (ej: "OPERACIONES"). */
+    public List<Type> listarPorCategoria(String categoria) {
+        List<Type> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM types WHERE category = ? AND status = true ORDER BY name";
+
+        try (Connection con = ConexionSupabase.conectar();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, categoria);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    lista.add(mapType(rs));
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error listarPorCategoria: " + e.getMessage());
+        }
+
+        return lista;
+    }
+
+    /**
+     * Mapa code -> name de una categoría completa (ej: "R" -> "RECOLECCIÓN"),
+     * para traducir los códigos de process_flows sin ir a la BD por cada fila.
+     */
+    public Map<String, String> mapaCodeNombre(String categoria) {
+        Map<String, String> mapa = new HashMap<>();
+
+        for (Type t : listarPorCategoria(categoria)) {
+            mapa.put(t.getCode(), t.getName());
+        }
+
+        return mapa;
+    }
+
+    private Type mapType(ResultSet rs) throws SQLException {
+
+        Type t = new Type();
+
+        t.setId(rs.getLong("id"));
+        t.setCategory(rs.getString("category"));
+        t.setCode(rs.getString("code"));
+        t.setName(rs.getString("name"));
+        t.setDescripcion(rs.getString("descripcion"));
+
+        t.setAdditionalFields(
+                rs.getString("additional_fields")
+        );
+
+        t.setStatus(rs.getBoolean("status"));
+
+        return t;
     }
 }

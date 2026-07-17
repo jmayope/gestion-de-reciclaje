@@ -19,26 +19,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Stack;
-
-<<<<<<< HEAD
-/**
- * PanelRegistros optimizado.
- *
- * Mejoras principales:
- *  - Toda resolución ID→nombre usa el CacheRegistros (árboles TreeMap/BST)
- *    en O(log n) en lugar de iterar HashMap o hacer consultas repetidas.
- *  - buscarRegistros() filtra sobre la lista en memoria sin tocar la BD.
- *  - cargarRegistros() solo pinta la tabla; los datos ya están en el árbol.
- *  - La carga de usuarios/ubicaciones al inicio es única y no se repite.
- *  - SwingWorker para la carga inicial evita bloquear el EDT.
-=======
-import com.lowagie.text.Document;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.Element;
-import com.lowagie.text.pdf.PdfWriter;
-
-import java.io.FileOutputStream;
-
 /**
  * PanelRegistros optimizado.
  *
@@ -48,7 +28,6 @@ import java.io.FileOutputStream;
  * tocar la BD. - cargarRegistros() solo pinta la tabla; los datos ya están en
  * el árbol. - La carga de usuarios/ubicaciones al inicio es única y no se
  * repite. - SwingWorker para la carga inicial evita bloquear el EDT.
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
  */
 public class PanelRegistros extends JPanel {
 
@@ -60,15 +39,9 @@ public class PanelRegistros extends JPanel {
     private JLabel lblEstado;
 
     // ── DAOs ─────────────────────────────────────────────────────────────────
-<<<<<<< HEAD
     private final RegistroDAO   registroDAO  = new RegistroDAO();
     private final UsuarioDAO    usuarioDAO   = new UsuarioDAO();
     private final UbicacionDAO  ubicacionDAO = new UbicacionDAO();
-=======
-    private final RegistroDAO registroDAO = new RegistroDAO();
-    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
-    private final UbicacionDAO ubicacionDAO = new UbicacionDAO();
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
 
     // ── Cache (árbol BST + TreeMaps) ─────────────────────────────────────────
     private final CacheRegistros cache = CacheRegistros.getInstance();
@@ -76,21 +49,12 @@ public class PanelRegistros extends JPanel {
     // ── Estado ───────────────────────────────────────────────────────────────
     private final Usuario usuarioActivo;
     private final Stack<RegistroRecoleccion> historialEliminados = new Stack<>();
-<<<<<<< HEAD
     private final DateTimeFormatter formatoFecha =
             DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-=======
-    private final DateTimeFormatter formatoFecha
-            = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
 
     // ════════════════════════════════════════════════════════════════════════
     //  CONSTRUCTOR
     // ════════════════════════════════════════════════════════════════════════
-<<<<<<< HEAD
-
-=======
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
     public PanelRegistros(Usuario usuarioActivo) {
         this.usuarioActivo = usuarioActivo;
         initComponents();
@@ -100,10 +64,6 @@ public class PanelRegistros extends JPanel {
     // ════════════════════════════════════════════════════════════════════════
     //  CARGA ASÍNCRONA CON SwingWorker
     // ════════════════════════════════════════════════════════════════════════
-<<<<<<< HEAD
-
-=======
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
     private void cargarDatosAsync() {
         lblEstado.setText("Cargando datos…");
         setEnabled(false);
@@ -130,10 +90,6 @@ public class PanelRegistros extends JPanel {
     // ════════════════════════════════════════════════════════════════════════
     //  INIT COMPONENTS
     // ════════════════════════════════════════════════════════════════════════
-<<<<<<< HEAD
-
-=======
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
     private void initComponents() {
         setLayout(new BorderLayout());
         setBackground(new Color(245, 247, 250));
@@ -189,16 +145,11 @@ public class PanelRegistros extends JPanel {
         // ── Tabla ────────────────────────────────────────────────────────────
         modelo = new DefaultTableModel(
                 new Object[]{"ID", "Usuario", "Ubicación", "Residuo",
-<<<<<<< HEAD
-                             "Cantidad", "Unidad", "Fecha", "Observaciones"}, 0) {
-            @Override public boolean isCellEditable(int r, int c) { return false; }
-=======
                     "Cantidad", "Unidad", "Fecha", "Observaciones"}, 0) {
             @Override
             public boolean isCellEditable(int r, int c) {
                 return false;
             }
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
         };
 
         tabla = new JTable(modelo);
@@ -228,19 +179,6 @@ public class PanelRegistros extends JPanel {
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 15));
         panelBotones.setBackground(new Color(245, 247, 250));
 
-<<<<<<< HEAD
-        JButton btnAgregar   = crearBoton("Agregar",   new Color(46, 125, 50));
-        JButton btnModificar = crearBoton("Modificar", new Color(25, 118, 210));
-        JButton btnEliminar  = crearBoton("Eliminar",  new Color(198, 40, 40));
-        JButton btnDeshacer  = crearBoton("Deshacer",  new Color(255, 143, 0));
-        JButton btnRefrescar = crearBoton("Refrescar", new Color(97, 97, 97));
-
-        btnAgregar  .addActionListener(e -> agregarRegistro());
-        btnModificar.addActionListener(e -> modificarRegistro());
-        btnEliminar .addActionListener(e -> eliminarRegistro());
-        btnDeshacer .addActionListener(e -> deshacerEliminacion());
-        btnRefrescar.addActionListener(e -> refrescarDesdeDB());
-=======
         JButton btnAgregar = crearBoton("Agregar", new Color(46, 125, 50));
         JButton btnModificar = crearBoton("Modificar", new Color(25, 118, 210));
         JButton btnEliminar = crearBoton("Eliminar", new Color(198, 40, 40));
@@ -253,8 +191,6 @@ public class PanelRegistros extends JPanel {
         btnEliminar.addActionListener(e -> eliminarRegistro());
         btnDeshacer.addActionListener(e -> deshacerEliminacion());
         btnRefrescar.addActionListener(e -> refrescarDesdeDB());
-        btnPDF.addActionListener(e -> generarPDFRegistro());
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
 
         panelBotones.add(btnAgregar);
         panelBotones.add(btnModificar);
@@ -262,14 +198,6 @@ public class PanelRegistros extends JPanel {
         panelBotones.add(btnDeshacer);
         panelBotones.add(btnRefrescar);
         panelPrincipal.add(panelBotones, BorderLayout.SOUTH);
-<<<<<<< HEAD
-
-        // ── Listener de búsqueda ─────────────────────────────────────────────
-        DocumentListener dl = new DocumentListener() {
-            @Override public void insertUpdate (DocumentEvent e) { buscarRegistros(); }
-            @Override public void removeUpdate (DocumentEvent e) { buscarRegistros(); }
-            @Override public void changedUpdate(DocumentEvent e) { buscarRegistros(); }
-=======
         panelBotones.add(btnPDF);
 
         // ── Listener de búsqueda ─────────────────────────────────────────────
@@ -288,7 +216,6 @@ public class PanelRegistros extends JPanel {
             public void changedUpdate(DocumentEvent e) {
                 buscarRegistros();
             }
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
         };
         txtBuscar.getDocument().addDocumentListener(dl);
         cbFiltro.addActionListener(e -> buscarRegistros());
@@ -297,17 +224,9 @@ public class PanelRegistros extends JPanel {
     // ════════════════════════════════════════════════════════════════════════
     //  TABLA
     // ════════════════════════════════════════════════════════════════════════
-<<<<<<< HEAD
-
-    /**
-     * Pinta la tabla con la lista recibida.
-     * No hace ninguna consulta a la BD; solo resuelve IDs→nombres
-     * desde el cache (O(log n) por fila via TreeMap).
-=======
     /**
      * Pinta la tabla con la lista recibida. No hace ninguna consulta a la BD;
      * solo resuelve IDs→nombres desde el cache (O(log n) por fila via TreeMap).
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
      */
     private void pintarTabla(List<RegistroRecoleccion> lista) {
         modelo.setRowCount(0);
@@ -325,13 +244,9 @@ public class PanelRegistros extends JPanel {
         }
     }
 
-<<<<<<< HEAD
-    /** Recarga la tabla desde el árbol BST (sin tocar la BD). */
-=======
     /**
      * Recarga la tabla desde el árbol BST (sin tocar la BD).
      */
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
     private void cargarRegistros() {
         pintarTabla(cache.listarRegistros());
     }
@@ -349,13 +264,9 @@ public class PanelRegistros extends JPanel {
         pintarTabla(cache.filtrarPorTexto(campo, texto));
     }
 
-<<<<<<< HEAD
-    /** Fuerza recarga desde BD e invalida el cache (botón Refrescar). */
-=======
     /**
      * Fuerza recarga desde BD e invalida el cache (botón Refrescar).
      */
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
     private void refrescarDesdeDB() {
         cache.invalidar();
         cargarDatosAsync();
@@ -364,46 +275,23 @@ public class PanelRegistros extends JPanel {
     // ════════════════════════════════════════════════════════════════════════
     //  CRUD
     // ════════════════════════════════════════════════════════════════════════
-<<<<<<< HEAD
-
-    private void agregarRegistro() {
-        JComboBox<String> cbUbicacion = new JComboBox<>(cache.nombresUbicaciones());
-        JComboBox<String> cbResiduo   = new JComboBox<>(
-                new String[]{"Sólido", "Líquido", "Gaseoso", "Metálico"});
-        JTextField txtCantidad     = new JTextField();
-        JTextField txtUnidad       = new JTextField();
-=======
     private void agregarRegistro() {
         JComboBox<String> cbUbicacion = new JComboBox<>(cache.nombresUbicaciones());
         JComboBox<String> cbResiduo = new JComboBox<>(
                 new String[]{"Sólido", "Líquido", "Gaseoso", "Metálico"});
         JTextField txtCantidad = new JTextField();
         JTextField txtUnidad = new JTextField();
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
         JTextField txtObservaciones = new JTextField();
 
         Object[] campos = {
             "Ubicación:", cbUbicacion,
-<<<<<<< HEAD
-            "Residuo:",   cbResiduo,
-            "Cantidad:",  txtCantidad,
-            "Unidad:",    txtUnidad,
-=======
             "Residuo:", cbResiduo,
             "Cantidad:", txtCantidad,
             "Unidad:", txtUnidad,
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
             "Observaciones:", txtObservaciones
         };
 
         if (JOptionPane.showConfirmDialog(this, campos, "Agregar Registro",
-<<<<<<< HEAD
-                JOptionPane.OK_CANCEL_OPTION) != JOptionPane.OK_OPTION) return;
-
-        try {
-            double cantidad = Double.parseDouble(txtCantidad.getText().trim());
-            if (cantidad <= 0) throw new NumberFormatException("Cantidad debe ser > 0");
-=======
                 JOptionPane.OK_CANCEL_OPTION) != JOptionPane.OK_OPTION) {
             return;
         }
@@ -413,7 +301,6 @@ public class PanelRegistros extends JPanel {
             if (cantidad <= 0) {
                 throw new NumberFormatException("Cantidad debe ser > 0");
             }
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
 
             RegistroRecoleccion r = new RegistroRecoleccion();
             r.setIdUsuario(usuarioActivo.getIdUsuario());
@@ -439,27 +326,19 @@ public class PanelRegistros extends JPanel {
 
     private void modificarRegistro() {
         int fila = tabla.getSelectedRow();
-<<<<<<< HEAD
-        if (fila == -1) { JOptionPane.showMessageDialog(this, "Seleccione un registro."); return; }
-=======
         if (fila == -1) {
             JOptionPane.showMessageDialog(this, "Seleccione un registro.");
             return;
         }
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
 
         int id = (int) modelo.getValueAt(fila, 0);
 
         // Búsqueda O(log n) en árbol BST — sin consulta a BD
         RegistroRecoleccion r = registroDAO.buscarPorId(id);
-<<<<<<< HEAD
-        if (r == null) { JOptionPane.showMessageDialog(this, "No se encontró el registro."); return; }
-=======
         if (r == null) {
             JOptionPane.showMessageDialog(this, "No se encontró el registro.");
             return;
         }
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
 
         JComboBox<String> cbUbicacion = new JComboBox<>(cache.nombresUbicaciones());
         cbUbicacion.setSelectedItem(cache.nombreUbicacion(r.getIdUbicacion()));
@@ -468,37 +347,19 @@ public class PanelRegistros extends JPanel {
                 new String[]{"Sólido", "Líquido", "Gaseoso", "Metálico"});
         cbResiduo.setSelectedItem(CacheRegistros.nombreResiduo(r.getIdResiduo()));
 
-<<<<<<< HEAD
-        JTextField txtCantidad      = new JTextField(String.valueOf(r.getCantidad()));
-        JTextField txtUnidad        = new JTextField(r.getUnidad());
-=======
         JTextField txtCantidad = new JTextField(String.valueOf(r.getCantidad()));
         JTextField txtUnidad = new JTextField(r.getUnidad());
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
         JTextField txtObservaciones = new JTextField(r.getObservaciones());
 
         Object[] campos = {
             "Ubicación:", cbUbicacion,
-<<<<<<< HEAD
-            "Residuo:",   cbResiduo,
-            "Cantidad:",  txtCantidad,
-            "Unidad:",    txtUnidad,
-=======
             "Residuo:", cbResiduo,
             "Cantidad:", txtCantidad,
             "Unidad:", txtUnidad,
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
             "Observaciones:", txtObservaciones
         };
 
         if (JOptionPane.showConfirmDialog(this, campos, "Modificar Registro",
-<<<<<<< HEAD
-                JOptionPane.OK_CANCEL_OPTION) != JOptionPane.OK_OPTION) return;
-
-        try {
-            double cantidad = Double.parseDouble(txtCantidad.getText().trim());
-            if (cantidad <= 0) throw new NumberFormatException();
-=======
                 JOptionPane.OK_CANCEL_OPTION) != JOptionPane.OK_OPTION) {
             return;
         }
@@ -508,7 +369,6 @@ public class PanelRegistros extends JPanel {
             if (cantidad <= 0) {
                 throw new NumberFormatException();
             }
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
 
             r.setIdUbicacion(cache.idUbicacion(cbUbicacion.getSelectedItem().toString()));
             r.setIdResiduo(CacheRegistros.idResiduo(cbResiduo.getSelectedItem().toString()));
@@ -531,26 +391,15 @@ public class PanelRegistros extends JPanel {
 
     private void eliminarRegistro() {
         int fila = tabla.getSelectedRow();
-<<<<<<< HEAD
-        if (fila == -1) { JOptionPane.showMessageDialog(this, "Seleccione un registro."); return; }
-=======
         if (fila == -1) {
             JOptionPane.showMessageDialog(this, "Seleccione un registro.");
             return;
         }
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
 
         int id = (int) modelo.getValueAt(fila, 0);
 
         if (JOptionPane.showConfirmDialog(this,
                 "¿Eliminar el registro seleccionado?", "Confirmar",
-<<<<<<< HEAD
-                JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) return;
-
-        // Obtiene copia desde árbol BST antes de eliminar (para UNDO)
-        RegistroRecoleccion respaldo = registroDAO.buscarPorId(id);
-        if (respaldo == null) { JOptionPane.showMessageDialog(this, "No se encontró el registro."); return; }
-=======
                 JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) {
             return;
         }
@@ -561,7 +410,6 @@ public class PanelRegistros extends JPanel {
             JOptionPane.showMessageDialog(this, "No se encontró el registro.");
             return;
         }
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
 
         if (registroDAO.eliminarRegistro(id)) {
             historialEliminados.push(respaldo);
@@ -589,91 +437,9 @@ public class PanelRegistros extends JPanel {
         }
     }
 
-<<<<<<< HEAD
     // ════════════════════════════════════════════════════════════════════════
     //  UTIL
     // ════════════════════════════════════════════════════════════════════════
-
-=======
-    // PDF
-    private void generarPDFRegistro() {
-
-        int fila = tabla.getSelectedRow();
-
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(this,
-                    "Seleccione un registro.");
-            return;
-        }
-
-        int idRegistro = Integer.parseInt(
-                modelo.getValueAt(fila, 0).toString());
-
-        RegistroRecoleccion registro
-                = registroDAO.buscarPorId(idRegistro);
-
-        generarPDF(registro);
-    }
-
-    private void generarPDF(RegistroRecoleccion r) {
-
-        try {
-
-            Document documento = new Document();
-
-            String nombre = "Registro_" + r.getIdRegistro() + ".pdf";
-
-            PdfWriter.getInstance(documento,
-                    new FileOutputStream(nombre));
-
-            documento.open();
-
-            // Fuente para el título
-            com.lowagie.text.Font titulo
-                    = new com.lowagie.text.Font(
-                            com.lowagie.text.Font.HELVETICA,
-                            20,
-                            com.lowagie.text.Font.BOLD);
-
-            // Fuente para el contenido
-            com.lowagie.text.Font texto
-                    = new com.lowagie.text.Font(
-                            com.lowagie.text.Font.HELVETICA,
-                            12,
-                            com.lowagie.text.Font.NORMAL);
-
-            Paragraph p = new Paragraph("REPORTE DE REGISTRO", titulo);
-            p.setAlignment(Element.ALIGN_CENTER);
-
-            documento.add(p);
-            documento.add(new Paragraph(" "));
-
-            documento.add(new Paragraph("ID Registro: " + r.getIdRegistro(), texto));
-            documento.add(new Paragraph("Usuario: " + cache.nombreUsuario(r.getIdUsuario()), texto));
-            documento.add(new Paragraph("Ubicación: " + cache.nombreUbicacion(r.getIdUbicacion()), texto));
-            documento.add(new Paragraph("Residuo: " + CacheRegistros.nombreResiduo(r.getIdResiduo()), texto));
-            documento.add(new Paragraph("Cantidad: " + r.getCantidad(), texto));
-            documento.add(new Paragraph("Unidad: " + r.getUnidad(), texto));
-            documento.add(new Paragraph("Fecha: " + r.getFecha().format(formatoFecha), texto));
-            documento.add(new Paragraph("Observaciones:", texto));
-            documento.add(new Paragraph(r.getObservaciones(), texto));
-
-            documento.close();
-
-            JOptionPane.showMessageDialog(this,
-                    "PDF generado correctamente:\n" + nombre);
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this,
-                    "Error al generar el PDF:\n" + ex.getMessage());
-        }
-    }
-
-    // ════════════════════════════════════════════════════════════════════════
-    //  UTIL
-    // ════════════════════════════════════════════════════════════════════════
->>>>>>> e2abc0d (Actualización de ECOLIM_ADMIN)
     private JButton crearBoton(String texto, Color color) {
         JButton btn = new JButton(texto);
         btn.setPreferredSize(new Dimension(130, 40));
